@@ -1,0 +1,178 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Card from '@components/common/Card.astro';
+import Badge from '@components/common/Badge.astro';
+
+const base = import.meta.env.BASE_URL;
+const getHref = (path: string) => path === '/' ? (base || '/') : `${base}${path}`;
+
+// Document categories
+const documentCategories = [
+  {
+    name: 'Imaging Reports',
+    icon: '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>',
+    color: 'gold',
+    documents: [
+      { name: 'MRI T5-T8 Fractures', date: 'Nov 2022', significance: 'Documents vertebral fractures 11 months after seizure', tier: 1 },
+      { name: 'Duplex Ultrasound TOS', date: 'Jun 2019', significance: 'First objective TOS-positive finding', tier: 1 },
+      { name: 'UCLH MR Thoracic Inlet/Outlet', date: 'Jan 2024', significance: 'Dynamic subclavian compression demonstrated', tier: 1 },
+      { name: 'CT Aorta with Contrast', date: 'Apr 2024', significance: 'Radiologist notes TOS cannot be excluded', tier: 1 },
+      { name: 'US Doppler Upper Limb Veins', date: 'Jun 2025', significance: 'Bilateral subclavian occlusion in abduction', tier: 1 }
+    ]
+  },
+  {
+    name: 'Specialist Letters',
+    icon: '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>',
+    color: 'vindication',
+    documents: [
+      { name: 'Dr Gupta Psychiatric Assessment', date: '2023', significance: 'Formal clearance - no psychiatric disorders found', tier: 2 },
+      { name: 'Pain Clinic Somatoform Refutation', date: '2023', significance: '"felt not somatic" - specialist disagreement', tier: 2 },
+      { name: 'Dr Karunaratne Neurology Letter', date: 'Mar 2022', significance: 'Epilepsy pathway documentation', tier: 2 },
+      { name: 'UCLH Hypermobility Service', date: 'Jul 2021', significance: 'Physical examination findings documented', tier: 2 },
+      { name: 'Sumeer Bhamm MSK Letter', date: 'Nov 2021', significance: 'Documents Pain Clinic rejection without consultation', tier: 5 }
+    ]
+  },
+  {
+    name: 'Emergency Records',
+    icon: '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>',
+    color: 'causation',
+    documents: [
+      { name: 'LAS ePCR - First Seizure', date: '23 Dec 2021', significance: 'Hardcoded timestamps, 5-min response, HR 133', tier: 3 },
+      { name: 'ED Discharge Summary', date: '24 Dec 2021', significance: '"Soft tissue injury" - inadequate diagnosis', tier: 3 },
+      { name: 'ED Summary - Second Seizure', date: '18 Feb 2022', significance: 'Epilepsy diagnosis, "first seizure on 23/12"', tier: 3 }
+    ]
+  },
+  {
+    name: 'GP Records',
+    icon: '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>',
+    color: 'breach',
+    documents: [
+      { name: 'MH1 Referral - Somatisation Framing', date: 'Sep 2020', significance: 'Links symptoms to brother\'s death', tier: 7 },
+      { name: '"Sleeping Pain-Free" Entry', date: 'Sep 2021', significance: 'CONTRADICTED by MSK physio notes', tier: 7 },
+      { name: 'F45.4 Somatoform Coding', date: 'Jan 2023', significance: 'Covert psychiatric diagnosis without assessment', tier: 7 },
+      { name: 'Somatoform Removal Entry', date: 'Jul 2025', significance: '"clear causes for his pain"', tier: 7 }
+    ]
+  },
+  {
+    name: 'Witness Evidence',
+    icon: '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>',
+    color: 'default',
+    documents: [
+      { name: 'iMessage Evidence - Clive Polles', date: '2021-2026', significance: '50+ messages documenting care failures', tier: 3 },
+      { name: 'MSK Physio "Attention Seeking" Note', date: 'Aug 2021', significance: 'Third-party documentation of GP dismissal', tier: 5 },
+      { name: 'Parent Witness Statements', date: 'Pending', significance: '"Data manipulation" statement witnesses', tier: 3 }
+    ]
+  }
+];
+
+const getColorClass = (color: string) => {
+  switch (color) {
+    case 'gold': return 'text-gold-500 bg-gold-500/20';
+    case 'vindication': return 'text-vindication-500 bg-vindication-500/20';
+    case 'causation': return 'text-causation-500 bg-causation-500/20';
+    case 'breach': return 'text-breach-500 bg-breach-500/20';
+    default: return 'text-navy-400 bg-navy-700/50';
+  }
+};
+
+const getBorderClass = (color: string) => {
+  switch (color) {
+    case 'gold': return 'border-gold-500/30';
+    case 'vindication': return 'border-vindication-500/30';
+    case 'causation': return 'border-causation-500/30';
+    case 'breach': return 'border-breach-500/30';
+    default: return 'border-navy-700';
+  }
+};
+
+const getTierBadge = (tier: number) => {
+  if (tier <= 2) return 'gold';
+  if (tier <= 4) return 'vindication';
+  if (tier <= 5) return 'default';
+  return 'breach';
+};
+---
+
+<BaseLayout title="Documents" description="Key documents in the Thomson clinical negligence evidence repository">
+  <!-- Header -->
+  <section class="py-16 bg-navy-900/30">
+    <div class="container-wide">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl font-serif font-bold text-white mb-4">Key Documents</h1>
+        <p class="text-lg text-navy-300">
+          Primary evidence documents organised by category. Each document is assigned an evidence tier
+          based on reliability.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Document Categories -->
+  <section class="py-12">
+    <div class="container-wide">
+      <div class="space-y-12">
+        {documentCategories.map((category) => (
+          <div>
+            <div class="flex items-center gap-4 mb-6">
+              <div class:list={['w-12 h-12 rounded-xl flex items-center justify-center', getColorClass(category.color)]}>
+                <Fragment set:html={category.icon} />
+              </div>
+              <div>
+                <h2 class="text-2xl font-serif font-bold text-white">{category.name}</h2>
+                <p class="text-sm text-navy-400">{category.documents.length} documents</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {category.documents.map((doc) => (
+                <Card variant="interactive" class:list={['p-5', getBorderClass(category.color)]}>
+                  <div class="flex items-start justify-between mb-3">
+                    <Badge variant={getTierBadge(doc.tier) as any}>Tier {doc.tier}</Badge>
+                    <span class="text-xs text-navy-500">{doc.date}</span>
+                  </div>
+
+                  <h3 class="font-semibold text-white mb-2">{doc.name}</h3>
+
+                  <p class="text-sm text-navy-400">{doc.significance}</p>
+                </Card>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Document Stats -->
+  <section class="py-12 border-t border-navy-800/50 bg-navy-900/30">
+    <div class="container-wide">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+        {documentCategories.map((cat) => (
+          <div class="text-center">
+            <div class:list={['w-12 h-12 rounded-xl mx-auto mb-3 flex items-center justify-center', getColorClass(cat.color)]}>
+              <Fragment set:html={cat.icon} />
+            </div>
+            <p class="text-2xl font-bold text-white">{cat.documents.length}</p>
+            <p class="text-xs text-navy-400">{cat.name}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Access Note -->
+  <section class="py-12">
+    <div class="container-wide">
+      <div class="card-base p-8 max-w-3xl mx-auto text-center">
+        <h2 class="text-xl font-serif font-bold text-white mb-4">Document Access</h2>
+        <p class="text-navy-300 mb-6">
+          Full document copies are available in the evidence repository for legal review.
+          All documents are preserved in their original format with metadata intact.
+        </p>
+        <a href={getHref('/findings')} class="btn-secondary">
+          View Related Findings
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

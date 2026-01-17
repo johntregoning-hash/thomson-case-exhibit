@@ -1,0 +1,271 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Card from '@components/common/Card.astro';
+import Badge from '@components/common/Badge.astro';
+
+// Evidence tiers - highest reliability at top
+const evidenceTiers = [
+  {
+    tier: 1,
+    name: 'Objective Imaging',
+    description: 'MRI, CT, Ultrasound, X-ray with objective findings',
+    reliability: 'HIGHEST',
+    color: 'gold',
+    examples: [
+      'MRI T5-T8 fractures (Nov 2022)',
+      'Duplex Ultrasound TOS-positive (Jun 2019)',
+      'UCLH MR dynamic compression (Jan 2024)',
+      'CT Aorta (Apr 2024)',
+      'Doppler bilateral occlusion (Jun 2025)'
+    ],
+    count: 6
+  },
+  {
+    tier: 2,
+    name: 'Independent Specialist Letters',
+    description: 'Consultants with no prior involvement documenting objective findings',
+    reliability: 'HIGH',
+    color: 'vindication',
+    examples: [
+      'Dr Gupta psychiatric clearance (2023)',
+      'Pain Clinic refutation of somatoform',
+      'UCLH Hypermobility Service assessment',
+      'Dr Karunaratne neurology letter'
+    ],
+    count: 8
+  },
+  {
+    tier: 3,
+    name: 'Ambulance/A&E Records',
+    description: 'Emergency services documentation with hardcoded timestamps',
+    reliability: 'HIGH',
+    color: 'causation',
+    examples: [
+      'LAS ePCR 23 Dec 2021 (5-min response, HR 133)',
+      'ED Discharge Summary 24 Dec 2021',
+      'ED Summary 18 Feb 2022 (epilepsy diagnosis)'
+    ],
+    count: 5
+  },
+  {
+    tier: 4,
+    name: 'Pharmacy Records',
+    description: 'Dispensing records showing actual medication received',
+    reliability: 'MEDIUM-HIGH',
+    color: 'default',
+    examples: [
+      'Prescription history',
+      'Dispensing records',
+      'Medication timeline'
+    ],
+    count: 3
+  },
+  {
+    tier: 5,
+    name: 'Independent Clinician Notes',
+    description: 'MSK Physio, practice nurses, allied health professionals',
+    reliability: 'MEDIUM',
+    color: 'default',
+    examples: [
+      'MSK Physio "attention seeking" note (Aug 2021)',
+      'Bhamm Pain Clinic rejection letter (Nov 2021)',
+      'Jason Parry physical examination (Jul 2021)'
+    ],
+    count: 4
+  },
+  {
+    tier: 6,
+    name: 'GP Referral Responses',
+    description: 'Specialist responses to GP referrals',
+    reliability: 'MEDIUM',
+    color: 'default',
+    examples: [
+      'Pain Clinic responses',
+      'Neurology outpatient letters',
+      'Mental health referral responses'
+    ],
+    count: 6
+  },
+  {
+    tier: 7,
+    name: 'GP Consultation Entries',
+    description: 'GP clinical records - requires verification against independent evidence',
+    reliability: 'LOWEST',
+    color: 'breach',
+    examples: [
+      '"Sleeping pain-free" (Sep 2021) - CONTRADICTED',
+      'Somatisation framing (2020) - CONTRADICTED',
+      'F45.4 coding (Jan 2023) - CONTRADICTED'
+    ],
+    count: '2,449'
+  }
+];
+
+const getTierColor = (color: string) => {
+  switch (color) {
+    case 'gold': return 'border-gold-500/50 bg-gold-500/10';
+    case 'vindication': return 'border-vindication-500/30 bg-vindication-500/5';
+    case 'causation': return 'border-causation-500/30 bg-causation-500/5';
+    case 'breach': return 'border-breach-500/30 bg-breach-500/5';
+    default: return 'border-navy-700 bg-navy-800/30';
+  }
+};
+
+const getTextColor = (color: string) => {
+  switch (color) {
+    case 'gold': return 'text-gold-400';
+    case 'vindication': return 'text-vindication-400';
+    case 'causation': return 'text-causation-400';
+    case 'breach': return 'text-breach-400';
+    default: return 'text-navy-300';
+  }
+};
+---
+
+<BaseLayout title="Evidence" description="Evidence hierarchy and reliability tiers in the Thomson clinical negligence case">
+  <!-- Header -->
+  <section class="py-16 bg-navy-900/30">
+    <div class="container-wide">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl font-serif font-bold text-white mb-4">Evidence Hierarchy</h1>
+        <p class="text-lg text-navy-300">
+          The case operates on a 7-tier evidence system, with objective imaging at the apex
+          and GP consultation entries at the base. Higher-tier evidence is used to verify
+          or contradict lower-tier claims.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visual Pyramid -->
+  <section class="py-16">
+    <div class="container-wide">
+      <div class="max-w-4xl mx-auto">
+        <!-- Pyramid visualization -->
+        <div class="relative">
+          {evidenceTiers.map((tier, index) => {
+            const width = 30 + (index * 10);
+            return (
+              <div
+                class:list={[
+                  'relative mx-auto mb-2 rounded-lg border p-4 transition-all hover:scale-[1.02]',
+                  getTierColor(tier.color)
+                ]}
+                style={`width: ${width}%`}
+              >
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <span class:list={['text-2xl font-bold font-serif', getTextColor(tier.color)]}>
+                      {tier.tier}
+                    </span>
+                    <div>
+                      <h3 class="font-semibold text-white text-sm">{tier.name}</h3>
+                      <p class="text-xs text-navy-400 hidden sm:block">{tier.reliability}</p>
+                    </div>
+                  </div>
+                  <Badge variant={tier.color === 'gold' ? 'strategic' : tier.color === 'vindication' ? 'vindication' : tier.color === 'breach' ? 'breach' : 'default'}>
+                    {tier.count}
+                  </Badge>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div class="mt-8 text-center text-sm text-navy-500">
+          <p>← Higher reliability | Lower reliability →</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed Tier Cards -->
+  <section class="py-16 bg-navy-900/30">
+    <div class="container-wide">
+      <h2 class="text-2xl font-serif font-bold text-white mb-8">Evidence Tiers Explained</h2>
+
+      <div class="space-y-6">
+        {evidenceTiers.map((tier) => (
+          <div class:list={['card-base p-6 border', getTierColor(tier.color)]}>
+            <div class="flex flex-col lg:flex-row lg:items-start gap-6">
+              <div class="flex-shrink-0">
+                <div class:list={[
+                  'w-16 h-16 rounded-xl flex items-center justify-center text-2xl font-bold font-serif',
+                  tier.color === 'gold' ? 'bg-gold-500/20 text-gold-400' :
+                  tier.color === 'vindication' ? 'bg-vindication-500/20 text-vindication-400' :
+                  tier.color === 'causation' ? 'bg-causation-500/20 text-causation-400' :
+                  tier.color === 'breach' ? 'bg-breach-500/20 text-breach-400' :
+                  'bg-navy-800 text-navy-400'
+                ]}>
+                  {tier.tier}
+                </div>
+              </div>
+
+              <div class="flex-1">
+                <div class="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 class="text-xl font-serif font-semibold text-white">{tier.name}</h3>
+                    <p class="text-sm text-navy-400">{tier.description}</p>
+                  </div>
+                  <div class="text-right">
+                    <Badge variant={tier.color === 'gold' ? 'strategic' : tier.color === 'vindication' ? 'vindication' : tier.color === 'breach' ? 'breach' : 'default'}>
+                      {tier.reliability}
+                    </Badge>
+                    <p class="text-sm text-navy-500 mt-1">{tier.count} items</p>
+                  </div>
+                </div>
+
+                <div class="mt-4">
+                  <h4 class="text-xs font-semibold text-navy-500 uppercase tracking-wider mb-2">Examples</h4>
+                  <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {tier.examples.map((example) => (
+                      <li class="text-sm text-navy-300 flex items-start gap-2">
+                        <svg class:list={['w-4 h-4 mt-0.5 flex-shrink-0', getTextColor(tier.color)]} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {example}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Methodology Note -->
+  <section class="py-16">
+    <div class="container-wide">
+      <div class="card-base p-8 max-w-3xl mx-auto">
+        <h2 class="text-xl font-serif font-bold text-white mb-4">Verification Methodology</h2>
+        <div class="prose prose-invert prose-sm">
+          <p class="text-navy-300">
+            GP consultation entries (Tier 7) are verified against higher-tier evidence.
+            Each entry is assigned a verification status:
+          </p>
+          <ul class="text-navy-300 space-y-2 mt-4">
+            <li class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-vindication-500"></span>
+              <strong class="text-vindication-400">VERIFIED</strong> - Confirmed by independent evidence
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-discrepancy-500"></span>
+              <strong class="text-discrepancy-400">UNVERIFIED</strong> - No independent corroboration
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-breach-500"></span>
+              <strong class="text-breach-400">CONTRADICTED</strong> - Conflicts with higher-tier evidence
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+              <strong class="text-rose-400">FABRICATED</strong> - Impossible given known facts
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

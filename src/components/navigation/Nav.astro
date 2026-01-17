@@ -1,0 +1,102 @@
+---
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+// Helper to create full href with base path
+const getHref = (path: string) => {
+  if (path === '/') return base || '/';
+  return `${base}${path}`;
+};
+
+const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/findings', label: 'Findings' },
+  { href: '/vindication', label: 'Vindication' },
+  { href: '/timeline', label: 'Timeline' },
+  { href: '/evidence', label: 'Evidence' },
+  { href: '/actors', label: 'Actors' },
+  { href: '/documents', label: 'Documents' },
+];
+
+const isActive = (href: string) => {
+  if (href === '/') return currentPath === '/' || currentPath === base;
+  return currentPath.includes(href);
+};
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 bg-navy-950/80 backdrop-blur-lg border-b border-navy-800/50">
+  <div class="container-wide">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href={getHref('/')} class="flex items-center gap-3 text-white hover:text-gold-400 transition-colors">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center">
+          <span class="font-serif font-bold text-navy-950 text-lg">T</span>
+        </div>
+        <div class="hidden sm:block">
+          <div class="font-serif font-semibold text-lg leading-tight">Thomson Case</div>
+          <div class="text-xs text-navy-400">Evidence Repository</div>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center gap-1">
+        {navItems.map((item) => (
+          <a
+            href={getHref(item.href)}
+            class:list={[
+              'px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200',
+              isActive(item.href)
+                ? 'bg-navy-800 text-gold-400'
+                : 'text-navy-300 hover:text-white hover:bg-navy-800/50'
+            ]}
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden p-2 rounded-lg text-navy-300 hover:text-white hover:bg-navy-800/50"
+        aria-label="Toggle menu"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-navy-800/50 bg-navy-950/95 backdrop-blur-lg">
+    <div class="container-wide py-4 space-y-1">
+      {navItems.map((item) => (
+        <a
+          href={getHref(item.href)}
+          class:list={[
+            'block px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200',
+            isActive(item.href)
+              ? 'bg-navy-800 text-gold-400'
+              : 'text-navy-300 hover:text-white hover:bg-navy-800/50'
+          ]}
+        >
+          {item.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</nav>
+
+<script>
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  menuBtn?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+</script>

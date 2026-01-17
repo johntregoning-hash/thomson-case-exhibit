@@ -1,0 +1,179 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/home/Hero.astro';
+import AtAGlance from '@components/home/AtAGlance.astro';
+import FeaturedFinding from '@components/home/FeaturedFinding.astro';
+import Card from '@components/common/Card.astro';
+import Badge from '@components/common/Badge.astro';
+
+const base = import.meta.env.BASE_URL;
+const getHref = (path: string) => path === '/' ? (base || '/') : `${base}${path}`;
+
+// Stats (can be replaced with dynamic parsing later)
+const stats = {
+  findings: 200,
+  vindication: 22,
+  breach: 24,
+  timelinePhases: 8,
+  delayMonths: 11
+};
+
+// Featured finding - Dr Gorrie removes somatoform diagnosis
+const featuredFinding = {
+  id: 'F030',
+  title: 'Dr Gorrie Removes Somatoform Diagnosis',
+  category: 'VINDICATION',
+  summary: 'Dr Alexander Gorrie marked the Somatoform Pain Disorder diagnosis as INACTIVE on 22 July 2025, noting "there were clear causes for his pain." Highly unusual to remove without formal psychiatric reassessment - the error was self-evident.',
+  legalSignificance: 'Subsequent NHS clinician independently determined original psychiatric diagnosis was inappropriate and removed it. This is internal vindication, not litigation-driven expert opinion. Directly supports breach allegations regarding F45.4 coding. Implicit NHS admission of error.'
+};
+
+// Quick navigation cards
+const quickNavCards = [
+  {
+    title: 'Vindication Evidence',
+    description: '22+ findings where independent specialists refuted problematic diagnoses',
+    href: getHref('/vindication'),
+    icon: '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>',
+    color: 'text-vindication-500',
+    badge: '22+'
+  },
+  {
+    title: 'Case Timeline',
+    description: '8-phase forensic chronology from pre-2020 to present day',
+    href: getHref('/timeline'),
+    icon: '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>',
+    color: 'text-gold-500',
+    badge: '8 phases'
+  },
+  {
+    title: 'Evidence Hierarchy',
+    description: 'Tier-based system from objective imaging to GP records',
+    href: getHref('/evidence'),
+    icon: '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>',
+    color: 'text-causation-500',
+    badge: '7 tiers'
+  }
+];
+
+// Key case elements
+const keyElements = [
+  {
+    label: 'Index Event',
+    value: '23 December 2021',
+    description: 'Witnessed tonic-clonic seizure with 5-minute ambulance response'
+  },
+  {
+    label: 'Fracture Discovery',
+    value: 'November 2022',
+    description: 'MRI reveals T5-T8 vertebral fractures after 11 months'
+  },
+  {
+    label: 'Covert Diagnosis',
+    value: '5 January 2023',
+    description: 'F45.4 Somatoform Pain Disorder applied without assessment or patient knowledge'
+  },
+  {
+    label: 'Vindication',
+    value: '22 July 2025',
+    description: 'New GP removes diagnosis: "there were clear causes for his pain"'
+  }
+];
+---
+
+<BaseLayout title="Home">
+  <Hero
+    totalFindings={stats.findings}
+    vindicationCount={stats.vindication}
+    delayMonths={stats.delayMonths}
+  />
+
+  <AtAGlance stats={stats} />
+
+  <!-- Quick Navigation Section -->
+  <section class="py-20">
+    <div class="container-wide">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-serif font-bold text-white mb-4">Explore the Evidence</h2>
+        <p class="text-navy-300 max-w-2xl mx-auto">
+          Navigate the comprehensive evidence repository supporting the clinical negligence case
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {quickNavCards.map((card) => (
+          <Card variant="interactive" href={card.href}>
+            <div class="flex items-start justify-between mb-4">
+              <div class:list={[card.color]}>
+                <Fragment set:html={card.icon} />
+              </div>
+              <Badge variant="default">{card.badge}</Badge>
+            </div>
+            <h3 class="text-xl font-serif font-semibold text-white mb-2">{card.title}</h3>
+            <p class="text-navy-400 text-sm">{card.description}</p>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FeaturedFinding finding={featuredFinding} />
+
+  <!-- Key Case Timeline Section -->
+  <section class="py-20 bg-navy-900/30">
+    <div class="container-wide">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-serif font-bold text-white mb-4">Key Case Milestones</h2>
+        <p class="text-navy-300 max-w-2xl mx-auto">
+          Critical events in the chronology of this clinical negligence case
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {keyElements.map((element, index) => (
+          <div class="relative">
+            {index < keyElements.length - 1 && (
+              <div class="hidden lg:block absolute top-8 left-full w-full h-0.5 bg-gradient-to-r from-gold-500/50 to-transparent z-0"></div>
+            )}
+            <Card variant="default" class="relative z-10">
+              <p class="text-xs font-semibold text-gold-500 uppercase tracking-wider mb-2">{element.label}</p>
+              <p class="text-xl font-serif font-bold text-white mb-2">{element.value}</p>
+              <p class="text-sm text-navy-400">{element.description}</p>
+            </Card>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mt-10">
+        <a href={getHref('/timeline')} class="btn-secondary gap-2">
+          View Full Timeline
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20">
+    <div class="container-wide">
+      <div class="card-base p-8 md:p-12 border-gold-500/20 bg-gradient-to-br from-navy-900 to-navy-950 text-center">
+        <h2 class="text-3xl font-serif font-bold text-white mb-4">
+          200+ Documented Findings
+        </h2>
+        <p class="text-navy-300 max-w-2xl mx-auto mb-8">
+          Each finding is cross-referenced with primary evidence documents, creating a comprehensive
+          and verifiable record of the case.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href={getHref('/findings')} class="btn-primary">
+            Browse All Findings
+          </a>
+          <a href={getHref('/documents')} class="btn-secondary">
+            View Key Documents
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

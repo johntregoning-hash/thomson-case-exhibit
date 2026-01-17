@@ -1,0 +1,41 @@
+---
+interface Props {
+  value: string | number;
+  label: string;
+  icon?: string;
+  variant?: 'default' | 'gold' | 'vindication' | 'breach';
+  class?: string;
+}
+
+const { value, label, icon, variant = 'default', class: className = '' } = Astro.props;
+
+const iconColors = {
+  default: 'text-navy-400',
+  gold: 'text-gold-500',
+  vindication: 'text-vindication-500',
+  breach: 'text-breach-500'
+};
+
+const valueColors = {
+  default: 'text-white',
+  gold: 'text-gold-400',
+  vindication: 'text-vindication-400',
+  breach: 'text-breach-400'
+};
+---
+
+<div class:list={['bg-navy-900/50 border border-navy-800 rounded-xl p-6 backdrop-blur-sm', className]}>
+  <div class="flex items-start justify-between">
+    <div>
+      <p class:list={['text-4xl font-bold font-serif tracking-tight', valueColors[variant]]}>
+        {value}
+      </p>
+      <p class="text-sm text-navy-400 mt-1">{label}</p>
+    </div>
+    {icon && (
+      <div class:list={['p-3 rounded-lg bg-navy-800/50', iconColors[variant]]}>
+        <Fragment set:html={icon} />
+      </div>
+    )}
+  </div>
+</div>

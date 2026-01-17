@@ -1,0 +1,115 @@
+---
+import Badge from '@components/common/Badge.astro';
+
+interface Props {
+  phase: {
+    number: number;
+    title: string;
+    dateRange: string;
+    events: Array<{
+      date: string;
+      title: string;
+      description: string;
+      status?: string;
+      findingRef?: string;
+      type?: string;
+    }>;
+  };
+  isExpanded?: boolean;
+}
+
+const { phase, isExpanded = false } = Astro.props;
+
+const getStatusColor = (status?: string) => {
+  switch (status) {
+    case 'verified': return 'bg-vindication-500';
+    case 'contradicted': return 'bg-breach-500';
+    case 'fabricated': return 'bg-rose-500';
+    case 'unverified': return 'bg-discrepancy-500';
+    default: return 'bg-gold-500';
+  }
+};
+
+const getTypeVariant = (type?: string) => {
+  switch (type) {
+    case 'critical': return 'breach';
+    case 'truth_spine': return 'vindication';
+    default: return 'default';
+  }
+};
+---
+
+<div class="phase-card" data-phase={phase.number}>
+  <!-- Phase Header -->
+  <div class="relative pl-16 pb-8">
+    <!-- Timeline line -->
+    <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-gold-500 via-navy-600 to-navy-800"></div>
+
+    <!-- Phase marker -->
+    <div class="absolute left-5 top-0 w-7 h-7 rounded-full bg-gold-500 border-4 border-navy-950 flex items-center justify-center shadow-gold-glow">
+      <span class="text-xs font-bold text-navy-950">{phase.number}</span>
+    </div>
+
+    <!-- Phase title -->
+    <button
+      class="w-full text-left group"
+      data-toggle-phase={phase.number}
+    >
+      <div class="card-base p-6 hover:border-gold-500/30 transition-all duration-300">
+        <div class="flex items-start justify-between">
+          <div>
+            <p class="text-sm text-gold-500 font-medium mb-1">Phase {phase.number}</p>
+            <h3 class="text-xl font-serif font-bold text-white group-hover:text-gold-400 transition-colors">
+              {phase.title}
+            </h3>
+            <p class="text-sm text-navy-400 mt-1">{phase.dateRange}</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-navy-500">{phase.events.length} events</span>
+            <svg
+              class="w-5 h-5 text-navy-400 transition-transform duration-300 phase-chevron"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </button>
+
+    <!-- Events (expandable) -->
+    <div class="phase-events mt-4 space-y-4 hidden" data-events-phase={phase.number}>
+      {phase.events.map((event, index) => (
+        <div class="relative pl-8">
+          <!-- Event dot -->
+          <div class:list={['absolute left-0 top-2 w-3 h-3 rounded-full', getStatusColor(event.status)]}></div>
+
+          <div class="card-base p-5">
+            <div class="flex items-start justify-between mb-2">
+              <span class="text-sm font-mono text-gold-500">{event.date}</span>
+              {event.findingRef && (
+                <a
+                  href={`/findings/${event.findingRef.toLowerCase()}`}
+                  class="text-xs text-navy-500 hover:text-gold-400 font-mono"
+                >
+                  {event.findingRef}
+                </a>
+              )}
+            </div>
+            <h4 class="font-semibold text-white mb-2">{event.title}</h4>
+            <p class="text-sm text-navy-300">{event.description}</p>
+            {event.status && (
+              <div class="mt-3">
+                <Badge variant={event.status === 'verified' ? 'vindication' : event.status === 'contradicted' ? 'breach' : 'default'}>
+                  {event.status.toUpperCase()}
+                </Badge>
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

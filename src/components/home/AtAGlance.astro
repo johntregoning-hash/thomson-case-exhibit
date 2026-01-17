@@ -1,0 +1,56 @@
+---
+interface Props {
+  stats: {
+    findings: number;
+    vindication: number;
+    breach: number;
+    timelinePhases: number;
+    delayMonths: number;
+  };
+}
+
+const { stats } = Astro.props;
+---
+
+<section class="py-20 bg-navy-900/30">
+  <div class="container-wide">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-serif font-bold text-white mb-4">Case At A Glance</h2>
+      <p class="text-navy-300 max-w-2xl mx-auto">
+        Key metrics from the evidence repository documenting systematic failures in care
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-5 gap-6">
+      <!-- Total Findings -->
+      <div class="card-base p-6 text-center">
+        <p class="text-4xl font-bold font-serif text-gold-400 mb-2">{stats.findings}+</p>
+        <p class="text-sm text-navy-400">Total Findings</p>
+      </div>
+
+      <!-- Vindication -->
+      <div class="card-base p-6 text-center border-vindication-500/30">
+        <p class="text-4xl font-bold font-serif text-vindication-400 mb-2">{stats.vindication}+</p>
+        <p class="text-sm text-navy-400">Vindication Evidence</p>
+      </div>
+
+      <!-- Breach -->
+      <div class="card-base p-6 text-center border-breach-500/30">
+        <p class="text-4xl font-bold font-serif text-breach-400 mb-2">{stats.breach}+</p>
+        <p class="text-sm text-navy-400">Breach Findings</p>
+      </div>
+
+      <!-- Timeline Phases -->
+      <div class="card-base p-6 text-center">
+        <p class="text-4xl font-bold font-serif text-white mb-2">{stats.timelinePhases}</p>
+        <p class="text-sm text-navy-400">Timeline Phases</p>
+      </div>
+
+      <!-- Delay -->
+      <div class="card-base p-6 text-center col-span-2 lg:col-span-1 border-gold-500/30">
+        <p class="text-4xl font-bold font-serif text-gold-400 mb-2">{stats.delayMonths}</p>
+        <p class="text-sm text-navy-400">Months Diagnostic Delay</p>
+      </div>
+    </div>
+  </div>
+</section>

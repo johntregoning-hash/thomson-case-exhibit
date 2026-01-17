@@ -1,0 +1,33 @@
+---
+interface Props {
+  variant?: 'vindication' | 'breach' | 'discrepancy' | 'causation' | 'quantum' | 'procedural' | 'strategic' | 'witness' | 'fabrication' | 'default';
+  size?: 'sm' | 'md';
+  class?: string;
+}
+
+const { variant = 'default', size = 'md', class: className = '' } = Astro.props;
+
+const baseStyles = 'inline-flex items-center rounded-full font-medium';
+
+const sizes = {
+  sm: 'px-2 py-0.5 text-xs',
+  md: 'px-2.5 py-1 text-xs'
+};
+
+const variants = {
+  vindication: 'bg-vindication-500/20 text-vindication-500 ring-1 ring-vindication-500/30',
+  breach: 'bg-breach-500/20 text-breach-500 ring-1 ring-breach-500/30',
+  discrepancy: 'bg-discrepancy-500/20 text-discrepancy-500 ring-1 ring-discrepancy-500/30',
+  causation: 'bg-causation-500/20 text-causation-500 ring-1 ring-causation-500/30',
+  quantum: 'bg-purple-500/20 text-purple-400 ring-1 ring-purple-500/30',
+  procedural: 'bg-cyan-500/20 text-cyan-400 ring-1 ring-cyan-500/30',
+  strategic: 'bg-gold-500/20 text-gold-500 ring-1 ring-gold-500/30',
+  witness: 'bg-emerald-500/20 text-emerald-400 ring-1 ring-emerald-500/30',
+  fabrication: 'bg-rose-500/20 text-rose-400 ring-1 ring-rose-500/30',
+  default: 'bg-navy-700/50 text-navy-300 ring-1 ring-navy-600/30'
+};
+---
+
+<span class:list={[baseStyles, sizes[size], variants[variant], className]}>
+  <slot />
+</span>

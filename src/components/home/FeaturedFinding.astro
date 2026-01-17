@@ -1,0 +1,64 @@
+---
+import Badge from '@components/common/Badge.astro';
+
+interface Props {
+  finding: {
+    id: string;
+    title: string;
+    category: string;
+    summary: string;
+    legalSignificance: string;
+  };
+}
+
+const { finding } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const getHref = (path: string) => path === '/' ? (base || '/') : `${base}${path}`;
+
+const categoryVariant = finding.category.toLowerCase() as any;
+---
+
+<section class="py-20">
+  <div class="container-wide">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-serif font-bold text-white mb-4">Featured Finding</h2>
+      <p class="text-navy-300">Critical evidence that demonstrates the case</p>
+    </div>
+
+    <div class="max-w-4xl mx-auto">
+      <div class="card-base p-8 border-gold-500/30 shadow-gold-glow">
+        <div class="flex items-start justify-between mb-6">
+          <div>
+            <Badge variant={categoryVariant}>{finding.category}</Badge>
+            <span class="ml-3 text-sm text-navy-500 font-mono">{finding.id}</span>
+          </div>
+          <a
+            href={getHref(`/findings/${finding.id.toLowerCase()}`)}
+            class="text-sm text-gold-500 hover:text-gold-400 transition-colors"
+          >
+            View Full Finding →
+          </a>
+        </div>
+
+        <h3 class="text-2xl font-serif font-bold text-white mb-4">
+          {finding.title}
+        </h3>
+
+        <p class="text-navy-200 leading-relaxed mb-6">
+          {finding.summary}
+        </p>
+
+        {finding.legalSignificance && (
+          <div class="pt-6 border-t border-navy-800">
+            <h4 class="text-sm font-semibold text-gold-500 uppercase tracking-wider mb-3">
+              Legal Significance
+            </h4>
+            <p class="text-navy-300 leading-relaxed">
+              {finding.legalSignificance}
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

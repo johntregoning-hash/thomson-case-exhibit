@@ -1,0 +1,146 @@
+/* Google Fonts - must be first */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-navy-950 text-navy-100 font-sans antialiased;
+    font-feature-settings: 'liga' 1, 'calt' 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-semibold text-white;
+  }
+
+  h1 {
+    @apply text-display;
+  }
+
+  h2 {
+    @apply text-headline;
+  }
+
+  h3 {
+    @apply text-title;
+  }
+
+  h4 {
+    @apply text-subtitle;
+  }
+
+  p {
+    @apply text-navy-200 leading-relaxed;
+  }
+
+  a {
+    @apply text-gold-500 hover:text-gold-400 transition-colors;
+  }
+
+  ::selection {
+    @apply bg-gold-500/30 text-white;
+  }
+}
+
+@layer components {
+  .container-narrow {
+    @apply max-w-4xl mx-auto px-6;
+  }
+
+  .container-wide {
+    @apply max-w-7xl mx-auto px-6;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-gold-400 to-gold-600 bg-clip-text text-transparent;
+  }
+
+  .card-base {
+    @apply bg-navy-900/50 border border-navy-800 rounded-xl backdrop-blur-sm;
+  }
+
+  .card-interactive {
+    @apply card-base transition-all duration-300 hover:border-navy-700 hover:shadow-card-hover;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-vindication {
+    @apply badge bg-vindication-500/20 text-vindication-500 ring-1 ring-vindication-500/30;
+  }
+
+  .badge-breach {
+    @apply badge bg-breach-500/20 text-breach-500 ring-1 ring-breach-500/30;
+  }
+
+  .badge-discrepancy {
+    @apply badge bg-discrepancy-500/20 text-discrepancy-500 ring-1 ring-discrepancy-500/30;
+  }
+
+  .badge-causation {
+    @apply badge bg-causation-500/20 text-causation-500 ring-1 ring-causation-500/30;
+  }
+
+  .badge-default {
+    @apply badge bg-navy-700/50 text-navy-300 ring-1 ring-navy-600/30;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium
+           bg-gold-600 text-navy-950 hover:bg-gold-500
+           transition-all duration-200 shadow-lg hover:shadow-gold-glow;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium
+           bg-navy-800 text-white border border-navy-700 hover:bg-navy-700 hover:border-navy-600
+           transition-all duration-200;
+  }
+
+  .section-divider {
+    @apply border-t border-navy-800/50 my-16;
+  }
+
+  /* Timeline specific */
+  .timeline-line {
+    @apply absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-gold-500 via-navy-600 to-navy-800;
+  }
+
+  .timeline-dot {
+    @apply absolute left-6 w-5 h-5 rounded-full border-4 border-navy-950 z-10;
+  }
+
+  .timeline-dot-vindication {
+    @apply timeline-dot bg-vindication-500 shadow-vindication-glow;
+  }
+
+  .timeline-dot-breach {
+    @apply timeline-dot bg-breach-500;
+  }
+
+  .timeline-dot-anchor {
+    @apply timeline-dot bg-gold-500 shadow-gold-glow;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 20px rgba(201, 162, 39, 0.3);
+  }
+
+  .glow-vindication {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+  }
+}

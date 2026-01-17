@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Astro build cache
+.astro/
+
+# macOS files
+.DS_Store
+**/Icon?
+Icon*
+
+# Build output (we'll use a separate gh-pages branch for deployment)
+# For now, include dist for gh-pages deployment
+# dist/

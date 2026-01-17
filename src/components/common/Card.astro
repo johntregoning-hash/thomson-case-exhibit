@@ -1,0 +1,27 @@
+---
+interface Props {
+  variant?: 'default' | 'interactive' | 'highlight' | 'vindication';
+  class?: string;
+  href?: string;
+}
+
+const { variant = 'default', class: className = '', href } = Astro.props;
+
+const baseStyles = 'rounded-xl p-6 transition-all duration-300';
+
+const variants = {
+  default: 'bg-navy-900/50 border border-navy-800 backdrop-blur-sm',
+  interactive: 'bg-navy-900/50 border border-navy-800 backdrop-blur-sm hover:border-navy-700 hover:shadow-card-hover cursor-pointer',
+  highlight: 'bg-navy-900/70 border border-gold-500/30 backdrop-blur-sm shadow-gold-glow',
+  vindication: 'bg-vindication-500/10 border border-vindication-500/30 backdrop-blur-sm'
+};
+
+const Tag = href ? 'a' : 'div';
+---
+
+<Tag
+  href={href}
+  class:list={[baseStyles, variants[variant], className]}
+>
+  <slot />
+</Tag>

@@ -1,0 +1,291 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Card from '@components/common/Card.astro';
+import Badge from '@components/common/Badge.astro';
+
+const base = import.meta.env.BASE_URL;
+const getHref = (path: string) => path === '/' ? (base || '/') : `${base}${path}`;
+
+// Vindication findings - the strongest evidence
+const vindicationFindings = [
+  {
+    id: 'F030',
+    title: 'Dr Gorrie Removes Somatoform Diagnosis',
+    date: '22 July 2025',
+    specialist: 'Dr Alexander Gorrie (GP)',
+    organisation: 'Current Practice',
+    quote: '"there were clear causes for his pain."',
+    summary: 'Marked the Somatoform Pain Disorder diagnosis as INACTIVE. Highly unusual to remove without formal psychiatric reassessment - the error was self-evident.',
+    legalSignificance: 'Subsequent NHS clinician independently determined original psychiatric diagnosis was inappropriate. This is internal vindication, not litigation-driven expert opinion.',
+    tier: 'Clinical',
+    featured: true
+  },
+  {
+    id: 'F031',
+    title: 'Pain Clinic Refutes Somatoform',
+    date: '2023',
+    specialist: 'C&W Pain Clinic',
+    organisation: 'Chelsea & Westminster Hospital',
+    quote: '"GP prev told somatic, pain clinic at C&W; felt not somatic."',
+    summary: 'Pain Clinic explicitly disagreed with somatoform characterisation.',
+    legalSignificance: 'Independent specialist refutation of GP diagnosis. Supports argument that diagnosis had no valid clinical basis.',
+    tier: 'Clinical'
+  },
+  {
+    id: 'F038',
+    title: 'Psychiatric Assessment Clearance',
+    date: '2023',
+    specialist: 'Dr Gupta',
+    organisation: 'NHS Mental Health Services',
+    quote: 'NO: PTSD, depression, psychosis, personality disorder, OR somatisation disorder',
+    summary: 'Formal psychiatric assessment found no psychiatric disorders. Presentation consistent with inadequately treated physical illness.',
+    legalSignificance: 'Formal psychiatric clearance undermines somatoform labelling. Independent assessment by qualified psychiatrist.',
+    tier: 'Clinical',
+    featured: true
+  },
+  {
+    id: 'F032',
+    title: '2019 Duplex Ultrasound - TOS Positive',
+    date: '13 June 2019',
+    specialist: 'Vascular Sonographer',
+    organisation: 'Royal Free Hospital',
+    quote: '"Marked haemodynamic changes... a positive result."',
+    summary: 'Complete cessation of flow within the distal subclavian artery during Adson\'s and EAST manoeuvres bilaterally.',
+    legalSignificance: 'High-tier objective evidence that vascular compression existed years before later disputes. Undermines any "no objective evidence / purely functional" framing.',
+    tier: 'Imaging'
+  },
+  {
+    id: 'F033',
+    title: '2024 UCLH MR - Dynamic Subclavian Compression',
+    date: '10 January 2024',
+    specialist: 'Dr An Thanh Ngo',
+    organisation: 'UCLH',
+    quote: 'Compression of the left subclavian artery and vein in the subclavicular space with arms abducted',
+    summary: 'MR thoracic inlet/outlet report describes compression including apparent focal stenosis.',
+    legalSignificance: 'High-tier imaging evidence. Reinforces long-running TOS reality. Rebuts "functional / non-organic" framing.',
+    tier: 'Imaging'
+  },
+  {
+    id: 'F036',
+    title: 'US Doppler - Bilateral Subclavian Occlusion',
+    date: '9 June 2025',
+    specialist: 'Vascular Team',
+    organisation: 'Royal Free Hospital',
+    quote: 'At 90° abduction, subclavian veins "compressed with no flow"',
+    summary: 'Dynamic vascular compression demonstrated with positional occlusion. Both arms show flow cessation in provocative positions.',
+    legalSignificance: 'Establishes SIX-YEAR timeline of documented vascular pathology when combined with 2019 Doppler.',
+    tier: 'Imaging',
+    featured: true
+  },
+  {
+    id: 'F037',
+    title: 'CT Aorta - TOS Not Excluded',
+    date: '16 April 2024',
+    specialist: 'Consultant Radiologist',
+    organisation: 'UCLH',
+    quote: '"A thoracic outlet syndrome affecting left subclavian artery cannot be excluded"',
+    summary: 'Arms-down study shows no stenosis but radiologist explicitly states TOS cannot be excluded without dynamic study.',
+    legalSignificance: 'Radiologist acknowledging static imaging does not negate condition. Recommended duplex was subsequently performed.',
+    tier: 'Imaging'
+  },
+  {
+    id: 'F034',
+    title: 'Dr Gorrie Recognises 2021 Seizure/Fractures',
+    date: '17 October 2023',
+    specialist: 'Dr Alexander Gorrie',
+    organisation: 'Current Practice',
+    quote: 'History of tonic-clonic seizure in 2021 with rib injury... pain was not investigated properly',
+    summary: 'First GP to properly recognise and act on injury pattern - what previous GPs dismissed for nearly 2 years.',
+    legalSignificance: 'Shows concrete escalation step by new GP. Demonstrates persistence of symptoms and continuing need for assessment.',
+    tier: 'Clinical'
+  },
+  {
+    id: 'F354',
+    title: 'Formal Epilepsy Diagnosis Confirmed',
+    date: 'December 2024',
+    specialist: 'Neurology Team',
+    organisation: 'Imperial College Healthcare',
+    quote: 'Epilepsy formally diagnosed',
+    summary: 'Formal diagnosis validates all prior seizure events as genuine neurological episodes.',
+    legalSignificance: 'Validates entire seizure history. Contradicts any suggestion of NEAD or functional episodes.',
+    tier: 'Clinical'
+  }
+];
+
+const featuredFindings = vindicationFindings.filter(f => f.featured);
+const allFindings = vindicationFindings;
+---
+
+<BaseLayout title="Vindication" description="22+ independent specialist findings that vindicate the patient's presentation">
+  <!-- Hero Section -->
+  <section class="py-20 bg-gradient-to-br from-navy-950 via-navy-900 to-navy-950 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-vindication-500/5 to-transparent"></div>
+    <div class="absolute bottom-0 right-0 w-96 h-96 bg-vindication-500/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+
+    <div class="container-wide relative z-10">
+      <div class="max-w-3xl">
+        <Badge variant="vindication" class="mb-4">Vindication Evidence</Badge>
+        <h1 class="text-4xl sm:text-5xl font-serif font-bold text-white mb-6">
+          The Defence Cannot Argue
+        </h1>
+        <p class="text-lg text-navy-200 leading-relaxed mb-8">
+          <strong class="text-vindication-400">22+ independent specialist findings</strong> that refute
+          the psychiatric dismissal narrative and demonstrate clear organic pathology.
+          Each vindication comes from NHS clinicians with no stake in this case.
+        </p>
+
+        <div class="flex flex-wrap gap-6">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-vindication-500/20 flex items-center justify-center">
+              <svg class="w-6 h-6 text-vindication-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-2xl font-bold text-vindication-400">22+</p>
+              <p class="text-sm text-navy-400">Vindication Findings</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-gold-500/20 flex items-center justify-center">
+              <svg class="w-6 h-6 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-2xl font-bold text-gold-400">6+</p>
+              <p class="text-sm text-navy-400">Imaging Studies</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-causation-500/20 flex items-center justify-center">
+              <svg class="w-6 h-6 text-causation-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-2xl font-bold text-causation-400">10+</p>
+              <p class="text-sm text-navy-400">Specialists</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Vindications -->
+  <section class="py-16">
+    <div class="container-wide">
+      <h2 class="text-2xl font-serif font-bold text-white mb-8">Key Vindication Evidence</h2>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {featuredFindings.map((finding) => (
+          <Card variant="vindication" class="p-6">
+            <div class="flex items-start justify-between mb-4">
+              <span class="text-sm font-mono text-navy-500">{finding.id}</span>
+              <Badge variant="vindication">{finding.tier}</Badge>
+            </div>
+
+            <h3 class="text-lg font-serif font-semibold text-white mb-3">
+              {finding.title}
+            </h3>
+
+            <blockquote class="text-vindication-400 font-serif italic text-lg mb-4 border-l-2 border-vindication-500 pl-4">
+              {finding.quote}
+            </blockquote>
+
+            <p class="text-sm text-navy-300 mb-4">
+              {finding.summary}
+            </p>
+
+            <div class="pt-4 border-t border-navy-800/50 text-sm">
+              <p class="text-navy-400">
+                <span class="text-navy-500">Specialist:</span> {finding.specialist}
+              </p>
+              <p class="text-navy-400">
+                <span class="text-navy-500">Organisation:</span> {finding.organisation}
+              </p>
+              <p class="text-navy-400">
+                <span class="text-navy-500">Date:</span> {finding.date}
+              </p>
+            </div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- All Vindication Findings -->
+  <section class="py-16 bg-navy-900/30">
+    <div class="container-wide">
+      <h2 class="text-2xl font-serif font-bold text-white mb-8">Complete Vindication Evidence</h2>
+
+      <div class="space-y-6">
+        {allFindings.map((finding) => (
+          <div class="card-base p-6 hover:border-vindication-500/30 transition-all">
+            <div class="flex flex-col lg:flex-row lg:items-start gap-6">
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-3">
+                  <span class="text-sm font-mono text-vindication-500">{finding.id}</span>
+                  <Badge variant="vindication">{finding.tier}</Badge>
+                  <span class="text-sm text-navy-500">{finding.date}</span>
+                </div>
+
+                <h3 class="text-xl font-serif font-semibold text-white mb-2">
+                  {finding.title}
+                </h3>
+
+                <p class="text-navy-300 mb-4">
+                  {finding.summary}
+                </p>
+
+                <blockquote class="text-vindication-400 font-serif italic border-l-2 border-vindication-500/50 pl-4 mb-4">
+                  {finding.quote}
+                </blockquote>
+
+                <div class="bg-navy-800/30 rounded-lg p-4">
+                  <h4 class="text-xs font-semibold text-gold-500 uppercase tracking-wider mb-2">Legal Significance</h4>
+                  <p class="text-sm text-navy-300">{finding.legalSignificance}</p>
+                </div>
+              </div>
+
+              <div class="lg:w-64 lg:flex-shrink-0">
+                <div class="bg-navy-800/50 rounded-lg p-4">
+                  <h4 class="text-xs font-semibold text-navy-500 uppercase tracking-wider mb-3">Source</h4>
+                  <p class="text-sm text-white font-medium">{finding.specialist}</p>
+                  <p class="text-sm text-navy-400">{finding.organisation}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Summary Section -->
+  <section class="py-16">
+    <div class="container-wide">
+      <div class="card-base p-8 border-vindication-500/20 bg-gradient-to-br from-navy-900 to-navy-950">
+        <div class="max-w-3xl mx-auto text-center">
+          <h2 class="text-3xl font-serif font-bold text-white mb-6">
+            Independent Clinical Vindication
+          </h2>
+          <p class="text-lg text-navy-300 mb-8">
+            Every vindication finding comes from NHS clinicians with no prior involvement in the case.
+            They independently examined the patient, reviewed the evidence, and reached conclusions
+            that contradict the psychiatric dismissal narrative applied by the former GP practice.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a href={getHref('/findings')} class="btn-primary">
+              View All Findings
+            </a>
+            <a href={getHref('/timeline')} class="btn-secondary">
+              See Full Timeline
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

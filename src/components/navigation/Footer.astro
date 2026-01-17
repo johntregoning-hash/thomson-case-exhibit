@@ -1,0 +1,76 @@
+---
+const currentYear = new Date().getFullYear();
+const base = import.meta.env.BASE_URL;
+
+const getHref = (path: string) => {
+  if (path === '/') return base || '/';
+  return `${base}${path}`;
+};
+---
+
+<footer class="border-t border-navy-800/50 bg-navy-950">
+  <div class="container-wide py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- About -->
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center">
+            <span class="font-serif font-bold text-navy-950 text-lg">T</span>
+          </div>
+          <div>
+            <div class="font-serif font-semibold text-white">Thomson Case</div>
+            <div class="text-xs text-navy-400">Evidence Repository</div>
+          </div>
+        </div>
+        <p class="text-sm text-navy-400 leading-relaxed">
+          Comprehensive evidence repository documenting clinical negligence
+          findings with verified medical evidence and timeline analysis.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Quick Links</h4>
+        <ul class="space-y-2">
+          <li><a href={getHref('/findings')} class="text-sm text-navy-400 hover:text-gold-400 transition-colors">All Findings</a></li>
+          <li><a href={getHref('/vindication')} class="text-sm text-navy-400 hover:text-gold-400 transition-colors">Vindication Evidence</a></li>
+          <li><a href={getHref('/timeline')} class="text-sm text-navy-400 hover:text-gold-400 transition-colors">Case Timeline</a></li>
+          <li><a href={getHref('/evidence')} class="text-sm text-navy-400 hover:text-gold-400 transition-colors">Evidence Hierarchy</a></li>
+        </ul>
+      </div>
+
+      <!-- Statistics -->
+      <div>
+        <h4 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Repository Statistics</h4>
+        <div class="space-y-2 text-sm text-navy-400">
+          <div class="flex justify-between">
+            <span>Documented Findings</span>
+            <span class="text-gold-500 font-medium">200+</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Vindication Evidence</span>
+            <span class="text-vindication-500 font-medium">22+</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Timeline Phases</span>
+            <span class="text-white font-medium">8</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Diagnostic Delay</span>
+            <span class="text-breach-500 font-medium">11 months</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="mt-12 pt-8 border-t border-navy-800/50 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="text-xs text-navy-500">
+        Thomson v Multiple NHS Defendants - Clinical Negligence Case Repository
+      </p>
+      <p class="text-xs text-navy-500">
+        Evidence compiled {currentYear}. All medical evidence verified.
+      </p>
+    </div>
+  </div>
+</footer>
