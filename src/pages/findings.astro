@@ -3,117 +3,47 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import FindingCard from '@components/findings/FindingCard.astro';
 import Badge from '@components/common/Badge.astro';
 
-// Sample findings data - in production, this would come from parseFindings()
+// Import findings data from JSON
+import findingsData from '../data/findings.json';
+
+// Get all findings and metadata
+const allFindings = findingsData.findings;
+const metadata = findingsData.metadata;
+const categoryCounts = findingsData.categoryCounts;
+const statusCounts = findingsData.statusCounts;
+const priorityFindings = findingsData.priorityFindings;
+
+// Create category list for filters
 const categories = [
-  { name: 'ALL', count: 200 },
-  { name: 'VINDICATION', count: 22, variant: 'vindication' },
-  { name: 'BREACH', count: 24, variant: 'breach' },
-  { name: 'WITNESS', count: 10, variant: 'witness' },
-  { name: 'DISCREPANCY', count: 4, variant: 'discrepancy' },
-  { name: 'CAUSATION', count: 6, variant: 'causation' },
-  { name: 'PROCEDURAL', count: 5, variant: 'procedural' },
-  { name: 'STRATEGIC', count: 4, variant: 'strategic' }
+  { name: 'ALL', count: metadata.totalFindings },
+  { name: 'VINDICATION', count: categoryCounts.VINDICATION || 0, variant: 'vindication' },
+  { name: 'BREACH', count: categoryCounts.BREACH || 0, variant: 'breach' },
+  { name: 'WITNESS', count: categoryCounts.WITNESS || 0, variant: 'witness' },
+  { name: 'DISCREPANCY', count: categoryCounts.DISCREPANCY || 0, variant: 'discrepancy' },
+  { name: 'CAUSATION', count: categoryCounts.CAUSATION || 0, variant: 'causation' },
+  { name: 'NEUROLOGICAL', count: categoryCounts.NEUROLOGICAL || 0, variant: 'causation' },
+  { name: 'MEDICATION', count: categoryCounts.MEDICATION || 0, variant: 'breach' },
+  { name: 'FND/SOMATOFORM', count: categoryCounts['FND/SOMATOFORM'] || 0, variant: 'breach' },
+  { name: 'PROCEDURAL', count: categoryCounts.PROCEDURAL || 0, variant: 'procedural' },
+  { name: 'STRATEGIC', count: categoryCounts.STRATEGIC || 0, variant: 'strategic' },
+  { name: 'QUANTUM', count: categoryCounts.QUANTUM || 0, variant: 'quantum' }
 ];
 
-// Sample findings for display
-const sampleFindings = [
-  {
-    id: 'F030',
-    title: 'Dr Gorrie Removes Somatoform Diagnosis',
-    category: 'VINDICATION',
-    summary: 'Dr Alexander Gorrie marked the Somatoform Pain Disorder diagnosis as INACTIVE on 22 July 2025, noting "there were clear causes for his pain."',
-    evidenceStatus: 'VERIFIED',
-    legalSignificance: 'Subsequent NHS clinician independently determined original psychiatric diagnosis was inappropriate and removed it.'
-  },
-  {
-    id: 'F031',
-    title: 'Pain Clinic Refutes Somatoform',
-    category: 'VINDICATION',
-    summary: 'Pain Clinic explicitly disagreed with somatoform characterisation. GP record states: "GP prev told somatic, pain clinic at C&W; felt not somatic."',
-    evidenceStatus: 'VERIFIED',
-    legalSignificance: 'Independent specialist refutation of GP diagnosis.'
-  },
-  {
-    id: 'F032',
-    title: '2019 Duplex Ultrasound Shows TOS-Positive Result',
-    category: 'VINDICATION',
-    summary: 'Bilateral upper-limb arterial duplex study recorded complete cessation of flow within the distal subclavian artery during provocative manoeuvres.',
-    evidenceStatus: 'VERIFIED',
-    legalSignificance: 'High-tier objective evidence that vascular compression existed years before later disputes.'
-  },
-  {
-    id: 'F038',
-    title: 'Psychiatric Assessment Clearance',
-    category: 'VINDICATION',
-    summary: 'Psychiatric assessment by Dr Gupta found NO: PTSD, depression, psychosis, personality disorder, OR somatisation disorder.',
-    evidenceStatus: 'VERIFIED',
-    legalSignificance: 'Formal psychiatric clearance undermines somatoform labelling.'
-  },
-  {
-    id: 'F040',
-    title: 'Covert Somatoform Diagnosis Applied',
-    category: 'BREACH',
-    summary: 'F45.4 Somatoform Pain Disorder was applied on 05 January 2023 without psychiatric assessment, without patient knowledge, and without clinical justification.',
-    evidenceStatus: 'VERIFIED',
-    legalSignificance: 'Diagnosis applied without psychiatric assessment. Contaminates medical record and referral pathways.'
-  },
-  {
-    id: 'F042',
-    title: 'Pregabalin Reduction Against BNF Guidance',
-    category: 'BREACH',
-    summary: 'Pregabalin reduced from 600mg to 100mg (83% reduction) without the gradual taper required by BNF guidance.',
-    evidenceStatus: 'VERIFIED',
-    legalSignificance: 'Breach of prescribing guidelines. Seizure risk factor and causation relevant.'
-  },
-  {
-    id: 'F001',
-    title: 'Bulale "Sleeping Pain-Free" Entry',
-    category: 'DISCREPANCY',
-    summary: 'Dr Bulale Ali recorded patient was "sleeping pain-free" in September 2021, contradicting documented inability to lie flat due to thoracic pain.',
-    evidenceStatus: 'CONTRADICTED',
-    legalSignificance: 'Demonstrates either failure to accurately document or deliberate falsification.'
-  },
-  {
-    id: 'F002',
-    title: '2020 MH1 Referral Contains Somatisation Framing',
-    category: 'DISCREPANCY',
-    summary: 'GP referral to mental health services includes narrative linking symptoms to brother\'s death and explicitly mentions "somatisation" - predating injury events.',
-    evidenceStatus: 'VERIFIED',
-    legalSignificance: 'Pre-existing documented "psychological overlay" narrative in GP records BEFORE key injury events.'
-  },
-  {
-    id: 'F020',
-    title: 'Dr Karunaratne "Data Manipulation" Statement',
-    category: 'WITNESS',
-    summary: 'NHS epilepsy specialist Dr Karunaratne verbally used the phrase "data manipulation" when discussing GP care issues, with patient\'s parents present.',
-    evidenceStatus: 'VERIFIED',
-    legalSignificance: 'Independent NHS specialist raising concerns about data integrity at former practice.'
-  },
-  {
-    id: 'F022',
-    title: 'MSK Physio "Attention Seeking" Documentation',
-    category: 'WITNESS',
-    summary: 'Independent MSK physiotherapist documented: "issues with GP, as they did not believe his pain and accused him for attention seeking" - PREDATES the seizure.',
-    evidenceStatus: 'VERIFIED',
-    legalSignificance: 'Third-party contemporaneous documentation of GP dismissal pattern BEFORE the major injury event.'
-  },
-  {
-    id: 'F023',
-    title: 'Ambulance ePCR Corroborates 23 Dec 2021 Seizure',
-    category: 'WITNESS',
-    summary: 'London Ambulance Service ePCR documents a witnessed tonic-clonic seizure with 5-minute response time, HR 133 bpm, and Entonox administered for back pain.',
-    evidenceStatus: 'VERIFIED',
-    legalSignificance: 'Highest-tier contemporaneous evidence with hardcoded timestamps from third-party source.'
-  },
-  {
-    id: 'F050',
-    title: 'T5-T8 Fractures Discovered After 11-Month Delay',
-    category: 'CAUSATION',
-    summary: 'MRI in November 2022 reveals T5-T8 vertebral fractures that explain ongoing thoracic pain - 11 months after the index seizure event.',
-    evidenceStatus: 'VERIFIED',
-    legalSignificance: 'Documents the 11-month diagnostic delay that is central to the negligence claim.'
-  }
-];
+// Sort findings - critical/priority ones first, then by ID
+const sortedFindings = [...allFindings].sort((a, b) => {
+  // Priority findings first
+  const aIsPriority = priorityFindings.includes(a.id);
+  const bIsPriority = priorityFindings.includes(b.id);
+  if (aIsPriority && !bIsPriority) return -1;
+  if (!aIsPriority && bIsPriority) return 1;
+
+  // Then critical findings
+  if (a.critical && !b.critical) return -1;
+  if (!a.critical && b.critical) return 1;
+
+  // Then by ID
+  return a.id.localeCompare(b.id);
+});
 ---
 
 <BaseLayout title="Findings" description="Browse 200+ documented findings in the Thomson clinical negligence case">
@@ -123,8 +53,8 @@ const sampleFindings = [
       <div class="max-w-3xl">
         <h1 class="text-4xl font-serif font-bold text-white mb-4">Findings Registry</h1>
         <p class="text-lg text-navy-300">
-          Browse {categories[0].count}+ documented findings, each cross-referenced with primary evidence
-          and categorised by type.
+          Browse {metadata.totalFindings}+ documented findings, each cross-referenced with primary evidence
+          and categorised by type. Last updated: {metadata.lastUpdated}.
         </p>
       </div>
     </div>
@@ -135,22 +65,46 @@ const sampleFindings = [
     <div class="container-wide py-6">
       <div class="flex flex-wrap items-center gap-6">
         <div class="flex items-center gap-2">
-          <span class="text-2xl font-bold text-gold-400">{categories[0].count}+</span>
+          <span class="text-2xl font-bold text-gold-400">{metadata.totalFindings}+</span>
           <span class="text-sm text-navy-400">Total Findings</span>
         </div>
         <div class="w-px h-8 bg-navy-800 hidden sm:block"></div>
         <div class="flex items-center gap-2">
-          <span class="text-2xl font-bold text-vindication-400">{categories[1].count}+</span>
+          <span class="text-2xl font-bold text-vindication-400">{statusCounts.VERIFIED}</span>
+          <span class="text-sm text-navy-400">Verified</span>
+        </div>
+        <div class="w-px h-8 bg-navy-800 hidden sm:block"></div>
+        <div class="flex items-center gap-2">
+          <span class="text-2xl font-bold text-vindication-500">{categoryCounts.VINDICATION}+</span>
           <span class="text-sm text-navy-400">Vindication</span>
         </div>
         <div class="w-px h-8 bg-navy-800 hidden sm:block"></div>
         <div class="flex items-center gap-2">
-          <span class="text-2xl font-bold text-breach-400">{categories[2].count}+</span>
+          <span class="text-2xl font-bold text-breach-400">{categoryCounts.BREACH}+</span>
           <span class="text-sm text-navy-400">Breach</span>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Priority Findings Alert -->
+  {priorityFindings.length > 0 && (
+    <section class="bg-gold-500/10 border-b border-gold-500/30">
+      <div class="container-wide py-4">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center">
+            <svg class="w-4 h-4 text-gold-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div>
+            <span class="text-sm font-semibold text-gold-400">Priority Findings:</span>
+            <span class="text-sm text-navy-300 ml-2">{priorityFindings.join(', ')}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- Category Filters -->
   <section class="sticky top-16 z-40 border-b border-navy-800/50 bg-navy-950/95 backdrop-blur-sm">
@@ -174,21 +128,58 @@ const sampleFindings = [
     </div>
   </section>
 
+  <!-- Search -->
+  <section class="py-6 border-b border-navy-800/50">
+    <div class="container-wide">
+      <div class="relative max-w-md">
+        <input
+          type="text"
+          id="finding-search"
+          placeholder="Search findings by ID, title, or content..."
+          class="w-full px-4 py-3 pl-10 rounded-lg bg-navy-800/50 border border-navy-700 text-white placeholder-navy-500 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500"
+        />
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+    </div>
+  </section>
+
   <!-- Findings Grid -->
   <section class="py-12">
     <div class="container-wide">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="findings-grid">
-        {sampleFindings.map((finding) => (
+        {sortedFindings.map((finding) => (
           <FindingCard finding={finding} />
         ))}
       </div>
 
-      <!-- Load More -->
-      <div class="mt-12 text-center">
-        <p class="text-navy-400 mb-4">Showing 12 of {categories[0].count}+ findings</p>
-        <button class="btn-secondary">
-          Load More Findings
-        </button>
+      <!-- Results Count -->
+      <div class="mt-8 text-center">
+        <p class="text-navy-400" id="results-count">
+          Showing <span id="visible-count">{sortedFindings.length}</span> of {metadata.totalFindings}+ findings
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Evidence Status Legend -->
+  <section class="py-8 border-t border-navy-800/50 bg-navy-900/30">
+    <div class="container-wide">
+      <h2 class="text-lg font-serif font-bold text-white mb-4">Evidence Status Key</h2>
+      <div class="flex flex-wrap gap-6">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-vindication-500"></span>
+          <span class="text-sm text-navy-300"><strong class="text-vindication-400">VERIFIED</strong> - Confirmed by independent documentary evidence</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-gold-500"></span>
+          <span class="text-sm text-navy-300"><strong class="text-gold-400">SUPPORTED</strong> - Consistent with evidence but not definitively proven</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-breach-500"></span>
+          <span class="text-sm text-navy-300"><strong class="text-breach-400">CONTRADICTED</strong> - Evidence disproves this claim</span>
+        </div>
       </div>
     </div>
   </section>
@@ -236,13 +227,44 @@ const sampleFindings = [
 </BaseLayout>
 
 <script>
-  // Simple client-side filtering
+  // Category filtering
   const buttons = document.querySelectorAll('[data-category]') as NodeListOf<HTMLButtonElement>;
   const cards = document.querySelectorAll('[data-finding-id]') as NodeListOf<HTMLElement>;
+  const searchInput = document.getElementById('finding-search') as HTMLInputElement;
+  const visibleCountEl = document.getElementById('visible-count');
+
+  let activeCategory = 'ALL';
+  let searchTerm = '';
+
+  function filterCards() {
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const cardCategory = card.dataset.category || '';
+      const cardText = card.textContent?.toLowerCase() || '';
+      const cardId = card.dataset.findingId?.toLowerCase() || '';
+
+      const matchesCategory = activeCategory === 'ALL' || cardCategory === activeCategory;
+      const matchesSearch = !searchTerm ||
+        cardText.includes(searchTerm) ||
+        cardId.includes(searchTerm);
+
+      if (matchesCategory && matchesSearch) {
+        card.style.display = 'block';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    if (visibleCountEl) {
+      visibleCountEl.textContent = String(visibleCount);
+    }
+  }
 
   buttons.forEach(button => {
     button.addEventListener('click', () => {
-      const category = button.dataset.category;
+      activeCategory = button.dataset.category || 'ALL';
 
       // Update button styles
       buttons.forEach(btn => {
@@ -252,14 +274,13 @@ const sampleFindings = [
       button.classList.remove('bg-navy-800/50', 'text-navy-300');
       button.classList.add('bg-gold-600', 'text-navy-950');
 
-      // Filter cards
-      cards.forEach(card => {
-        if (category === 'ALL' || card.dataset.category === category) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
-      });
+      filterCards();
     });
+  });
+
+  // Search functionality
+  searchInput?.addEventListener('input', (e) => {
+    searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+    filterCards();
   });
 </script>

@@ -3,229 +3,61 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import PhaseCard from '@components/timeline/PhaseCard.astro';
 import Badge from '@components/common/Badge.astro';
 
-// Timeline phases data
-const phases = [
-  {
-    number: 1,
-    title: 'Pre-Existing Conditions & Early Dismissal Pattern',
-    dateRange: 'Pre-2020 to October 2020',
-    events: [
-      {
-        date: '13 Jun 2019',
-        title: 'Duplex Ultrasound Shows TOS-Positive Result',
-        description: 'Complete flow cessation in distal subclavian artery during provocative manoeuvres. "Positive result" documented.',
-        status: 'verified',
-        findingRef: 'F032'
-      },
-      {
-        date: 'Pre-2020',
-        title: 'Ehlers-Danlos Syndrome Diagnosed',
-        description: 'Chronic pain documented across multiple specialist letters. DEXA scan shows T/Z scores in osteopenic range.',
-        status: 'verified'
-      }
-    ]
-  },
-  {
-    number: 2,
-    title: 'Psychiatric Framing Begins',
-    dateRange: 'October 2020 - December 2021',
-    events: [
-      {
-        date: '28 Sep 2020',
-        title: 'MH1 Referral: Somatisation Framing',
-        description: 'GP referral explicitly links "somatisation" to brother\'s death. No psychiatric assessment conducted.',
-        status: 'contradicted',
-        findingRef: 'F002'
-      },
-      {
-        date: '23 Oct 2020',
-        title: 'GP Documents "Same Path as Brother"',
-        description: 'Dr Gupta records patient is "on same path as his brother who committed suicide after chronic pain."',
-        status: 'contradicted'
-      },
-      {
-        date: '04 Aug 2021',
-        title: 'MSK Physio Documents GP Dismissal',
-        description: '"issues with GP, as they did not believe his pain and accused him for attention seeking"',
-        status: 'verified',
-        findingRef: 'F022'
-      },
-      {
-        date: 'Sep 2021',
-        title: '"Sleeping Pain-Free" Entry',
-        description: 'Dr Bulale records patient "sleeping pain-free" - contradicted by MSK physio documenting inability to sleep.',
-        status: 'contradicted',
-        findingRef: 'F001'
-      },
-      {
-        date: 'Oct 2021',
-        title: 'Pregabalin Drastically Reduced',
-        description: '600mg to 100mg (83% reduction) against BNF guidance for gradual taper. Seizure risk factor.',
-        status: 'contradicted',
-        findingRef: 'F042'
-      },
-      {
-        date: '23 Nov 2021',
-        title: 'Pain Clinic Rejects Referral',
-        description: 'Patient rejected without being consulted. Discharged because mother mentioned low mood/suicidal concerns.',
-        status: 'verified',
-        findingRef: 'F027'
-      }
-    ]
-  },
-  {
-    number: 3,
-    title: 'The Index Event - First Seizure',
-    dateRange: '23-24 December 2021',
-    events: [
-      {
-        date: '23 Dec 2021',
-        title: 'Witnessed Tonic-Clonic Seizure',
-        description: '5-minute ambulance response (Category 1/2), HR 133 bpm tachycardia, Entonox administered for back pain. "Extremely combative and confused post seizure, held to ground by father."',
-        status: 'verified',
-        findingRef: 'F023'
-      },
-      {
-        date: '24 Dec 2021',
-        title: 'A&E Attendance - Back Pain Dismissed',
-        description: 'Labelled "soft tissue injury" - no spinal imaging ordered despite EDS and violent seizure mechanism.',
-        status: 'contradicted',
-        findingRef: 'F047'
-      }
-    ]
-  },
-  {
-    number: 4,
-    title: 'Diagnostic Delay & Dismissal Pattern',
-    dateRange: 'January 2022 - November 2022',
-    events: [
-      {
-        date: '18 Feb 2022',
-        title: 'ED Diagnoses Tonic-Clonic Epilepsy',
-        description: 'Imperial ED explicitly confirms "first seizure on 23/12" and diagnoses epilepsy.',
-        status: 'verified',
-        findingRef: 'F024'
-      },
-      {
-        date: '26 Feb 2022',
-        title: 'Second Witnessed Seizure',
-        description: 'Another witnessed tonic-clonic seizure event.',
-        status: 'verified'
-      },
-      {
-        date: '22 Mar 2022',
-        title: 'Neurology Letter - History Divergence',
-        description: 'Dr Karunaratne documents seizure history but does not clearly anchor first seizure to 23 Dec 2021.',
-        status: 'verified',
-        findingRef: 'F003'
-      }
-    ]
-  },
-  {
-    number: 5,
-    title: 'Fracture Discovery - 11 Month Delay',
-    dateRange: 'November 2022',
-    events: [
-      {
-        date: 'Nov 2022',
-        title: 'MRI Reveals T5-T8 Vertebral Fractures',
-        description: '11 months after the seizure, imaging finally shows multiple thoracic fractures that explain ongoing pain.',
-        status: 'verified',
-        findingRef: 'F050'
-      }
-    ]
-  },
-  {
-    number: 6,
-    title: 'Covert Psychiatric Diagnosis Applied',
-    dateRange: 'January 2023',
-    events: [
-      {
-        date: '05 Jan 2023',
-        title: 'Somatoform Pain Disorder F45.4 Applied',
-        description: 'Psychiatric diagnosis coded WITHOUT psychiatric assessment, WITHOUT patient knowledge, and without clinical justification.',
-        status: 'contradicted',
-        findingRef: 'F040'
-      }
-    ]
-  },
-  {
-    number: 7,
-    title: 'Vindication Phase',
-    dateRange: '2023 - 2025',
-    events: [
-      {
-        date: '2023',
-        title: 'Pain Clinic Refutes Somatoform Diagnosis',
-        description: 'Chelsea & Westminster Pain Clinic: "GP prev told somatic, pain clinic at C&W; felt not somatic."',
-        status: 'verified',
-        findingRef: 'F031'
-      },
-      {
-        date: '2023',
-        title: 'Psychiatric Assessment Clearance',
-        description: 'Dr Gupta (psychiatrist) finds NO: PTSD, depression, psychosis, personality disorder, OR somatisation disorder.',
-        status: 'verified',
-        findingRef: 'F038'
-      },
-      {
-        date: '17 Oct 2023',
-        title: 'Dr Gorrie Recognises Seizure/Fractures',
-        description: 'New GP properly recognises 2021 seizure/fracture pattern and refers to orthopaedics.',
-        status: 'verified',
-        findingRef: 'F034'
-      },
-      {
-        date: '10 Jan 2024',
-        title: 'UCLH MR Confirms TOS',
-        description: 'Dynamic MR shows compression of subclavian artery and vein with arms abducted.',
-        status: 'verified',
-        findingRef: 'F033'
-      },
-      {
-        date: '09 Jun 2025',
-        title: 'Doppler Shows Bilateral Subclavian Occlusion',
-        description: 'Royal Free ultrasound confirms dynamic vascular compression. At 90° abduction: "compressed with no flow."',
-        status: 'verified',
-        findingRef: 'F036'
-      },
-      {
-        date: '22 Jul 2025',
-        title: 'Dr Gorrie Removes Somatoform Diagnosis',
-        description: 'Marked as INACTIVE: "there were clear causes for his pain." Unusual without psychiatric reassessment.',
-        status: 'verified',
-        findingRef: 'F030'
-      },
-      {
-        date: 'Dec 2024',
-        title: 'Formal Epilepsy Diagnosis Confirmed',
-        description: 'Epilepsy formally diagnosed, validating all prior seizure events.',
-        status: 'verified',
-        findingRef: 'F354'
-      }
-    ]
-  },
-  {
-    number: 8,
-    title: 'Current Status',
-    dateRange: '2026',
-    events: [
-      {
-        date: 'Jan 2026',
-        title: 'Evidence Repository Compiled',
-        description: '200+ findings documented. Case ready for legal review with comprehensive evidence chain.',
-        status: 'verified'
-      }
-    ]
-  }
-];
+// Import timeline data from JSON
+import timelineData from '../data/timeline.json';
+
+// Get phases and metadata
+const phases = timelineData.phases;
+const metadata = timelineData.metadata;
+const causationChain = timelineData.causationChain;
+const breachRegister = timelineData.breachRegister;
+const limitationAnalysis = timelineData.limitationAnalysis;
+const colourCoding = timelineData.colourCoding;
+
+// Transform phases for PhaseCard component
+const transformedPhases = phases.map((phase) => ({
+  number: phase.id,
+  title: phase.title,
+  dateRange: phase.period,
+  description: phase.description,
+  keyMessage: phase.keyMessage,
+  events: [
+    // Truth Spine events (high tier)
+    ...phase.truthSpine.map((e: any) => ({
+      date: e.date,
+      title: e.event,
+      description: e.finding,
+      status: 'verified',
+      findingRef: e.findingRef,
+      source: e.source,
+      tier: e.tier,
+      isTruthSpine: true
+    })),
+    // GP Record entries (lower tier, may be contradicted)
+    ...(phase.gpEntries || []).map((e: any) => ({
+      date: e.date,
+      title: `GP: ${e.clinician || 'Unknown'}`,
+      description: e.content,
+      status: e.status?.toLowerCase() || 'unverified',
+      findingRef: e.findingRef,
+      isGpEntry: true,
+      critical: e.critical
+    }))
+  ],
+  criticalFindings: phase.criticalFindings,
+  breaches: phase.breaches
+}));
 
 const keyDates = [
+  { date: 'Jun 2019', label: 'TOS Positive', color: 'bg-vindication-500' },
   { date: 'Dec 2021', label: 'First Seizure', color: 'bg-breach-500' },
-  { date: 'Nov 2022', label: 'Fractures Found', color: 'bg-gold-500' },
+  { date: 'Oct 2022', label: 'Fractures Found', color: 'bg-gold-500' },
   { date: 'Jan 2023', label: 'Covert Diagnosis', color: 'bg-breach-500' },
-  { date: 'Jul 2025', label: 'Diagnosis Removed', color: 'bg-vindication-500' }
+  { date: 'Sep 2025', label: 'Diagnosis Removed', color: 'bg-vindication-500' }
 ];
+
+// Count total events
+const totalEvents = transformedPhases.reduce((acc, p) => acc + p.events.length, 0);
 ---
 
 <BaseLayout title="Timeline" description="8-phase forensic chronology of the Thomson clinical negligence case">
@@ -235,8 +67,10 @@ const keyDates = [
       <div class="max-w-3xl">
         <h1 class="text-4xl font-serif font-bold text-white mb-4">Case Timeline</h1>
         <p class="text-lg text-navy-300">
-          Forensic chronology organised into 8 phases, from pre-existing conditions through vindication.
-          Events colour-coded by verification status.
+          Forensic chronology organised into {metadata.totalPhases} phases, using a dual-track system:
+          <strong class="text-vindication-400">Truth Spine</strong> (independent evidence) vs
+          <strong class="text-navy-200">GP Records</strong> (subject to verification).
+          Last updated: {metadata.lastUpdated}.
         </p>
       </div>
     </div>
@@ -267,23 +101,55 @@ const keyDates = [
   <!-- Legend -->
   <section class="border-b border-navy-800/50">
     <div class="container-wide py-4">
-      <div class="flex flex-wrap items-center gap-4 text-sm">
-        <span class="text-navy-500">Status:</span>
-        <div class="flex items-center gap-2">
-          <div class="w-2 h-2 rounded-full bg-vindication-500"></div>
-          <span class="text-navy-300">Verified</span>
+      <div class="flex flex-wrap items-center gap-6 text-sm">
+        <div class="flex items-center gap-4">
+          <span class="text-navy-500">Evidence Status:</span>
+          <div class="flex items-center gap-2">
+            <div class="w-2.5 h-2.5 rounded-full bg-vindication-500"></div>
+            <span class="text-navy-300">{colourCoding.VERIFIED.emoji} Verified</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-2.5 h-2.5 rounded-full bg-discrepancy-500"></div>
+            <span class="text-navy-300">{colourCoding.UNVERIFIED.emoji} Unverified</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-2.5 h-2.5 rounded-full bg-breach-500"></div>
+            <span class="text-navy-300">{colourCoding.CONTRADICTED.emoji} Contradicted</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-2.5 h-2.5 rounded-full bg-navy-800 border border-navy-600"></div>
+            <span class="text-navy-300">{colourCoding.FABRICATED.emoji} Fabricated</span>
+          </div>
         </div>
-        <div class="flex items-center gap-2">
-          <div class="w-2 h-2 rounded-full bg-breach-500"></div>
-          <span class="text-navy-300">Contradicted</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dual-Track Explanation -->
+  <section class="py-6 border-b border-navy-800/50 bg-navy-900/30">
+    <div class="container-wide">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="flex items-start gap-3 p-4 rounded-lg bg-vindication-500/10 border border-vindication-500/20">
+          <div class="w-8 h-8 rounded-full bg-vindication-500/20 flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4 text-vindication-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-vindication-400 text-sm">Truth Spine (High Reliability)</h3>
+            <p class="text-xs text-navy-400 mt-1">Imaging, Ambulance, Hospital, Specialist Letters - establishes objective facts</p>
+          </div>
         </div>
-        <div class="flex items-center gap-2">
-          <div class="w-2 h-2 rounded-full bg-discrepancy-500"></div>
-          <span class="text-navy-300">Unverified</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <div class="w-2 h-2 rounded-full bg-gold-500"></div>
-          <span class="text-navy-300">Key Event</span>
+        <div class="flex items-start gap-3 p-4 rounded-lg bg-navy-800/50 border border-navy-700">
+          <div class="w-8 h-8 rounded-full bg-navy-700 flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4 text-navy-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-navy-300 text-sm">GP Record (Subject to Verification)</h3>
+            <p class="text-xs text-navy-400 mt-1">Consultation entries verified against independent evidence - lowest reliability tier</p>
+          </div>
         </div>
       </div>
     </div>
@@ -293,28 +159,140 @@ const keyDates = [
   <section class="py-12">
     <div class="container-wide">
       <div class="max-w-4xl mx-auto">
-        {phases.map((phase) => (
+        {transformedPhases.map((phase) => (
           <PhaseCard phase={phase} />
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Summary Stats -->
+  <!-- Causation Chain -->
   <section class="py-12 border-t border-navy-800/50 bg-navy-900/30">
+    <div class="container-wide">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-2xl font-serif font-bold text-white mb-6 flex items-center gap-3">
+          <span class="w-3 h-3 rounded-full bg-causation-500"></span>
+          Causation Chain ({causationChain.findingRef})
+        </h2>
+        <p class="text-sm text-navy-400 mb-6">{causationChain.title}</p>
+
+        <div class="relative pl-8 border-l-2 border-causation-500/30 space-y-4">
+          {causationChain.steps.map((step: any, index: number) => (
+            <div class="relative">
+              <div class:list={[
+                'absolute -left-[25px] w-4 h-4 rounded-full border-2 border-navy-950',
+                step.critical ? 'bg-breach-500' :
+                step.breach ? 'bg-discrepancy-500' :
+                step.vindication ? 'bg-vindication-500' : 'bg-causation-500'
+              ]}></div>
+              <div class:list={[
+                'p-3 rounded-lg',
+                step.critical ? 'bg-breach-500/10 border border-breach-500/20' :
+                step.breach ? 'bg-discrepancy-500/10 border border-discrepancy-500/20' :
+                step.vindication ? 'bg-vindication-500/10 border border-vindication-500/20' :
+                'bg-navy-800/50 border border-navy-700'
+              ]}>
+                <p class="text-xs text-navy-500">{step.date}</p>
+                <p class:list={[
+                  'text-sm',
+                  step.critical ? 'text-breach-400 font-semibold' :
+                  step.breach ? 'text-discrepancy-400' :
+                  step.vindication ? 'text-vindication-400' : 'text-navy-300'
+                ]}>{step.event}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="mt-8 p-4 rounded-lg bg-gold-500/10 border border-gold-500/20">
+          <h4 class="text-sm font-semibold text-gold-400 mb-2">But-For Test</h4>
+          <p class="text-sm text-navy-300">{causationChain.butForTest}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breach Register -->
+  <section class="py-12 border-t border-navy-800/50">
+    <div class="container-wide">
+      <h2 class="text-2xl font-serif font-bold text-white mb-6">Breach Register Summary</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-navy-800">
+              <th class="text-left py-3 px-4 text-navy-500 font-medium">ID</th>
+              <th class="text-left py-3 px-4 text-navy-500 font-medium">Date</th>
+              <th class="text-left py-3 px-4 text-navy-500 font-medium">Clinician/Entity</th>
+              <th class="text-left py-3 px-4 text-navy-500 font-medium">Nature of Breach</th>
+              <th class="text-left py-3 px-4 text-navy-500 font-medium">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {breachRegister.map((breach: any) => (
+              <tr class="border-b border-navy-800/50 hover:bg-navy-800/30">
+                <td class="py-3 px-4 font-mono text-gold-500">{breach.id}</td>
+                <td class="py-3 px-4 text-navy-400">{breach.date}</td>
+                <td class="py-3 px-4 text-white">{breach.clinician}</td>
+                <td class="py-3 px-4 text-navy-300">{breach.nature}</td>
+                <td class="py-3 px-4">
+                  <Badge variant="vindication">{breach.status}</Badge>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Limitation Analysis -->
+  <section class="py-12 border-t border-navy-800/50 bg-navy-900/30">
+    <div class="container-wide">
+      <div class="max-w-2xl">
+        <h2 class="text-2xl font-serif font-bold text-white mb-6 flex items-center gap-3">
+          <span class="w-3 h-3 rounded-full bg-gold-500"></span>
+          Limitation Analysis ({limitationAnalysis.findingRef})
+        </h2>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="p-4 rounded-lg bg-navy-800/50 border border-navy-700">
+            <p class="text-xs text-navy-500 mb-1">Index Injury</p>
+            <p class="text-lg font-semibold text-white">{limitationAnalysis.indexInjury}</p>
+          </div>
+          <div class="p-4 rounded-lg bg-navy-800/50 border border-navy-700">
+            <p class="text-xs text-navy-500 mb-1">Date of Knowledge</p>
+            <p class="text-lg font-semibold text-gold-400">{limitationAnalysis.dateOfKnowledge}</p>
+          </div>
+          <div class="p-4 rounded-lg bg-navy-800/50 border border-navy-700">
+            <p class="text-xs text-navy-500 mb-1">Limitation Expires</p>
+            <p class="text-lg font-semibold text-breach-400">{limitationAnalysis.limitationExpires}</p>
+          </div>
+          <div class="p-4 rounded-lg bg-vindication-500/10 border border-vindication-500/20">
+            <p class="text-xs text-navy-500 mb-1">Time Remaining</p>
+            <p class="text-lg font-semibold text-vindication-400">{limitationAnalysis.timeRemaining}</p>
+          </div>
+        </div>
+        <p class="text-sm text-navy-400 mt-4">
+          <strong class="text-gold-400">s.32(1)(b):</strong> {limitationAnalysis.section32}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Summary Stats -->
+  <section class="py-12 border-t border-navy-800/50">
     <div class="container-wide">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
         <div class="text-center">
-          <p class="text-3xl font-bold font-serif text-gold-400">8</p>
+          <p class="text-3xl font-bold font-serif text-gold-400">{metadata.totalPhases}</p>
           <p class="text-sm text-navy-400">Timeline Phases</p>
         </div>
         <div class="text-center">
-          <p class="text-3xl font-bold font-serif text-white">{phases.reduce((acc, p) => acc + p.events.length, 0)}+</p>
+          <p class="text-3xl font-bold font-serif text-white">{totalEvents}+</p>
           <p class="text-sm text-navy-400">Key Events</p>
         </div>
         <div class="text-center">
-          <p class="text-3xl font-bold font-serif text-breach-400">11</p>
-          <p class="text-sm text-navy-400">Months Delay</p>
+          <p class="text-3xl font-bold font-serif text-breach-400">{metadata.diagnosticDelay}</p>
+          <p class="text-sm text-navy-400">Diagnostic Delay</p>
         </div>
         <div class="text-center">
           <p class="text-3xl font-bold font-serif text-vindication-400">6+</p>
@@ -340,9 +318,11 @@ const keyDates = [
     });
   });
 
-  // Expand first phase by default
-  const firstEvents = document.querySelector('[data-events-phase="1"]');
-  const firstChevron = document.querySelector('[data-toggle-phase="1"] .phase-chevron');
-  firstEvents?.classList.remove('hidden');
-  firstChevron?.classList.add('rotate-180');
+  // Expand first few phases by default
+  [1, 2, 3].forEach(num => {
+    const events = document.querySelector(`[data-events-phase="${num}"]`);
+    const chevron = document.querySelector(`[data-toggle-phase="${num}"] .phase-chevron`);
+    events?.classList.remove('hidden');
+    chevron?.classList.add('rotate-180');
+  });
 </script>

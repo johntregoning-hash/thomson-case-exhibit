@@ -1,0 +1,547 @@
+{
+  "metadata": {
+    "lastUpdated": "2026-01-08",
+    "classifications": [
+      "DEFENDANT",
+      "WITNESS_FAVOURABLE",
+      "WITNESS_ADVERSE",
+      "CURRENT_CARE",
+      "ADMINISTRATIVE"
+    ]
+  },
+  "actors": [
+    {
+      "id": "A001",
+      "name": "Clive Polles",
+      "role": "Practice Manager (non-clinical)",
+      "organisation": "Grove Park Terrace Surgery / Glebe Street Surgery",
+      "classification": "DEFENDANT",
+      "isAdministrative": true,
+      "conduct": [
+        {
+          "date": "Dec 2021",
+          "description": "Refused to authorise replacement buprenorphine patch without clinical authority",
+          "evidenceSource": "Patient testimony",
+          "verification": "TESTIMONY",
+          "severity": "critical"
+        },
+        {
+          "date": "Multiple",
+          "description": "Made 'off the books' calls from personal mobile to patient's mother",
+          "evidenceSource": "Patient/family testimony",
+          "verification": "TESTIMONY",
+          "severity": "high"
+        },
+        {
+          "date": "Multiple",
+          "description": "Made false claims about medication quantities (disprovable by father's collection records)",
+          "evidenceSource": "Patient testimony",
+          "verification": "DISPROVABLE",
+          "severity": "high"
+        },
+        {
+          "date": "Unknown",
+          "description": "Referenced by Dr Gorrie re: 'sketchy stuff' that blocked practice merger",
+          "evidenceSource": "Patient testimony re: Dr Gorrie statement",
+          "verification": "TESTIMONY",
+          "severity": "moderate"
+        }
+      ],
+      "legalSignificance": "Non-clinical staff making clinical decisions about medication. Pattern of conduct outside normal administrative boundaries. Use of personal phone avoids audit trail.",
+      "relatedFindings": ["F070", "F071", "F072", "F021", "F136"],
+      "critical": true
+    },
+    {
+      "id": "A002",
+      "name": "Dr Bulale Ali",
+      "role": "General Practitioner",
+      "organisation": "Grove Park Terrace Surgery / Glebe Street Surgery",
+      "classification": "DEFENDANT",
+      "gmcNumber": "To be obtained",
+      "conduct": [
+        {
+          "date": "Sep 2021",
+          "description": "Recorded patient was 'sleeping pain-free' - CONTRADICTED by contemporaneous evidence",
+          "evidenceSource": "GP record",
+          "verification": "DOCUMENTARY_CONTRADICTED",
+          "severity": "critical"
+        },
+        {
+          "date": "05 Jan 2023",
+          "description": "Applied Somatoform Pain Disorder during telephone call about opioid switching - NOT a psychiatric assessment",
+          "evidenceSource": "GP record",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        },
+        {
+          "date": "05 Jan 2023",
+          "description": "Used wrong ICD-10 code (E278 instead of F45.4)",
+          "evidenceSource": "GP record coding",
+          "verification": "DOCUMENTARY",
+          "severity": "moderate"
+        },
+        {
+          "date": "05 Jan 2023",
+          "description": "Did not inform patient of psychiatric diagnosis being added to record",
+          "evidenceSource": "Patient testimony; no disclosure documented",
+          "verification": "NEGATIVE_DOCUMENTARY",
+          "severity": "high"
+        }
+      ],
+      "legalSignificance": "Psychiatric diagnosis applied without assessment, without patient knowledge, AFTER MRI proved physical fractures. No responsible body of medical opinion would support this.",
+      "relatedFindings": ["F001", "F040", "F-GEM-001", "F-GEM-006", "F-GEM-007"],
+      "critical": true
+    },
+    {
+      "id": "A003",
+      "name": "Dr Sian Morgan",
+      "role": "General Practitioner",
+      "organisation": "Grove Park Terrace Surgery / Glebe Street Surgery",
+      "classification": "DEFENDANT",
+      "gmcNumber": "To be obtained",
+      "conduct": [
+        {
+          "date": "02 Aug 2023",
+          "description": "Recorded 'the main issue here is opaite [sic] addiction' with NO toxicology testing",
+          "evidenceSource": "GP record",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        },
+        {
+          "date": "02 Aug 2023",
+          "description": "Documented disbelief of patient: 'Pulse 100 - I'm not sure about this' re stimulant denial",
+          "evidenceSource": "GP record",
+          "verification": "DOCUMENTARY",
+          "severity": "high"
+        },
+        {
+          "date": "All",
+          "description": "No toxicology testing ever performed despite documenting addiction concerns",
+          "evidenceSource": "GP record (absence of testing)",
+          "verification": "NEGATIVE_DOCUMENTARY",
+          "severity": "critical"
+        }
+      ],
+      "legalSignificance": "Addiction diagnosis for prescribed medication without objective evidence. No drug testing performed despite documenting addiction concerns. Defamatory entry on permanent medical record. Contradicted by 2-year documented cardiac history showing baseline tachycardia.",
+      "relatedFindings": ["F044", "F104", "F115", "F116", "F117", "F-GEM-002", "F-GEM-010"],
+      "critical": true
+    },
+    {
+      "id": "A004",
+      "name": "Dr Richard Drewry",
+      "role": "General Practitioner",
+      "organisation": "Grove Park Terrace Surgery / Glebe Street Surgery",
+      "classification": "DEFENDANT",
+      "gmcNumber": "To be obtained",
+      "conduct": [
+        {
+          "date": "22 Jul 2020",
+          "description": "First invoked patient's deceased brother Dorian in relation to care",
+          "evidenceSource": "GP record",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        },
+        {
+          "date": "18 Aug 2023",
+          "description": "Documented disbelief that patient had cranial surgery",
+          "evidenceSource": "GP record",
+          "verification": "DOCUMENTARY",
+          "severity": "high"
+        },
+        {
+          "date": "Oct 2023",
+          "description": "Ceased Oxycontin without taper, instructed OTC Co-codamol",
+          "evidenceSource": "GP record; pharmacy",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        },
+        {
+          "date": "Oct 2023",
+          "description": "Accused patient of 'lying' about instruction - DISPROVED by pharmacy",
+          "evidenceSource": "GP record",
+          "verification": "DOCUMENTARY_DISPROVED",
+          "severity": "critical"
+        },
+        {
+          "date": "20 Dec 2023",
+          "description": "Failed to investigate sensory loss after third-degree burn",
+          "evidenceSource": "GP record",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        }
+      ],
+      "legalSignificance": "First documented use of family tragedy to dismiss physical symptoms. Multiple BNF/GMC breaches. False accusation disproved by pharmacy records. Failed to investigate neurological red flags.",
+      "relatedFindings": ["F045", "F101", "F119", "F-GEM-006", "F-GEM-008", "F-GEM-012"],
+      "critical": true
+    },
+    {
+      "id": "A005",
+      "name": "Dr Arun Bhaskar",
+      "role": "Consultant Pain Medicine",
+      "organisation": "Imperial College Healthcare NHS Trust - Charing Cross Hospital",
+      "classification": "DEFENDANT",
+      "gmcNumber": "To be obtained",
+      "conduct": [
+        {
+          "date": "14 Oct 2021",
+          "description": "Rejected pain referral citing suicide concern without ever seeing patient",
+          "evidenceSource": "CL007 clinic letter",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        },
+        {
+          "date": "14 Oct 2021",
+          "description": "Misrepresented neurology review - cited headache clinic letter as if it assessed back pain",
+          "evidenceSource": "CL007 vs Kalladka letter comparison",
+          "verification": "DOCUMENTARY_PROVEN_FALSE",
+          "severity": "critical"
+        },
+        {
+          "date": "14 Oct 2021",
+          "description": "Applied 'functional neurological disorder' label based on A&E mischaracterisation",
+          "evidenceSource": "CL007 addendum",
+          "verification": "DOCUMENTARY",
+          "severity": "high"
+        }
+      ],
+      "legalSignificance": "PROVEN MISREPRESENTATION - Cited headache clinic letter as evidence about back pain to BLOCK pain clinic review. 10 weeks before December 2021 seizure. No Bolam defence available.",
+      "relatedFindings": ["F043", "F091", "F132", "F133", "F344", "F345"],
+      "critical": true
+    },
+    {
+      "id": "A006",
+      "name": "Dr Kushan Karunaratne",
+      "role": "Consultant Neurologist (Epilepsy)",
+      "organisation": "Imperial College Healthcare NHS Trust",
+      "classification": "WITNESS_FAVOURABLE",
+      "conduct": [
+        {
+          "date": "Multiple",
+          "description": "Verbally stated 'data manipulation' regarding GP care issues (parents witnessed)",
+          "evidenceSource": "Patient testimony; parents present",
+          "verification": "TESTIMONY_WITNESSED",
+          "severity": "critical"
+        },
+        {
+          "date": "15 Feb 2022",
+          "description": "Documented 14-month sleep deprivation at first epilepsy assessment",
+          "evidenceSource": "CL010 clinic letter",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        },
+        {
+          "date": "03 Jan 2023",
+          "description": "Documented severe physical symptoms 2 days before GP applied Somatoform",
+          "evidenceSource": "CL016 clinic letter",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        },
+        {
+          "date": "05 Dec 2023",
+          "description": "Stated 'medical explanations have been found for symptoms'",
+          "evidenceSource": "CL019 clinic letter",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        },
+        {
+          "date": "10 Dec 2024",
+          "description": "Formally diagnosed 'Epilepsy with generalised seizures'",
+          "evidenceSource": "CL032 clinic letter",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        }
+      ],
+      "legalSignificance": "CRITICAL WITNESS - Independent NHS specialist raising concerns about GP conduct. 'Data manipulation' statement with witnesses. Key vindication evidence documented across multiple clinic letters.",
+      "relatedFindings": ["F020", "F126", "F127", "F128", "F129", "F130", "F337", "F354"],
+      "critical": true
+    },
+    {
+      "id": "A007",
+      "name": "Dr Alexander Gorrie",
+      "role": "General Practitioner",
+      "organisation": "Grove Park / Chiswick Medical Practice",
+      "classification": "CURRENT_CARE",
+      "conduct": [
+        {
+          "date": "Jul/Sep 2025",
+          "description": "Marked Somatoform diagnosis as INACTIVE - noted 'there were clear causes for his pain'",
+          "evidenceSource": "GP record",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        },
+        {
+          "date": "17 Oct 2023",
+          "description": "First GP to properly recognise seizure/fracture chronology and refer to orthopaedics",
+          "evidenceSource": "GP record",
+          "verification": "DOCUMENTARY",
+          "severity": "high"
+        },
+        {
+          "date": "Unknown",
+          "description": "Referenced 'sketchy stuff' about Clive Polles that blocked practice merger",
+          "evidenceSource": "Patient testimony",
+          "verification": "TESTIMONY",
+          "severity": "moderate"
+        }
+      ],
+      "legalSignificance": "CRITICAL VINDICATION - Subsequent NHS clinician independently determined psychiatric diagnosis inappropriate. Internal NHS vindication, not litigation-driven.",
+      "relatedFindings": ["F021", "F030", "F034"],
+      "notes": "Current treating physician - relationship must be preserved. Any request for formal statement must be handled sensitively.",
+      "critical": true
+    },
+    {
+      "id": "A008",
+      "name": "Sumeer Bhamm",
+      "role": "Senior MSK Physiotherapist",
+      "organisation": "Imperial College Healthcare - Charing Cross Hospital",
+      "classification": "WITNESS_FAVOURABLE",
+      "conduct": [
+        {
+          "date": "04 Aug 2021",
+          "description": "Documented: 'issues with GP, as they did not believe his pain and accused him for attention seeking'",
+          "evidenceSource": "MSK Physio records",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        },
+        {
+          "date": "23 Nov 2021",
+          "description": "Documented Pain Clinic rejected referral without speaking to patient directly",
+          "evidenceSource": "MSK Letter",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        },
+        {
+          "date": "23 Nov 2021",
+          "description": "Conducted own assessment: patient 'assures me he is not suicidal but just struggling to manage pain'",
+          "evidenceSource": "MSK Letter",
+          "verification": "DOCUMENTARY",
+          "severity": "high"
+        }
+      ],
+      "legalSignificance": "CRITICAL EVIDENCE - Third-party contemporaneous documentation of GP dismissal pattern PREDATING December 2021 seizure. Independent clinician advocating for patient.",
+      "relatedFindings": ["F022", "F027"],
+      "critical": true
+    },
+    {
+      "id": "A009",
+      "name": "Jason Parry",
+      "role": "Clinical Specialist Physiotherapist",
+      "organisation": "UCLH Hypermobility Service",
+      "classification": "WITNESS_FAVOURABLE",
+      "conduct": [
+        {
+          "date": "22 Jul 2021",
+          "description": "RARE FACE-TO-FACE EXAMINATION documenting visible physical signs: paraspinal muscle spasm, lumbar stiffness, reduced core stability",
+          "evidenceSource": "UCLH letter",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        },
+        {
+          "date": "22 Jul 2021",
+          "description": "Confirmed October 2020 pain onset; documented 'struggling to sleep as a result of back pain'",
+          "evidenceSource": "UCLH letter",
+          "verification": "DOCUMENTARY",
+          "severity": "high"
+        }
+      ],
+      "legalSignificance": "BASELINE - Documents VISIBLE physical signs 5 months before seizure. Independently confirms October 2020 pain onset and sleep disruption. One of very few documented physical examinations.",
+      "relatedFindings": ["F026"],
+      "critical": true
+    },
+    {
+      "id": "A010",
+      "name": "Dr Sara Simeoni",
+      "role": "Consultant Neurologist",
+      "organisation": "Chelsea & Westminster Hospital",
+      "classification": "WITNESS_FAVOURABLE",
+      "conduct": [
+        {
+          "date": "29 Aug 2022",
+          "description": "Explicitly documented: 'Has never been reviewed by the FND team at St George's'",
+          "evidenceSource": "CL075 clinic letter",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        },
+        {
+          "date": "29 Aug 2022",
+          "description": "Documented: 'When had a seizure pregabalin had been stopped abruptly'",
+          "evidenceSource": "CL075 clinic letter",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        },
+        {
+          "date": "29 Aug 2022",
+          "description": "Documented Baclofen 90% effective for tremor (challenges functional tremor label)",
+          "evidenceSource": "CL075 clinic letter",
+          "verification": "DOCUMENTARY",
+          "severity": "high"
+        }
+      ],
+      "legalSignificance": "Key vindication evidence - Confirmed FND label applied without formal assessment. Documented direct pregabalin cessation → seizure causation.",
+      "relatedFindings": ["F323", "F324", "F325"],
+      "critical": true
+    },
+    {
+      "id": "A011",
+      "name": "Dr Amit Gupta",
+      "role": "General Practitioner / Psychiatric Referral",
+      "organisation": "Grove Park Terrace Surgery",
+      "classification": "DEFENDANT",
+      "conduct": [
+        {
+          "date": "28 Sep 2020",
+          "description": "Made MH1 referral with somatisation framing - linked brother's suicide to 'somatisation'",
+          "evidenceSource": "MH1 Referral Form",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        }
+      ],
+      "legalSignificance": "First documented 'somatisation' framing in referral BEFORE key injury events. Created contamination pathway for later clinicians.",
+      "relatedFindings": ["F002"],
+      "critical": true
+    },
+    {
+      "id": "A012",
+      "name": "Mr Hamid Hassany",
+      "role": "Spine Consultant Neurosurgeon",
+      "organisation": "Imperial College Healthcare NHS Trust",
+      "classification": "WITNESS_ADVERSE",
+      "conduct": [
+        {
+          "date": "08 Feb 2022",
+          "description": "Discharged patient because LUMBAR MRI normal - stated 'no surgical target'",
+          "evidenceSource": "CL009 clinic letter",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        },
+        {
+          "date": "08 Feb 2022",
+          "description": "Acknowledged 'MRI findings does not explain his severe back pain' but discharged anyway",
+          "evidenceSource": "CL009 clinic letter",
+          "verification": "DOCUMENTARY",
+          "severity": "high"
+        }
+      ],
+      "legalSignificance": "CRITICAL DIAGNOSTIC FAILURE - Wrong spinal region imaged. THORACIC fractures discovered 8 months later when thoracic spine finally scanned.",
+      "relatedFindings": ["F347"],
+      "critical": true
+    },
+    {
+      "id": "A013",
+      "name": "Patient's Parents",
+      "role": "Family / Carers",
+      "organisation": "N/A",
+      "classification": "WITNESS_FAVOURABLE",
+      "names": {
+        "mother": "Virginia Thomson",
+        "father": "TBC"
+      },
+      "witnessedEvents": [
+        {
+          "event": "Dr Karunaratne 'data manipulation' statement",
+          "witnesses": "Both parents",
+          "status": "Requires formal statement"
+        },
+        {
+          "event": "Clive Polles mobile phone calls to mother",
+          "witnesses": "Mother",
+          "status": "Requires formal statement"
+        },
+        {
+          "event": "Father collected ALL prescriptions",
+          "witnesses": "Father",
+          "status": "Can disprove medication claims"
+        },
+        {
+          "event": "Gratuitous care provided",
+          "witnesses": "Both parents",
+          "status": "Requires care diary"
+        }
+      ],
+      "legalSignificance": "Key witnesses to multiple critical events. Father's records disprove Polles' medication claims. Can provide gratuitous care evidence for quantum.",
+      "relatedFindings": ["F020", "F071"],
+      "critical": true
+    },
+    {
+      "id": "A014",
+      "name": "Dr Priya Khemani",
+      "role": "General Practitioner",
+      "organisation": "Grove Park Terrace Surgery",
+      "classification": "DEFENDANT",
+      "conduct": [
+        {
+          "date": "24 Dec 2021",
+          "description": "Noted 'CT head - NAD' but failed to order spinal imaging despite 'severe back pain'",
+          "evidenceSource": "GP record",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        },
+        {
+          "date": "Mar 2022",
+          "description": "Relied on brain/lung imaging to dismiss thoracic spine injury",
+          "evidenceSource": "GP record",
+          "verification": "DOCUMENTARY",
+          "severity": "high"
+        },
+        {
+          "date": "Mar 2022",
+          "description": "Noted '?seizure' but failed to add SNOMED code to problem list",
+          "evidenceSource": "GP record",
+          "verification": "DOCUMENTARY",
+          "severity": "moderate"
+        }
+      ],
+      "legalSignificance": "False assurance - Cited irrelevant imaging as reassurance. Contributed to 10-month delay in diagnosing T5-T8 fractures.",
+      "relatedFindings": ["F-GEM-011", "F-GEM-033", "F-GEM-044"],
+      "critical": false
+    },
+    {
+      "id": "A015",
+      "name": "Dr Glennis Williams",
+      "role": "General Practitioner",
+      "organisation": "Grove Park Terrace Surgery",
+      "classification": "DEFENDANT",
+      "conduct": [
+        {
+          "date": "18-20 Oct 2021",
+          "description": "Pregabalin 600mg abruptly stopped violating BNF taper guidance",
+          "evidenceSource": "GP record; BNF guidelines",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        }
+      ],
+      "legalSignificance": "4-month medication void contributed to seizure risk. Critical for F050 causation chain.",
+      "relatedFindings": ["F042", "F-GEM-038", "F-GEM-039"],
+      "critical": true
+    }
+  ],
+  "organisationSummary": {
+    "groveParkTerraceSurgery": {
+      "name": "Grove Park Terrace Surgery / Glebe Street Surgery",
+      "defendants": ["Clive Polles", "Dr Bulale Ali", "Dr Sian Morgan", "Dr Richard Drewry", "Dr Amit Gupta", "Dr Priya Khemani", "Dr Glennis Williams"],
+      "status": "PRIMARY DEFENDANT",
+      "note": "COMPLETELY DISTINCT from current practice"
+    },
+    "imperialCollegeHealthcare": {
+      "name": "Imperial College Healthcare NHS Trust",
+      "potentialDefendants": ["Dr Arun Bhaskar", "Mr Hamid Hassany"],
+      "favourableWitnesses": ["Dr Kushan Karunaratne", "Sumeer Bhamm"],
+      "status": "TO ASSESS"
+    },
+    "chelseaWestminster": {
+      "name": "Chelsea & Westminster Hospital",
+      "favourableWitnesses": ["Dr Sara Simeoni", "Pain Clinic Psychologist"],
+      "status": "WITNESS_FAVOURABLE"
+    },
+    "uclh": {
+      "name": "University College London Hospital",
+      "favourableWitnesses": ["Jason Parry"],
+      "status": "TO ASSESS"
+    },
+    "currentPractice": {
+      "name": "Grove Park / Chiswick Medical Practice",
+      "favourableWitnesses": ["Dr Alexander Gorrie"],
+      "note": "Current care provider - relationship must be preserved"
+    }
+  }
+}
