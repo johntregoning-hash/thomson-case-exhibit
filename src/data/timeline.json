@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "lastUpdated": "2026-01-07",
+    "lastUpdated": "2026-01-18",
     "totalPhases": 8,
     "diagnosticDelay": "10 months",
     "indexEvent": "23 December 2021",
@@ -420,8 +420,23 @@
         "studies": [
           { "date": "Jun 2019", "type": "Duplex Ultrasound", "result": "Complete flow cessation - POSITIVE" },
           { "date": "Jan 2024", "type": "Dynamic MR", "result": "Compression with arms abducted - POSITIVE" },
+          { "date": "Jul 2024", "type": "MRA (Vascular)", "result": "Subclavian compression + stenosis - POSITIVE" },
           { "date": "Jun 2025", "type": "Doppler", "result": "Bilateral occlusion at 90° - POSITIVE" }
         ]
+      },
+      "vascularVindication": {
+        "date": "03 July 2024",
+        "clinician": "Mr Aaron Goh",
+        "organisation": "Royal Free Hospital - Vascular Surgery",
+        "findingRefs": ["F356", "F357", "F358", "F359"],
+        "keyFindings": [
+          "Formal diagnoses: Epilepsy, T5-T8 fractures, EDS (all ORGANIC)",
+          "Tremor listed as 'unknown aetiology' - NOT labelled functional",
+          "MRA confirms subclavian compression + stenosis",
+          "Patient states would prefer amputation - severity documented",
+          "Care transferred between hospitals to consolidate fragmented records"
+        ],
+        "significance": "Independent non-neurology specialist vindicates organic pathology. Critical quantum evidence."
       }
     }
   ],

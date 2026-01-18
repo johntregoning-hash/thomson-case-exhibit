@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "lastUpdated": "2026-01-08",
+    "lastUpdated": "2026-01-18",
     "classifications": [
       "DEFENDANT",
       "WITNESS_FAVOURABLE",
@@ -513,6 +513,46 @@
       "legalSignificance": "4-month medication void contributed to seizure risk. Critical for F050 causation chain.",
       "relatedFindings": ["F042", "F-GEM-038", "F-GEM-039"],
       "critical": true
+    },
+    {
+      "id": "A016",
+      "name": "Mr Aaron Goh",
+      "role": "Consultant Vascular Surgeon",
+      "organisation": "Royal Free Hospital NHS Foundation Trust",
+      "classification": "WITNESS_FAVOURABLE",
+      "conduct": [
+        {
+          "date": "03 Jul 2024",
+          "description": "Formal diagnosis list: Epilepsy, T5-T8 fractures, EDS - all organic conditions. Tremor listed as 'unknown aetiology' NOT functional.",
+          "evidenceSource": "CL117 clinic letter",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        },
+        {
+          "date": "03 Jul 2024",
+          "description": "Documented MRA findings: 'compression of subclavian vein' + 'focal stenosis of left subclavian artery'",
+          "evidenceSource": "CL117 clinic letter",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        },
+        {
+          "date": "03 Jul 2024",
+          "description": "Documented extreme symptom severity: patient 'would rather his arm be amputated due to the discomfort'",
+          "evidenceSource": "CL117 clinic letter",
+          "verification": "DOCUMENTARY",
+          "severity": "critical"
+        },
+        {
+          "date": "03 Jul 2024",
+          "description": "Documented care fragmentation: 'care transferred from UCLH to Royal Free in a bid to amalgamate his notes'",
+          "evidenceSource": "CL117 clinic letter",
+          "verification": "DOCUMENTARY",
+          "severity": "high"
+        }
+      ],
+      "legalSignificance": "CRITICAL VINDICATION - Independent specialist (non-neurology) formally listing organic diagnoses including epilepsy. Tremor specifically NOT attributed to FND. MRA imaging confirms TOS. Documented severity critical for quantum.",
+      "relatedFindings": ["F356", "F357", "F358", "F359"],
+      "critical": true
     }
   ],
   "organisationSummary": {
@@ -542,6 +582,12 @@
       "name": "Grove Park / Chiswick Medical Practice",
       "favourableWitnesses": ["Dr Alexander Gorrie"],
       "note": "Current care provider - relationship must be preserved"
+    },
+    "royalFreeHospital": {
+      "name": "Royal Free Hospital NHS Foundation Trust",
+      "favourableWitnesses": ["Mr Aaron Goh"],
+      "status": "WITNESS_FAVOURABLE",
+      "note": "Vascular surgery - critical vindication evidence July 2024"
     }
   }
 }

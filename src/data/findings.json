@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "lastUpdated": "2026-01-15",
-    "totalFindings": 200,
-    "highestFindingId": "F355",
+    "lastUpdated": "2026-01-18",
+    "totalFindings": 204,
+    "highestFindingId": "F359",
     "categories": [
       "DISCREPANCY",
       "FABRICATION",
@@ -21,7 +21,7 @@
     "workflowStatuses": ["OPEN", "IN_REVIEW", "ACTIONED", "PARKED"]
   },
   "priorityFindings": [
-    "F319", "F323", "F324", "F325", "F334", "F337", "F344", "F347", "F354"
+    "F319", "F323", "F324", "F325", "F334", "F337", "F344", "F347", "F354", "F356", "F357", "F358"
   ],
   "findings": [
     {
@@ -623,17 +623,77 @@
       "legalSignificance": "DEVASTATING - Proves 'addiction' narrative based on falsified dosage parameters. Destroys 'Contributory Negligence' defence.",
       "relatedFindings": ["F-GEM-007", "F-GEM-008", "F044", "F116"],
       "critical": true
+    },
+    {
+      "id": "F356",
+      "title": "Vascular Surgeon Lists Formal Diagnoses - Organic Conditions Confirmed",
+      "date": "2024-07-03",
+      "dateFound": "2026-01-15",
+      "source": "CL117_2024-07-03_RFL_Vascular_Goh.pdf",
+      "category": "VINDICATION",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Vascular surgeon Mr Aaron Goh's formal diagnosis list includes: Epilepsy (NOT NEAD/FND), T5-T8 fractured vertebrae and ribs (confirmed), EDS/Hypermobility, Tremor of UNKNOWN AETIOLOGY (NOT labelled functional).",
+      "evidenceRefs": "CL117_2024-07-03_RFL_Vascular_Goh.pdf",
+      "legalSignificance": "CRITICAL VINDICATION - Independent specialist (non-neurology) lists epilepsy and fractures as confirmed organic conditions. Tremor NOT attributed to FND - listed as 'unknown aetiology'.",
+      "relatedFindings": ["F350", "F354", "F357"],
+      "critical": true
+    },
+    {
+      "id": "F357",
+      "title": "MRA Confirms Subclavian Compression and Stenosis",
+      "date": "2024-07-03",
+      "dateFound": "2026-01-15",
+      "source": "CL117_2024-07-03_RFL_Vascular_Goh.pdf",
+      "category": "VINDICATION",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "MRA imaging confirms 'compression of the subclavian vein on the left as well as a focal stenosis of the left subclavian artery' in the subclavicular space.",
+      "evidenceRefs": "CL117_2024-07-03_RFL_Vascular_Goh.pdf",
+      "legalSignificance": "CRITICAL VINDICATION - Objective imaging evidence of TOS. Establishes 6+ years of documented vascular pathology (2019-2024-2025). Cannot be dismissed as functional/non-organic.",
+      "relatedFindings": ["F032", "F033", "F036", "F356"],
+      "critical": true
+    },
+    {
+      "id": "F358",
+      "title": "Symptom Severity: Patient Would Prefer Amputation",
+      "date": "2024-07-03",
+      "dateFound": "2026-01-15",
+      "source": "CL117_2024-07-03_RFL_Vascular_Goh.pdf",
+      "category": "QUANTUM",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Vascular surgeon documents extreme symptom severity: patient 'would rather his arm be amputated due to the discomfort'.",
+      "evidenceRefs": "CL117_2024-07-03_RFL_Vascular_Goh.pdf",
+      "legalSignificance": "CRITICAL QUANTUM - Specialist-recorded statement establishes extreme suffering. Critical evidence for general damages assessment.",
+      "relatedFindings": ["F356", "F357"],
+      "critical": true
+    },
+    {
+      "id": "F359",
+      "title": "Care Fragmentation Required Hospital Transfer",
+      "date": "2024-07-03",
+      "dateFound": "2026-01-15",
+      "source": "CL117_2024-07-03_RFL_Vascular_Goh.pdf",
+      "category": "PROCEDURAL",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Care transfer required specifically to consolidate fragmented records: 'His care has been transferred from UCLH to the Royal Free in a bid to amalgamate his notes'.",
+      "evidenceRefs": "CL117_2024-07-03_RFL_Vascular_Goh.pdf",
+      "legalSignificance": "Supports care coordination failure argument. NHS system required inter-hospital transfer to manage record fragmentation caused by care pathway failures.",
+      "relatedFindings": ["F356", "F357"],
+      "critical": false
     }
   ],
   "categoryCounts": {
     "DISCREPANCY": 4,
     "FABRICATION": 2,
     "WITNESS": 15,
-    "VINDICATION": 25,
+    "VINDICATION": 27,
     "BREACH": 30,
     "CAUSATION": 8,
-    "QUANTUM": 5,
-    "PROCEDURAL": 6,
+    "QUANTUM": 6,
+    "PROCEDURAL": 7,
     "STRATEGIC": 4,
     "NEUROLOGICAL": 12,
     "MEDICATION": 15,
