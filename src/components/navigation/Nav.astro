@@ -16,6 +16,7 @@ const navItems = [
   { href: '/', label: 'Home' },
   { href: '/findings', label: 'Findings' },
   { href: '/vindication', label: 'Vindication' },
+  { href: '/essays', label: 'Essays' },
   { href: '/timeline', label: 'Timeline' },
   { href: '/evidence', label: 'Evidence' },
   { href: '/actors', label: 'Actors' },
@@ -43,12 +44,12 @@ const isActive = (href: string) => {
       </a>
 
       <!-- Desktop Navigation -->
-      <div class="hidden md:flex items-center gap-1">
+      <div class="hidden lg:flex items-center gap-1">
         {navItems.map((item) => (
           <a
             href={getHref(item.href)}
             class:list={[
-              'px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200',
+              'px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200',
               isActive(item.href)
                 ? 'bg-navy-800 text-gold-400'
                 : 'text-navy-300 hover:text-white hover:bg-navy-800/50'
@@ -62,7 +63,7 @@ const isActive = (href: string) => {
       <!-- Mobile Menu Button -->
       <button
         id="mobile-menu-btn"
-        class="md:hidden p-2 rounded-lg text-navy-300 hover:text-white hover:bg-navy-800/50"
+        class="lg:hidden p-2 rounded-lg text-navy-300 hover:text-white hover:bg-navy-800/50"
         aria-label="Toggle menu"
       >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -73,7 +74,7 @@ const isActive = (href: string) => {
   </div>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden md:hidden border-t border-navy-800/50 bg-navy-950/95 backdrop-blur-lg">
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-navy-800/50 bg-navy-950/95 backdrop-blur-lg">
     <div class="container-wide py-4 space-y-1">
       {navItems.map((item) => (
         <a

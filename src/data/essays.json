@@ -1,0 +1,144 @@
+{
+  "metadata": {
+    "lastUpdated": "2026-01-19",
+    "totalEssays": 6,
+    "description": "Foundational essays documenting the core arguments, evidence chains, and legal analysis for Thomson v NHS Providers"
+  },
+  "essays": [
+    {
+      "id": "somatoform-contamination",
+      "title": "Somatoform Contamination: The Covert Diagnosis",
+      "subtitle": "How a Psychiatric Label Was Applied Without Assessment, Knowledge, or Basis",
+      "filename": "FOUNDATIONAL_ESSAY_SOMATOFORM_CONTAMINATION_CORRECTED_2026-01-18.docx",
+      "date": "2026-01-18",
+      "version": "2.0 (Corrected)",
+      "category": "BREACH",
+      "status": "CURRENT",
+      "keyFindings": ["F040", "F030", "F031", "F038", "F127", "F323"],
+      "summary": "Documents how Dr Bulale Ali applied Somatoform Pain Disorder (F45.4) during a telephone consultation about opioid medication switching on 5 January 2023 - after MRI had confirmed T5-T8 vertebral fractures. The patient was never informed. The diagnosis was later removed by Dr Gorrie in July 2025 with the note 'there were clear causes for his pain.'",
+      "keyArguments": [
+        "Psychiatric diagnosis applied without psychiatric assessment",
+        "Applied after objective pathology (vertebral fractures) confirmed on imaging",
+        "Patient never informed of diagnosis",
+        "Wrong ICD-10 code used (E278 instead of F45.4) suggesting unfamiliarity",
+        "Independently removed by subsequent GP as self-evidently inappropriate",
+        "Pain Clinic explicitly refuted somatoform characterisation"
+      ],
+      "critical": true
+    },
+    {
+      "id": "diagnostic-delay",
+      "title": "The 10-Month Diagnostic Delay",
+      "subtitle": "How T5-T8 Vertebral Fractures Went Undiagnosed Despite Red Flag Presentation",
+      "filename": "FOUNDATIONAL_ESSAY_DIAGNOSTIC_DELAY_2026-01-17.docx",
+      "date": "2026-01-17",
+      "version": "1.0",
+      "category": "BREACH",
+      "status": "CURRENT",
+      "keyFindings": ["F041", "F347", "F350", "F023"],
+      "summary": "Documents the 10-month delay in diagnosing T5-T8 vertebral fractures from the December 2021 seizure until MRI confirmation in October 2022. Initial A&E assessment dismissed the injury as 'soft tissue' despite NICE NG59 red flag presentation. The delay was compounded by imaging the wrong spinal region (lumbar instead of thoracic).",
+      "keyArguments": [
+        "NICE NG59 red flags present but not actioned",
+        "Initial A&E dismissed injury as 'soft tissue'",
+        "Wrong spinal region imaged (lumbar MRI when thoracic was symptomatic)",
+        "Patient discharged from Neurospine because 'no surgical target' - on lumbar MRI",
+        "10 months of undiagnosed vertebral fractures caused prolonged suffering",
+        "Thoracic MRI eventually confirmed T5-T8 fractures"
+      ],
+      "critical": true
+    },
+    {
+      "id": "medication-causation",
+      "title": "Medication Causation: Pregabalin Withdrawal and Seizure",
+      "subtitle": "How Abrupt Pregabalin Reduction Led to the Index Seizure Event",
+      "filename": "FOUNDATIONAL_ESSAY_MEDICATION_CAUSATION_2026-01-18.docx",
+      "date": "2026-01-18",
+      "version": "1.0",
+      "category": "CAUSATION",
+      "status": "CURRENT",
+      "keyFindings": ["F042", "F050", "F324", "F334", "F354"],
+      "summary": "Documents the causation chain linking abrupt pregabalin reduction (600mg to 100mg) in October 2021 to the seizure event on 23 December 2021. BNF guidance mandates gradual withdrawal over minimum 1 week. Dr Simeoni documented: 'When had a seizure pregabalin had been stopped abruptly.' The patient now has a formal epilepsy diagnosis.",
+      "keyArguments": [
+        "BNF mandates gradual pregabalin withdrawal - not followed",
+        "Reduction from 600mg to 100mg in 2-3 days",
+        "Independent specialist documented seizure occurred when pregabalin stopped abruptly",
+        "Sleep deprivation (14+ months) lowered seizure threshold",
+        "Patient later diagnosed with epilepsy (not dissociative/functional seizures)",
+        "Pattern repeated: GP stopped OxyContin unsafely despite Pain Clinic warning of seizure risk"
+      ],
+      "critical": true
+    },
+    {
+      "id": "vindication-evidence",
+      "title": "The Vindication Evidence",
+      "subtitle": "Independent Specialist Confirmations That Refute Psychiatric Framing",
+      "filename": "FOUNDATIONAL_ESSAY_VINDICATION_EVIDENCE_2026-01-17.docx",
+      "date": "2026-01-17",
+      "version": "1.0",
+      "category": "VINDICATION",
+      "status": "CURRENT",
+      "keyFindings": ["F030", "F031", "F128", "F337", "F354", "F356", "F357"],
+      "summary": "Compiles the independent specialist statements that vindicate John Thomson's physical symptoms and refute the psychiatric/functional framing. Dr Karunaratne: 'medical explanations have been found.' Dr Gorrie removed somatoform noting 'clear causes for his pain.' Pain Clinic stated somatoform was 'NOT their opinion.' Multiple imaging studies confirm TOS over 6 years.",
+      "keyArguments": [
+        "Dr Gorrie independently removed somatoform diagnosis",
+        "Pain Clinic explicitly disagreed with somatoform characterisation",
+        "Dr Karunaratne: 'medical explanations have been found for symptoms'",
+        "Formal epilepsy diagnosis (not NEAD/functional seizures)",
+        "POTS diagnosis refuted by cardiologist - 'test did not show this'",
+        "TOS confirmed on imaging over 6-year timeline (2019, 2024, 2025)",
+        "Psychiatric assessment found NO mental health disorders"
+      ],
+      "critical": true
+    },
+    {
+      "id": "practice-manager-conduct",
+      "title": "Practice Manager Conduct",
+      "subtitle": "Non-Clinical Decisions With Clinical Consequences",
+      "filename": "FOUNDATIONAL_ESSAY_PRACTICE_MANAGER_CONDUCT_2026-01-18.docx",
+      "date": "2026-01-18",
+      "version": "1.0",
+      "category": "PROCEDURAL",
+      "status": "CURRENT",
+      "keyFindings": ["F136", "F021"],
+      "summary": "Documents the conduct of practice manager Clive Polles in making clinical decisions without clinical authority. iMessage evidence shows direct involvement in medication decisions. Dr Gorrie referenced 'sketchy stuff' that blocked a practice merger. Medication refused 4 days before the December 2021 seizure.",
+      "keyArguments": [
+        "Practice manager made clinical decisions without clinical qualifications",
+        "Medication refused 4 days before index seizure event",
+        "Direct text messages from Polles to patient/family about clinical matters",
+        "Current GP referenced 'sketchy stuff' blocking practice merger",
+        "'Off the books' calls to patient's mother with disprovable claims",
+        "Non-clinical staff influencing care pathways"
+      ],
+      "critical": false
+    },
+    {
+      "id": "tos-delay",
+      "title": "Thoracic Outlet Syndrome: The Ongoing Delay",
+      "subtitle": "Six Years of Documented Vascular Pathology",
+      "filename": "FOUNDATIONAL_ESSAY_TOS_DELAY_2026-01-18.docx",
+      "date": "2026-01-18",
+      "version": "1.0",
+      "category": "BREACH",
+      "status": "CURRENT",
+      "keyFindings": ["F032", "F033", "F036", "F037", "F357"],
+      "summary": "Documents the 6+ year timeline of Thoracic Outlet Syndrome from first positive Doppler in June 2019 through subsequent confirmatory imaging in 2024 and 2025. Despite objective evidence of vascular compression, the condition has not received definitive surgical intervention. Patient symptom severity documented: 'would rather his arm be amputated.'",
+      "keyArguments": [
+        "First positive Doppler June 2019 - 'marked haemodynamic changes'",
+        "2024 MR confirms dynamic subclavian compression",
+        "2025 Doppler: bilateral subclavian veins 'compressed with no flow'",
+        "Radiologist: 'TOS cannot be excluded' with static imaging",
+        "MRA confirms compression and focal stenosis",
+        "Specialist documents extreme suffering - patient prefers amputation",
+        "6+ years of documented pathology without definitive intervention"
+      ],
+      "critical": true
+    }
+  ],
+  "correctionLog": [
+    {
+      "date": "2026-01-18",
+      "essay": "somatoform-contamination",
+      "change": "FND/Somatoform distinction clarified. FND Tremor WAS assessed (methodology disputed); Somatoform Pain Disorder NEVER assessed - PRIMARY BREACH focus refocused accordingly."
+    }
+  ]
+}

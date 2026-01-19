@@ -1,0 +1,157 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Badge from '@components/common/Badge.astro';
+import essaysData from '../data/essays.json';
+
+const essays = essaysData.essays;
+const metadata = essaysData.metadata;
+
+type BadgeVariant = 'vindication' | 'breach' | 'discrepancy' | 'causation' | 'quantum' | 'procedural' | 'strategic' | 'witness' | 'fabrication' | 'default';
+
+const categoryVariants: Record<string, BadgeVariant> = {
+  'BREACH': 'breach',
+  'CAUSATION': 'causation',
+  'VINDICATION': 'vindication',
+  'PROCEDURAL': 'procedural'
+};
+---
+
+<BaseLayout title="Foundational Essays" description="In-depth analysis documents covering the core arguments in Thomson v NHS Providers">
+  <!-- Header -->
+  <section class="py-16 bg-navy-900/30">
+    <div class="container-wide">
+      <div class="max-w-3xl">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="px-3 py-1 text-xs font-semibold rounded-full bg-gold-500/20 text-gold-400">
+            {metadata.totalEssays} Documents
+          </span>
+          <span class="text-sm text-navy-400">Last updated: {metadata.lastUpdated}</span>
+        </div>
+        <h1 class="text-4xl font-serif font-bold text-white mb-4">Foundational Essays</h1>
+        <p class="text-lg text-navy-300">
+          {metadata.description}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Essays Grid -->
+  <section class="py-12">
+    <div class="container-wide">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {essays.map((essay) => (
+          <article class="card-base p-8 group hover:border-gold-500/50 transition-all duration-300">
+            <div class="flex items-start justify-between mb-4">
+              <Badge variant={categoryVariants[essay.category] || 'default'}>{essay.category}</Badge>
+              <div class="flex items-center gap-2">
+                {essay.critical && (
+                  <span class="px-2 py-1 text-xs font-semibold rounded-full bg-breach-500/20 text-breach-400">
+                    CRITICAL
+                  </span>
+                )}
+                <span class="text-xs text-navy-500">v{essay.version}</span>
+              </div>
+            </div>
+            
+            <h2 class="text-xl font-serif font-bold text-white mb-2 group-hover:text-gold-400 transition-colors">
+              {essay.title}
+            </h2>
+            <p class="text-sm text-gold-500/80 mb-4">{essay.subtitle}</p>
+            
+            <p class="text-navy-300 mb-6 leading-relaxed">
+              {essay.summary}
+            </p>
+            
+            <!-- Key Arguments -->
+            <div class="mb-6">
+              <h3 class="text-xs uppercase tracking-wider text-navy-500 mb-3">Key Arguments</h3>
+              <ul class="space-y-2">
+                {essay.keyArguments.slice(0, 4).map((arg: string) => (
+                  <li class="flex items-start gap-2 text-sm text-navy-400">
+                    <svg class="w-4 h-4 text-gold-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    <span>{arg}</span>
+                  </li>
+                ))}
+                {essay.keyArguments.length > 4 && (
+                  <li class="text-xs text-navy-500 pl-6">
+                    +{essay.keyArguments.length - 4} more arguments
+                  </li>
+                )}
+              </ul>
+            </div>
+            
+            <!-- Key Findings -->
+            <div class="mb-6">
+              <h3 class="text-xs uppercase tracking-wider text-navy-500 mb-2">Related Findings</h3>
+              <div class="flex flex-wrap gap-2">
+                {essay.keyFindings.map((finding: string) => (
+                  <a 
+                    href={`/findings/${finding.toLowerCase()}`}
+                    class="px-2 py-1 text-xs font-mono rounded bg-navy-800 text-gold-500 hover:bg-navy-700 transition-colors"
+                  >
+                    {finding}
+                  </a>
+                ))}
+              </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="flex items-center justify-between pt-4 border-t border-navy-800">
+              <span class="text-xs text-navy-500">
+                {essay.date}
+              </span>
+              <a 
+                href={`/essays/${essay.id}`}
+                class="text-sm text-gold-500 hover:text-gold-400 transition-colors inline-flex items-center gap-2"
+              >
+                Read Full Essay
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Correction Log -->
+  {essaysData.correctionLog && essaysData.correctionLog.length > 0 && (
+    <section class="py-8 border-t border-navy-800/50">
+      <div class="container-wide">
+        <h2 class="text-lg font-serif font-bold text-white mb-4">Correction Log</h2>
+        <div class="space-y-3">
+          {essaysData.correctionLog.map((correction) => (
+            <div class="p-4 rounded-lg bg-amber-500/5 border border-amber-500/20">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="text-xs font-mono text-amber-400">{correction.date}</span>
+                <span class="text-sm text-white">{correction.essay}</span>
+              </div>
+              <p class="text-sm text-navy-300">{correction.change}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Navigation -->
+  <section class="py-8 border-t border-navy-800/50">
+    <div class="container-wide">
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/findings" class="px-6 py-3 rounded-lg bg-navy-800/50 text-navy-300 hover:bg-navy-800 hover:text-white transition-colors">
+          Browse Findings
+        </a>
+        <a href="/timeline" class="px-6 py-3 rounded-lg bg-navy-800/50 text-navy-300 hover:bg-navy-800 hover:text-white transition-colors">
+          View Timeline
+        </a>
+        <a href="/vindication" class="px-6 py-3 rounded-lg bg-gold-600 text-navy-950 hover:bg-gold-500 transition-colors">
+          Vindication Evidence
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
