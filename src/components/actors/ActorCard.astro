@@ -1,0 +1,309 @@
+---
+/**
+ * ActorCard Component - V2 Design
+ *
+ * Professional profile card for case actors with:
+ * - Classification-based theming
+ * - Organisation badge
+ * - Conduct timeline preview
+ * - Related findings links
+ * - Hover effects for expanded view
+ */
+
+import Badge from '@components/common/Badge.astro';
+
+interface Conduct {
+  date: string;
+  description: string;
+  evidenceSource?: string;
+  verification?: string;
+  severity?: 'critical' | 'high' | 'moderate' | 'low';
+}
+
+interface Props {
+  actor: {
+    id: string;
+    name: string;
+    role: string;
+    organisation: string;
+    classification: string;
+    gmcNumber?: string;
+    isAdministrative?: boolean;
+    conduct?: Conduct[];
+    legalSignificance?: string;
+    relatedFindings?: string[];
+    notes?: string;
+    critical?: boolean;
+  };
+  compact?: boolean;
+}
+
+const { actor, compact = false } = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const getHref = (path: string) => path === '/' ? (base || '/') : `${base}${path}`;
+
+// Classification styling
+const classificationStyles: Record<string, {
+  bg: string;
+  border: string;
+  icon: string;
+  iconBg: string;
+  label: string;
+  badgeVariant: string;
+}> = {
+  'DEFENDANT': {
+    bg: 'bg-red-500/5',
+    border: 'border-red-500/30 hover:border-red-500/50',
+    icon: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z',
+    iconBg: 'bg-red-500/20 text-red-400',
+    label: 'Potential Defendant',
+    badgeVariant: 'breach'
+  },
+  'WITNESS_FAVOURABLE': {
+    bg: 'bg-green-500/5',
+    border: 'border-green-500/30 hover:border-green-500/50',
+    icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+    iconBg: 'bg-green-500/20 text-green-400',
+    label: 'Favourable Witness',
+    badgeVariant: 'vindication'
+  },
+  'CURRENT_CARE': {
+    bg: 'bg-green-500/5',
+    border: 'border-green-500/30 hover:border-green-500/50',
+    icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
+    iconBg: 'bg-green-500/20 text-green-400',
+    label: 'Current Care',
+    badgeVariant: 'vindication'
+  },
+  'WITNESS_ADVERSE': {
+    bg: 'bg-amber-500/5',
+    border: 'border-amber-500/30 hover:border-amber-500/50',
+    icon: 'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+    iconBg: 'bg-amber-500/20 text-amber-400',
+    label: 'Adverse Witness',
+    badgeVariant: 'discrepancy'
+  },
+  'ADMINISTRATIVE': {
+    bg: 'bg-slate-500/5',
+    border: 'border-slate-500/30 hover:border-slate-500/50',
+    icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
+    iconBg: 'bg-slate-500/20 text-slate-400',
+    label: 'Administrative',
+    badgeVariant: 'default'
+  }
+};
+
+const style = classificationStyles[actor.classification] || classificationStyles['ADMINISTRATIVE'];
+
+// Get severity color
+const getSeverityColor = (severity?: string) => {
+  switch (severity) {
+    case 'critical': return 'bg-red-500';
+    case 'high': return 'bg-orange-500';
+    case 'moderate': return 'bg-yellow-500';
+    default: return 'bg-navy-500';
+  }
+};
+
+// Get verification badge
+const getVerificationBadge = (verification?: string) => {
+  if (!verification) return null;
+  if (verification.includes('DOCUMENTARY')) return { label: 'Documentary', color: 'text-green-400 bg-green-500/10' };
+  if (verification.includes('TESTIMONY')) return { label: 'Testimony', color: 'text-blue-400 bg-blue-500/10' };
+  if (verification.includes('DISPROV')) return { label: 'Disproved', color: 'text-red-400 bg-red-500/10' };
+  return null;
+};
+---
+
+<article
+  class="actor-card group relative"
+  data-actor-id={actor.id}
+  data-classification={actor.classification}
+  transition:name={`actor-${actor.id}`}
+>
+  <div class:list={[
+    'relative bg-navy-800/50 backdrop-blur-xl border rounded-2xl transition-all duration-300',
+    'group-hover:bg-navy-800/70 group-hover:shadow-xl',
+    style.border,
+    compact ? 'p-4' : 'p-6'
+  ]}>
+    <!-- Critical Indicator -->
+    {actor.critical && (
+      <div class="absolute -top-2 -right-2 z-10">
+        <div class="w-8 h-8 rounded-full bg-gold-500 flex items-center justify-center shadow-lg shadow-gold-500/30 animate-pulse">
+          <svg class="w-4 h-4 text-navy-900" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+        </div>
+      </div>
+    )}
+
+    <!-- Header -->
+    <div class="flex items-start gap-4">
+      <!-- Avatar/Icon -->
+      <div class:list={[
+        'flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center',
+        style.iconBg
+      ]}>
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={style.icon} />
+        </svg>
+      </div>
+
+      <!-- Info -->
+      <div class="flex-1 min-w-0">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <h3 class="text-lg font-display font-semibold text-white group-hover:text-gold-400 transition-colors">
+              {actor.name}
+            </h3>
+            <p class="text-sm text-navy-400 mt-0.5">{actor.role}</p>
+          </div>
+          <span class="text-xs font-mono text-navy-600">{actor.id}</span>
+        </div>
+
+        <!-- Organisation -->
+        <div class="mt-2 flex items-center gap-2 flex-wrap">
+          <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-navy-700/50 text-xs text-navy-300">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+            {actor.organisation}
+          </span>
+          {actor.gmcNumber && actor.gmcNumber !== 'To be obtained' && (
+            <span class="text-xs text-navy-500">GMC: {actor.gmcNumber}</span>
+          )}
+        </div>
+      </div>
+    </div>
+
+    <!-- Classification Badge -->
+    <div class="mt-4 flex items-center gap-2">
+      <Badge variant={style.badgeVariant as any}>{style.label}</Badge>
+      {actor.isAdministrative && (
+        <span class="text-xs text-navy-500 bg-navy-700/30 px-2 py-0.5 rounded">Non-clinical</span>
+      )}
+    </div>
+
+    {!compact && (
+      <>
+        <!-- Legal Significance -->
+        {actor.legalSignificance && (
+          <div class="mt-4 p-3 bg-navy-900/50 rounded-lg">
+            <p class="text-sm text-navy-300 leading-relaxed line-clamp-3">
+              {actor.legalSignificance}
+            </p>
+          </div>
+        )}
+
+        <!-- Conduct Timeline -->
+        {actor.conduct && actor.conduct.length > 0 && (
+          <div class="mt-4">
+            <h4 class="text-xs font-semibold text-navy-500 uppercase tracking-wider mb-3">
+              Documented Conduct ({actor.conduct.length})
+            </h4>
+            <div class="space-y-2">
+              {actor.conduct.slice(0, 3).map((c) => {
+                const verif = getVerificationBadge(c.verification);
+                return (
+                  <div class="flex items-start gap-3 text-sm">
+                    <div class:list={[
+                      'flex-shrink-0 w-2 h-2 rounded-full mt-1.5',
+                      getSeverityColor(c.severity)
+                    ]} />
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <span class="text-xs text-navy-500 font-mono">{c.date}</span>
+                        {verif && (
+                          <span class:list={['text-xs px-1.5 py-0.5 rounded', verif.color]}>
+                            {verif.label}
+                          </span>
+                        )}
+                      </div>
+                      <p class="text-navy-300 line-clamp-2 mt-0.5">{c.description}</p>
+                    </div>
+                  </div>
+                );
+              })}
+              {actor.conduct.length > 3 && (
+                <p class="text-xs text-navy-500 pl-5">
+                  +{actor.conduct.length - 3} more documented instances
+                </p>
+              )}
+            </div>
+          </div>
+        )}
+
+        <!-- Notes (if sensitive) -->
+        {actor.notes && (
+          <div class="mt-4 p-2 bg-gold-500/10 rounded-lg border border-gold-500/20">
+            <p class="text-xs text-gold-400 flex items-start gap-2">
+              <svg class="w-3.5 h-3.5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+              </svg>
+              {actor.notes}
+            </p>
+          </div>
+        )}
+      </>
+    )}
+
+    <!-- Related Findings -->
+    {actor.relatedFindings && actor.relatedFindings.length > 0 && (
+      <div class="mt-4 pt-4 border-t border-navy-700/30">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="text-xs text-navy-500">Related:</span>
+            {actor.relatedFindings.slice(0, compact ? 3 : 5).map((f) => (
+              <a
+                href={getHref(`/findings/${f.toLowerCase()}`)}
+                class="text-xs font-mono px-1.5 py-0.5 rounded bg-navy-700/50 text-gold-500 hover:bg-navy-600/50 hover:text-gold-400 transition-colors"
+              >
+                {f}
+              </a>
+            ))}
+            {actor.relatedFindings.length > (compact ? 3 : 5) && (
+              <span class="text-xs text-navy-500">+{actor.relatedFindings.length - (compact ? 3 : 5)}</span>
+            )}
+          </div>
+        </div>
+      </div>
+    )}
+  </div>
+</article>
+
+<style>
+  .actor-card {
+    transform: translateZ(0);
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @keyframes card-appear {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .actor-card {
+    animation: card-appear 0.5s ease-out forwards;
+  }
+</style>

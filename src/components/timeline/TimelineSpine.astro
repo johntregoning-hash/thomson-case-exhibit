@@ -1,0 +1,142 @@
+---
+/**
+ * TimelineSpine Component
+ *
+ * The vertical spine for the scrollytelling timeline.
+ * Features key anchor moments as glowing dots along the spine.
+ *
+ * Anchor Points:
+ * 1. Jun 2019 - TOS Positive (Vindication)
+ * 2. Dec 2021 - First Seizure (Anchor/Gold)
+ * 3. Oct 2022 - Fractures Found (Gold)
+ * 4. Jan 2023 - Covert Diagnosis (Breach)
+ * 5. Jul 2025 - Diagnosis Removed (Vindication)
+ */
+
+interface AnchorPoint {
+  id: string;
+  date: string;
+  shortDate: string;
+  label: string;
+  type: 'vindication' | 'breach' | 'anchor' | 'standard';
+  findingRef?: string;
+}
+
+interface Props {
+  anchors: AnchorPoint[];
+}
+
+const { anchors } = Astro.props;
+
+// Type to color mapping
+const typeStyles: Record<string, { dot: string; glow: string; text: string }> = {
+  vindication: {
+    dot: 'bg-green-500',
+    glow: 'shadow-[0_0_20px_rgba(34,197,94,0.5)]',
+    text: 'text-green-400'
+  },
+  breach: {
+    dot: 'bg-red-500',
+    glow: 'shadow-[0_0_20px_rgba(239,68,68,0.5)]',
+    text: 'text-red-400'
+  },
+  anchor: {
+    dot: 'bg-gold-500',
+    glow: 'shadow-[0_0_25px_rgba(212,175,55,0.6)]',
+    text: 'text-gold-400'
+  },
+  standard: {
+    dot: 'bg-navy-500',
+    glow: '',
+    text: 'text-navy-400'
+  }
+};
+---
+
+<div class="timeline-spine hidden lg:block fixed left-6 xl:left-12 top-24 bottom-24 w-1 z-30">
+  <!-- Spine line with gradient -->
+  <div class="absolute inset-0 w-0.5 left-1/2 -translate-x-1/2 bg-gradient-to-b from-navy-700 via-gold-500/30 to-navy-700 rounded-full"></div>
+
+  <!-- Anchor points -->
+  <div class="relative h-full flex flex-col justify-between py-8">
+    {anchors.map((anchor, index) => {
+      const styles = typeStyles[anchor.type] || typeStyles.standard;
+      return (
+        <div
+          class="relative group"
+          data-spine-event={anchor.id}
+        >
+          {/* The dot */}
+          <div
+            class:list={[
+              'w-4 h-4 rounded-full border-4 border-navy-900 transition-all duration-500',
+              'hover:scale-150 cursor-pointer',
+              styles.dot,
+              styles.glow,
+              'spine-dot'
+            ]}
+          ></div>
+
+          {/* Tooltip on hover */}
+          <div class="absolute left-8 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+            <div class="bg-navy-800/95 backdrop-blur-xl border border-navy-700/50 rounded-lg px-3 py-2 whitespace-nowrap shadow-xl">
+              <p class:list={['text-xs font-semibold', styles.text]}>{anchor.shortDate}</p>
+              <p class="text-sm text-white">{anchor.label}</p>
+              {anchor.findingRef && (
+                <p class="text-xs text-navy-500 font-mono mt-1">{anchor.findingRef}</p>
+              )}
+            </div>
+            {/* Arrow */}
+            <div class="absolute left-0 top-1/2 -translate-x-1 -translate-y-1/2 w-2 h-2 bg-navy-800 border-l border-b border-navy-700/50 rotate-45"></div>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+<style>
+  /* Active spine dot state - triggered by ScrollObserver */
+  .spine-dot-active {
+    @apply scale-150;
+    animation: pulse-glow 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 35px rgba(212, 175, 55, 0.7);
+    }
+  }
+
+  /* Spine line pulse animation */
+  .timeline-spine::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(212, 175, 55, 0.3) 20%,
+      rgba(212, 175, 55, 0.5) 50%,
+      rgba(212, 175, 55, 0.3) 80%,
+      transparent
+    );
+    animation: spine-pulse 3s ease-in-out infinite;
+    opacity: 0.5;
+  }
+
+  @keyframes spine-pulse {
+    0%, 100% {
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+</style>

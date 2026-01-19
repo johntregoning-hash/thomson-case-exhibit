@@ -1,0 +1,196 @@
+---
+/**
+ * EssayCategoryNav Component - V2 Design
+ *
+ * Horizontal category navigation with:
+ * - Category pills with counts
+ * - Active state styling
+ * - Smooth scroll to sections
+ * - Sticky positioning
+ */
+
+interface CategoryCount {
+  category: string;
+  count: number;
+  label: string;
+}
+
+interface Props {
+  categories: CategoryCount[];
+  activeCategory?: string;
+}
+
+const { categories, activeCategory = 'ALL' } = Astro.props;
+
+// Category styling
+const categoryStyles: Record<string, { bg: string; bgActive: string; text: string; textActive: string }> = {
+  'ALL': {
+    bg: 'bg-navy-700/50',
+    bgActive: 'bg-gold-500',
+    text: 'text-navy-400',
+    textActive: 'text-navy-900'
+  },
+  'BREACH': {
+    bg: 'bg-red-500/10',
+    bgActive: 'bg-red-500',
+    text: 'text-red-400',
+    textActive: 'text-white'
+  },
+  'CAUSATION': {
+    bg: 'bg-purple-500/10',
+    bgActive: 'bg-purple-500',
+    text: 'text-purple-400',
+    textActive: 'text-white'
+  },
+  'VINDICATION': {
+    bg: 'bg-green-500/10',
+    bgActive: 'bg-green-500',
+    text: 'text-green-400',
+    textActive: 'text-white'
+  },
+  'PROCEDURAL': {
+    bg: 'bg-cyan-500/10',
+    bgActive: 'bg-cyan-500',
+    text: 'text-cyan-400',
+    textActive: 'text-white'
+  }
+};
+
+const getStyle = (category: string) => categoryStyles[category] || categoryStyles['ALL'];
+---
+
+<nav class="essay-category-nav sticky top-16 z-30 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 py-4 bg-navy-900/80 backdrop-blur-2xl border-b border-navy-700/50">
+  <div class="flex items-center justify-between gap-4">
+    <!-- Category Pills -->
+    <div class="flex flex-wrap gap-2" id="essay-category-filters">
+      {categories.map((cat) => {
+        const style = getStyle(cat.category);
+        const isActive = cat.category === activeCategory;
+
+        return (
+          <button
+            data-category={cat.category}
+            class:list={[
+              'category-pill flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all',
+              isActive ? style.bgActive : style.bg,
+              isActive ? style.textActive : style.text,
+              'hover:scale-105'
+            ]}
+          >
+            <span>{cat.label}</span>
+            <span class:list={[
+              'px-1.5 py-0.5 rounded text-xs font-mono',
+              isActive ? 'bg-white/20' : 'bg-navy-900/30'
+            ]}>
+              {cat.count}
+            </span>
+          </button>
+        );
+      })}
+    </div>
+
+    <!-- Critical Filter -->
+    <label class="flex items-center gap-2 cursor-pointer">
+      <input
+        type="checkbox"
+        id="critical-only-essays"
+        class="w-4 h-4 rounded bg-navy-800 border-navy-600 text-gold-500 focus:ring-gold-500/50 focus:ring-offset-0"
+      />
+      <span class="text-sm text-navy-400 whitespace-nowrap">Critical only</span>
+    </label>
+  </div>
+</nav>
+
+<style>
+  .essay-category-nav {
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  .category-pill {
+    transform: translateZ(0);
+  }
+
+  .category-pill:active {
+    transform: scale(0.98);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const categoryPills = document.querySelectorAll('.category-pill');
+    const essayCards = document.querySelectorAll('.essay-card');
+    const criticalCheckbox = document.getElementById('critical-only-essays') as HTMLInputElement;
+
+    let activeCategory = 'ALL';
+    let criticalOnly = false;
+
+    // Category styles for dynamic updates
+    const categoryStyles: Record<string, { bg: string; bgActive: string; text: string; textActive: string }> = {
+      'ALL': { bg: 'bg-navy-700/50', bgActive: 'bg-gold-500', text: 'text-navy-400', textActive: 'text-navy-900' },
+      'BREACH': { bg: 'bg-red-500/10', bgActive: 'bg-red-500', text: 'text-red-400', textActive: 'text-white' },
+      'CAUSATION': { bg: 'bg-purple-500/10', bgActive: 'bg-purple-500', text: 'text-purple-400', textActive: 'text-white' },
+      'VINDICATION': { bg: 'bg-green-500/10', bgActive: 'bg-green-500', text: 'text-green-400', textActive: 'text-white' },
+      'PROCEDURAL': { bg: 'bg-cyan-500/10', bgActive: 'bg-cyan-500', text: 'text-cyan-400', textActive: 'text-white' }
+    };
+
+    function getStyle(category: string) {
+      return categoryStyles[category] || categoryStyles['ALL'];
+    }
+
+    function updatePillStyles() {
+      categoryPills.forEach((pill) => {
+        const category = (pill as HTMLElement).dataset.category || 'ALL';
+        const isActive = category === activeCategory;
+        const style = getStyle(category);
+
+        // Remove all style classes
+        pill.classList.remove(
+          'bg-navy-700/50', 'bg-gold-500', 'text-navy-400', 'text-navy-900',
+          'bg-red-500/10', 'bg-red-500', 'text-red-400',
+          'bg-purple-500/10', 'bg-purple-500', 'text-purple-400',
+          'bg-green-500/10', 'bg-green-500', 'text-green-400',
+          'bg-cyan-500/10', 'bg-cyan-500', 'text-cyan-400',
+          'text-white'
+        );
+
+        // Add appropriate classes
+        if (isActive) {
+          pill.classList.add(style.bgActive, style.textActive);
+        } else {
+          pill.classList.add(style.bg, style.text);
+        }
+      });
+    }
+
+    function filterEssays() {
+      essayCards.forEach((card) => {
+        const cardCategory = (card as HTMLElement).dataset.category || '';
+        const isCritical = card.querySelector('[class*="CRITICAL"]') !== null;
+
+        const categoryMatch = activeCategory === 'ALL' || cardCategory === activeCategory;
+        const criticalMatch = !criticalOnly || isCritical;
+
+        if (categoryMatch && criticalMatch) {
+          (card as HTMLElement).style.display = '';
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+    }
+
+    // Category pill click handlers
+    categoryPills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        activeCategory = (pill as HTMLElement).dataset.category || 'ALL';
+        updatePillStyles();
+        filterEssays();
+      });
+    });
+
+    // Critical checkbox handler
+    criticalCheckbox?.addEventListener('change', (e) => {
+      criticalOnly = (e.target as HTMLInputElement).checked;
+      filterEssays();
+    });
+  });
+</script>

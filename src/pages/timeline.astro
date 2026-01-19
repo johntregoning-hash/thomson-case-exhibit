@@ -1,12 +1,29 @@
 ---
+/**
+ * Timeline Page - V2 Scrollytelling Design
+ *
+ * Features:
+ * - Vertical spine with anchor points
+ * - Scroll-triggered event cards sliding in
+ * - Floating date ticker
+ * - Phase progress indicator
+ * - Glassmorphism design
+ */
+
 import BaseLayout from '@layouts/BaseLayout.astro';
-import PhaseCard from '@components/timeline/PhaseCard.astro';
+import GlassCard from '@components/ui/GlassCard.astro';
+import TimelineSpine from '@components/timeline/TimelineSpine.astro';
+import TimelineEventCard from '@components/timeline/TimelineEventCard.astro';
+import ScrollObserver from '@components/timeline/ScrollObserver';
 import Badge from '@components/common/Badge.astro';
 
 // Import timeline data from JSON
 import timelineData from '../data/timeline.json';
 
-// Get phases and metadata
+const base = import.meta.env.BASE_URL;
+const getHref = (path: string) => path === '/' ? (base || '/') : `${base}${path}`;
+
+// Get data
 const phases = timelineData.phases;
 const metadata = timelineData.metadata;
 const causationChain = timelineData.causationChain;
@@ -14,83 +31,111 @@ const breachRegister = timelineData.breachRegister;
 const limitationAnalysis = timelineData.limitationAnalysis;
 const colourCoding = timelineData.colourCoding;
 
-// Transform phases for PhaseCard component
-const transformedPhases = phases.map((phase) => ({
-  number: phase.id,
-  title: phase.title,
-  dateRange: phase.period,
-  description: phase.description,
-  keyMessage: phase.keyMessage,
-  events: [
-    // Truth Spine events (high tier)
-    ...phase.truthSpine.map((e: any) => ({
-      date: e.date,
-      title: e.event,
-      description: e.finding,
-      status: 'verified',
-      findingRef: e.findingRef,
-      source: e.source,
-      tier: e.tier,
-      isTruthSpine: true
-    })),
-    // GP Record entries (lower tier, may be contradicted)
-    ...(phase.gpEntries || []).map((e: any) => ({
-      date: e.date,
-      title: `GP: ${e.clinician || 'Unknown'}`,
-      description: e.content,
-      status: e.status?.toLowerCase() || 'unverified',
-      findingRef: e.findingRef,
-      isGpEntry: true,
-      critical: e.critical
-    }))
-  ],
-  criticalFindings: phase.criticalFindings,
-  breaches: phase.breaches
-}));
-
-const keyDates = [
-  { date: 'Jun 2019', label: 'TOS Positive', color: 'bg-vindication-500' },
-  { date: 'Dec 2021', label: 'First Seizure', color: 'bg-breach-500' },
-  { date: 'Oct 2022', label: 'Fractures Found', color: 'bg-gold-500' },
-  { date: 'Jan 2023', label: 'Covert Diagnosis', color: 'bg-breach-500' },
-  { date: 'Sep 2025', label: 'Diagnosis Removed', color: 'bg-vindication-500' }
+// Key anchor points for the spine
+const spineAnchors = [
+  { id: 'anchor-tos', date: '2019-06-13', shortDate: 'Jun 2019', label: 'TOS Positive', type: 'vindication' as const, findingRef: 'F032' },
+  { id: 'anchor-seizure', date: '2021-12-23', shortDate: 'Dec 2021', label: 'First Seizure', type: 'anchor' as const, findingRef: 'F023' },
+  { id: 'anchor-mri', date: '2022-10-16', shortDate: 'Oct 2022', label: 'Fractures Confirmed', type: 'anchor' as const, findingRef: 'F048' },
+  { id: 'anchor-covert', date: '2023-01-05', shortDate: 'Jan 2023', label: 'Covert Diagnosis', type: 'breach' as const, findingRef: 'F027' },
+  { id: 'anchor-vindication', date: '2025-07-22', shortDate: 'Jul 2025', label: 'Diagnosis Removed', type: 'vindication' as const, findingRef: 'F030' },
 ];
 
-// Count total events
-const totalEvents = transformedPhases.reduce((acc, p) => acc + p.events.length, 0);
+// Transform all events for scroll observer
+const allEvents = phases.flatMap((phase: any) => [
+  ...phase.truthSpine.map((e: any, i: number) => ({
+    id: `${phase.id}-truth-${i}`,
+    date: e.date,
+    phase: phase.id,
+    isAnchor: spineAnchors.some(a => a.findingRef === e.findingRef)
+  })),
+  ...(phase.gpEntries || []).map((e: any, i: number) => ({
+    id: `${phase.id}-gp-${i}`,
+    date: e.date,
+    phase: phase.id,
+    isAnchor: false
+  }))
+]);
+
+// Count stats
+const totalEvents = allEvents.length;
+const truthSpineCount = phases.reduce((acc: number, p: any) => acc + p.truthSpine.length, 0);
+const gpEntryCount = phases.reduce((acc: number, p: any) => acc + (p.gpEntries?.length || 0), 0);
 ---
 
-<BaseLayout title="Timeline" description="8-phase forensic chronology of the Thomson clinical negligence case">
-  <!-- Header -->
-  <section class="py-16 bg-navy-900/30">
-    <div class="container-wide">
-      <div class="max-w-3xl">
-        <h1 class="text-4xl font-serif font-bold text-white mb-4">Case Timeline</h1>
-        <p class="text-lg text-navy-300">
-          Forensic chronology organised into {metadata.totalPhases} phases, using a dual-track system:
-          <strong class="text-vindication-400">Truth Spine</strong> (independent evidence) vs
-          <strong class="text-navy-200">GP Records</strong> (subject to verification).
-          Last updated: {metadata.lastUpdated}.
+<BaseLayout title="Timeline" description="8-phase forensic chronology with scrollytelling - Thomson clinical negligence case">
+  <!-- Scroll Observer (React component for intersection observer) -->
+  <ScrollObserver client:load events={allEvents} />
+
+  <!-- Timeline Spine (fixed left sidebar) -->
+  <TimelineSpine anchors={spineAnchors} />
+
+  <!-- Hero Header -->
+  <section class="relative py-16 lg:py-20 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-navy-800/30 to-transparent"></div>
+
+    <div class="container-wide relative">
+      <div class="max-w-3xl lg:ml-24">
+        <Badge variant="default" class="mb-4">Forensic Chronology</Badge>
+        <h1 class="text-4xl lg:text-5xl font-display font-bold text-white mb-6">
+          Case Timeline
+        </h1>
+        <p class="text-lg text-navy-300 leading-relaxed mb-6">
+          <strong class="text-gold-400">{metadata.totalPhases} phases</strong> spanning from pre-2020 to {metadata.vindicationDate}.
+          Scroll to witness the <strong class="text-white">{metadata.diagnosticDelay}</strong> diagnostic delay unfold.
         </p>
+
+        <!-- Quick stats -->
+        <div class="flex flex-wrap gap-6 text-sm">
+          <div>
+            <span class="text-2xl font-display font-bold text-gold-400">{totalEvents}</span>
+            <span class="text-navy-400 ml-2">Key Events</span>
+          </div>
+          <div>
+            <span class="text-2xl font-display font-bold text-green-400">{truthSpineCount}</span>
+            <span class="text-navy-400 ml-2">Truth Spine</span>
+          </div>
+          <div>
+            <span class="text-2xl font-display font-bold text-navy-300">{gpEntryCount}</span>
+            <span class="text-navy-400 ml-2">GP Entries</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Key Dates Mini-Timeline -->
-  <section class="border-y border-navy-800/50 bg-navy-950 overflow-x-auto">
-    <div class="container-wide py-6">
-      <div class="flex items-center gap-4 min-w-max">
-        {keyDates.map((item, index) => (
+  <!-- Key Moments Mini-Timeline -->
+  <section class="border-y border-navy-700/30 bg-navy-900/50 sticky top-16 z-20 backdrop-blur-xl">
+    <div class="container-wide py-4">
+      <div class="flex items-center gap-2 overflow-x-auto lg:ml-24 scrollbar-hide">
+        {spineAnchors.map((anchor, index) => (
           <>
-            <div class="flex items-center gap-2">
-              <div class:list={['w-3 h-3 rounded-full', item.color]}></div>
+            <a
+              href={`#phase-${anchor.date.split('-')[0] === '2019' ? '1' : anchor.date.split('-')[0] === '2020' || anchor.date.split('-')[0] === '2021' && anchor.date.includes('12') ? '3' : '4'}`}
+              class:list={[
+                'flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-lg transition-all',
+                anchor.type === 'vindication' && 'bg-green-500/10 hover:bg-green-500/20',
+                anchor.type === 'breach' && 'bg-red-500/10 hover:bg-red-500/20',
+                anchor.type === 'anchor' && 'bg-gold-500/10 hover:bg-gold-500/20',
+              ]}
+            >
+              <div class:list={[
+                'w-2.5 h-2.5 rounded-full',
+                anchor.type === 'vindication' && 'bg-green-500',
+                anchor.type === 'breach' && 'bg-red-500',
+                anchor.type === 'anchor' && 'bg-gold-500',
+              ]}></div>
               <div>
-                <p class="text-sm font-semibold text-white">{item.date}</p>
-                <p class="text-xs text-navy-400">{item.label}</p>
+                <p class:list={[
+                  'text-sm font-semibold',
+                  anchor.type === 'vindication' && 'text-green-400',
+                  anchor.type === 'breach' && 'text-red-400',
+                  anchor.type === 'anchor' && 'text-gold-400',
+                ]}>{anchor.shortDate}</p>
+                <p class="text-xs text-navy-500">{anchor.label}</p>
               </div>
-            </div>
-            {index < keyDates.length - 1 && (
-              <div class="w-12 h-0.5 bg-gradient-to-r from-navy-600 to-navy-800"></div>
+            </a>
+            {index < spineAnchors.length - 1 && (
+              <div class="w-8 h-px bg-gradient-to-r from-navy-600 to-transparent flex-shrink-0"></div>
             )}
           </>
         ))}
@@ -99,179 +144,229 @@ const totalEvents = transformedPhases.reduce((acc, p) => acc + p.events.length, 
   </section>
 
   <!-- Legend -->
-  <section class="border-b border-navy-800/50">
+  <section class="border-b border-navy-700/30 bg-navy-900/30">
     <div class="container-wide py-4">
-      <div class="flex flex-wrap items-center gap-6 text-sm">
-        <div class="flex items-center gap-4">
-          <span class="text-navy-500">Evidence Status:</span>
-          <div class="flex items-center gap-2">
-            <div class="w-2.5 h-2.5 rounded-full bg-vindication-500"></div>
-            <span class="text-navy-300">{colourCoding.VERIFIED.emoji} Verified</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <div class="w-2.5 h-2.5 rounded-full bg-discrepancy-500"></div>
-            <span class="text-navy-300">{colourCoding.UNVERIFIED.emoji} Unverified</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <div class="w-2.5 h-2.5 rounded-full bg-breach-500"></div>
-            <span class="text-navy-300">{colourCoding.CONTRADICTED.emoji} Contradicted</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <div class="w-2.5 h-2.5 rounded-full bg-navy-800 border border-navy-600"></div>
-            <span class="text-navy-300">{colourCoding.FABRICATED.emoji} Fabricated</span>
-          </div>
+      <div class="flex flex-wrap items-center gap-6 text-sm lg:ml-24">
+        <span class="text-navy-500 font-medium">Evidence Track:</span>
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full bg-green-500"></div>
+          <span class="text-green-400">Truth Spine</span>
+          <span class="text-navy-600">|</span>
+          <span class="text-navy-500 text-xs">High reliability</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full bg-navy-500"></div>
+          <span class="text-navy-300">GP Record</span>
+          <span class="text-navy-600">|</span>
+          <span class="text-navy-500 text-xs">Subject to verification</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Dual-Track Explanation -->
-  <section class="py-6 border-b border-navy-800/50 bg-navy-900/30">
+  <!-- Main Scrollytelling Timeline -->
+  <section id="scrollytelling-timeline" class="py-12 lg:py-20">
     <div class="container-wide">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="flex items-start gap-3 p-4 rounded-lg bg-vindication-500/10 border border-vindication-500/20">
-          <div class="w-8 h-8 rounded-full bg-vindication-500/20 flex items-center justify-center shrink-0">
-            <svg class="w-4 h-4 text-vindication-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <div>
-            <h3 class="font-semibold text-vindication-400 text-sm">Truth Spine (High Reliability)</h3>
-            <p class="text-xs text-navy-400 mt-1">Imaging, Ambulance, Hospital, Specialist Letters - establishes objective facts</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-3 p-4 rounded-lg bg-navy-800/50 border border-navy-700">
-          <div class="w-8 h-8 rounded-full bg-navy-700 flex items-center justify-center shrink-0">
-            <svg class="w-4 h-4 text-navy-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-          </div>
-          <div>
-            <h3 class="font-semibold text-navy-300 text-sm">GP Record (Subject to Verification)</h3>
-            <p class="text-xs text-navy-400 mt-1">Consultation entries verified against independent evidence - lowest reliability tier</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      <div class="lg:ml-24 max-w-3xl">
+        {phases.map((phase: any) => (
+          <div id={`phase-${phase.id}`} class="mb-20 last:mb-0">
+            <!-- Phase Header -->
+            <div class="sticky top-32 z-10 mb-8">
+              <GlassCard variant="elevated" padding="md">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <div class="flex items-center gap-3 mb-2">
+                      <span class="text-3xl font-display font-bold text-gold-400">
+                        {phase.id.toString().padStart(2, '0')}
+                      </span>
+                      <div class="h-px flex-1 bg-gradient-to-r from-gold-500/50 to-transparent"></div>
+                    </div>
+                    <h2 class="text-xl lg:text-2xl font-display font-bold text-white mb-2">
+                      {phase.title}
+                    </h2>
+                    <p class="text-sm text-navy-400">{phase.period}</p>
+                  </div>
+                </div>
+                {phase.keyMessage && (
+                  <p class="mt-4 pt-4 border-t border-navy-700/30 text-sm text-navy-300 leading-relaxed">
+                    <strong class="text-gold-400">Key:</strong> {phase.keyMessage}
+                  </p>
+                )}
+              </GlassCard>
+            </div>
 
-  <!-- Timeline -->
-  <section class="py-12">
-    <div class="container-wide">
-      <div class="max-w-4xl mx-auto">
-        {transformedPhases.map((phase) => (
-          <PhaseCard phase={phase} />
+            <!-- Phase Events -->
+            <div class="space-y-4 pl-4 border-l-2 border-navy-700/30">
+              {/* Truth Spine Events */}
+              {phase.truthSpine.map((event: any, i: number) => (
+                <TimelineEventCard
+                  id={`${phase.id}-truth-${i}`}
+                  date={event.date}
+                  phase={phase.id}
+                  title={event.event}
+                  description={event.finding}
+                  status="verified"
+                  findingRef={event.findingRef}
+                  source={event.source}
+                  tier={event.tier}
+                  isTruthSpine={true}
+                  isAnchor={spineAnchors.some(a => a.findingRef === event.findingRef)}
+                />
+              ))}
+
+              {/* GP Entries (if any) */}
+              {(phase.gpEntries || []).map((entry: any, i: number) => (
+                <TimelineEventCard
+                  id={`${phase.id}-gp-${i}`}
+                  date={entry.date}
+                  phase={phase.id}
+                  title={`GP Entry: ${entry.clinician || 'Unknown'}`}
+                  description={entry.content}
+                  status={entry.status?.toLowerCase() || 'unverified'}
+                  findingRef={entry.findingRef}
+                  isGpEntry={true}
+                  critical={entry.critical}
+                />
+              ))}
+
+              {/* Breaches for this phase */}
+              {phase.breaches && phase.breaches.length > 0 && (
+                <div class="mt-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20">
+                  <h4 class="text-sm font-semibold text-red-400 mb-3 flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    Breaches Identified
+                  </h4>
+                  <ul class="space-y-2">
+                    {phase.breaches.map((breach: string) => (
+                      <li class="text-sm text-red-300 flex items-start gap-2">
+                        <span class="text-red-500 mt-1">•</span>
+                        {breach}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
         ))}
       </div>
     </div>
   </section>
 
   <!-- Causation Chain -->
-  <section class="py-12 border-t border-navy-800/50 bg-navy-900/30">
+  <section class="py-16 border-t border-navy-700/30 bg-navy-900/30">
     <div class="container-wide">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="text-2xl font-serif font-bold text-white mb-6 flex items-center gap-3">
-          <span class="w-3 h-3 rounded-full bg-causation-500"></span>
-          Causation Chain ({causationChain.findingRef})
-        </h2>
-        <p class="text-sm text-navy-400 mb-6">{causationChain.title}</p>
+      <div class="lg:ml-24 max-w-3xl">
+        <div class="flex items-center gap-3 mb-8">
+          <div class="w-4 h-4 rounded-full bg-blue-500"></div>
+          <h2 class="text-2xl font-display font-bold text-white">
+            Causation Chain
+          </h2>
+          <Badge variant="causation">{causationChain.findingRef}</Badge>
+        </div>
 
-        <div class="relative pl-8 border-l-2 border-causation-500/30 space-y-4">
-          {causationChain.steps.map((step: any, index: number) => (
+        <p class="text-navy-400 mb-8">{causationChain.title}</p>
+
+        <div class="relative pl-8 border-l-2 border-blue-500/30 space-y-4">
+          {causationChain.steps.map((step: any) => (
             <div class="relative">
               <div class:list={[
-                'absolute -left-[25px] w-4 h-4 rounded-full border-2 border-navy-950',
-                step.critical ? 'bg-breach-500' :
-                step.breach ? 'bg-discrepancy-500' :
-                step.vindication ? 'bg-vindication-500' : 'bg-causation-500'
+                'absolute -left-[25px] w-4 h-4 rounded-full border-2 border-navy-900',
+                step.critical ? 'bg-red-500' :
+                step.breach ? 'bg-amber-500' :
+                step.vindication ? 'bg-green-500' : 'bg-blue-500'
               ]}></div>
-              <div class:list={[
-                'p-3 rounded-lg',
-                step.critical ? 'bg-breach-500/10 border border-breach-500/20' :
-                step.breach ? 'bg-discrepancy-500/10 border border-discrepancy-500/20' :
-                step.vindication ? 'bg-vindication-500/10 border border-vindication-500/20' :
-                'bg-navy-800/50 border border-navy-700'
-              ]}>
-                <p class="text-xs text-navy-500">{step.date}</p>
+              <GlassCard
+                variant={step.critical ? 'breach' : step.vindication ? 'vindication' : 'default'}
+                padding="sm"
+              >
+                <p class="text-xs text-navy-500 mb-1">{step.date}</p>
                 <p class:list={[
                   'text-sm',
-                  step.critical ? 'text-breach-400 font-semibold' :
-                  step.breach ? 'text-discrepancy-400' :
-                  step.vindication ? 'text-vindication-400' : 'text-navy-300'
+                  step.critical ? 'text-red-400 font-semibold' :
+                  step.vindication ? 'text-green-400' : 'text-navy-300'
                 ]}>{step.event}</p>
-              </div>
+              </GlassCard>
             </div>
           ))}
         </div>
 
-        <div class="mt-8 p-4 rounded-lg bg-gold-500/10 border border-gold-500/20">
+        <GlassCard variant="highlight" padding="md" class="mt-8">
           <h4 class="text-sm font-semibold text-gold-400 mb-2">But-For Test</h4>
           <p class="text-sm text-navy-300">{causationChain.butForTest}</p>
-        </div>
+        </GlassCard>
       </div>
     </div>
   </section>
 
   <!-- Breach Register -->
-  <section class="py-12 border-t border-navy-800/50">
+  <section class="py-16 border-t border-navy-700/30">
     <div class="container-wide">
-      <h2 class="text-2xl font-serif font-bold text-white mb-6">Breach Register Summary</h2>
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm">
-          <thead>
-            <tr class="border-b border-navy-800">
-              <th class="text-left py-3 px-4 text-navy-500 font-medium">ID</th>
-              <th class="text-left py-3 px-4 text-navy-500 font-medium">Date</th>
-              <th class="text-left py-3 px-4 text-navy-500 font-medium">Clinician/Entity</th>
-              <th class="text-left py-3 px-4 text-navy-500 font-medium">Nature of Breach</th>
-              <th class="text-left py-3 px-4 text-navy-500 font-medium">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {breachRegister.map((breach: any) => (
-              <tr class="border-b border-navy-800/50 hover:bg-navy-800/30">
-                <td class="py-3 px-4 font-mono text-gold-500">{breach.id}</td>
-                <td class="py-3 px-4 text-navy-400">{breach.date}</td>
-                <td class="py-3 px-4 text-white">{breach.clinician}</td>
-                <td class="py-3 px-4 text-navy-300">{breach.nature}</td>
-                <td class="py-3 px-4">
-                  <Badge variant="vindication">{breach.status}</Badge>
-                </td>
+      <div class="lg:ml-24">
+        <h2 class="text-2xl font-display font-bold text-white mb-8">Breach Register</h2>
+
+        <div class="overflow-x-auto rounded-xl border border-navy-700/30">
+          <table class="w-full text-sm">
+            <thead class="bg-navy-800/50">
+              <tr>
+                <th class="text-left py-3 px-4 text-navy-500 font-medium">ID</th>
+                <th class="text-left py-3 px-4 text-navy-500 font-medium">Date</th>
+                <th class="text-left py-3 px-4 text-navy-500 font-medium">Clinician</th>
+                <th class="text-left py-3 px-4 text-navy-500 font-medium">Nature</th>
+                <th class="text-left py-3 px-4 text-navy-500 font-medium">Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {breachRegister.map((breach: any) => (
+                <tr class="border-t border-navy-700/30 hover:bg-navy-800/30 transition-colors">
+                  <td class="py-3 px-4 font-mono text-gold-400">{breach.id}</td>
+                  <td class="py-3 px-4 text-navy-400">{breach.date}</td>
+                  <td class="py-3 px-4 text-white">{breach.clinician}</td>
+                  <td class="py-3 px-4 text-navy-300">{breach.nature}</td>
+                  <td class="py-3 px-4">
+                    <Badge variant="vindication">{breach.status}</Badge>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Limitation Analysis -->
-  <section class="py-12 border-t border-navy-800/50 bg-navy-900/30">
+  <section class="py-16 border-t border-navy-700/30 bg-navy-900/30">
     <div class="container-wide">
-      <div class="max-w-2xl">
-        <h2 class="text-2xl font-serif font-bold text-white mb-6 flex items-center gap-3">
-          <span class="w-3 h-3 rounded-full bg-gold-500"></span>
-          Limitation Analysis ({limitationAnalysis.findingRef})
-        </h2>
+      <div class="lg:ml-24 max-w-2xl">
+        <div class="flex items-center gap-3 mb-8">
+          <div class="w-4 h-4 rounded-full bg-gold-500"></div>
+          <h2 class="text-2xl font-display font-bold text-white">Limitation Analysis</h2>
+          <Badge variant="default">{limitationAnalysis.findingRef}</Badge>
+        </div>
+
         <div class="grid grid-cols-2 gap-4">
-          <div class="p-4 rounded-lg bg-navy-800/50 border border-navy-700">
+          <GlassCard padding="md">
             <p class="text-xs text-navy-500 mb-1">Index Injury</p>
             <p class="text-lg font-semibold text-white">{limitationAnalysis.indexInjury}</p>
-          </div>
-          <div class="p-4 rounded-lg bg-navy-800/50 border border-navy-700">
+          </GlassCard>
+          <GlassCard padding="md">
             <p class="text-xs text-navy-500 mb-1">Date of Knowledge</p>
             <p class="text-lg font-semibold text-gold-400">{limitationAnalysis.dateOfKnowledge}</p>
-          </div>
-          <div class="p-4 rounded-lg bg-navy-800/50 border border-navy-700">
+          </GlassCard>
+          <GlassCard padding="md">
             <p class="text-xs text-navy-500 mb-1">Limitation Expires</p>
-            <p class="text-lg font-semibold text-breach-400">{limitationAnalysis.limitationExpires}</p>
-          </div>
-          <div class="p-4 rounded-lg bg-vindication-500/10 border border-vindication-500/20">
+            <p class="text-lg font-semibold text-red-400">{limitationAnalysis.limitationExpires}</p>
+          </GlassCard>
+          <GlassCard variant="vindication" padding="md">
             <p class="text-xs text-navy-500 mb-1">Time Remaining</p>
-            <p class="text-lg font-semibold text-vindication-400">{limitationAnalysis.timeRemaining}</p>
-          </div>
+            <p class="text-lg font-semibold text-green-400">{limitationAnalysis.timeRemaining}</p>
+          </GlassCard>
         </div>
-        <p class="text-sm text-navy-400 mt-4">
+
+        <p class="text-sm text-navy-400 mt-6">
           <strong class="text-gold-400">s.32(1)(b):</strong> {limitationAnalysis.section32}
         </p>
       </div>
@@ -279,50 +374,37 @@ const totalEvents = transformedPhases.reduce((acc, p) => acc + p.events.length, 
   </section>
 
   <!-- Summary Stats -->
-  <section class="py-12 border-t border-navy-800/50">
+  <section class="py-16 border-t border-navy-700/30">
     <div class="container-wide">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="lg:ml-24 grid grid-cols-2 md:grid-cols-4 gap-6">
         <div class="text-center">
-          <p class="text-3xl font-bold font-serif text-gold-400">{metadata.totalPhases}</p>
-          <p class="text-sm text-navy-400">Timeline Phases</p>
+          <p class="text-4xl font-display font-bold text-gold-400">{metadata.totalPhases}</p>
+          <p class="text-sm text-navy-400 mt-1">Timeline Phases</p>
         </div>
         <div class="text-center">
-          <p class="text-3xl font-bold font-serif text-white">{totalEvents}+</p>
-          <p class="text-sm text-navy-400">Key Events</p>
+          <p class="text-4xl font-display font-bold text-white">{totalEvents}+</p>
+          <p class="text-sm text-navy-400 mt-1">Key Events</p>
         </div>
         <div class="text-center">
-          <p class="text-3xl font-bold font-serif text-breach-400">{metadata.diagnosticDelay}</p>
-          <p class="text-sm text-navy-400">Diagnostic Delay</p>
+          <p class="text-4xl font-display font-bold text-red-400">{metadata.diagnosticDelay}</p>
+          <p class="text-sm text-navy-400 mt-1">Diagnostic Delay</p>
         </div>
         <div class="text-center">
-          <p class="text-3xl font-bold font-serif text-vindication-400">6+</p>
-          <p class="text-sm text-navy-400">Years of Evidence</p>
+          <p class="text-4xl font-display font-bold text-green-400">6+</p>
+          <p class="text-sm text-navy-400 mt-1">Years of Evidence</p>
         </div>
       </div>
     </div>
   </section>
 </BaseLayout>
 
-<script>
-  // Toggle phase expansion
-  document.querySelectorAll('[data-toggle-phase]').forEach(button => {
-    button.addEventListener('click', () => {
-      const phaseNum = button.getAttribute('data-toggle-phase');
-      const events = document.querySelector(`[data-events-phase="${phaseNum}"]`);
-      const chevron = button.querySelector('.phase-chevron');
-
-      if (events) {
-        events.classList.toggle('hidden');
-        chevron?.classList.toggle('rotate-180');
-      }
-    });
-  });
-
-  // Expand first few phases by default
-  [1, 2, 3].forEach(num => {
-    const events = document.querySelector(`[data-events-phase="${num}"]`);
-    const chevron = document.querySelector(`[data-toggle-phase="${num}"] .phase-chevron`);
-    events?.classList.remove('hidden');
-    chevron?.classList.add('rotate-180');
-  });
-</script>
+<style>
+  /* Hide scrollbar for mini-timeline */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+</style>

@@ -1,0 +1,264 @@
+---
+/**
+ * BentoGrid Component
+ *
+ * Asymmetric dashboard grid for the V2 home page.
+ * Displays key case statistics, timeline preview, and navigation cards
+ * in a visually striking Bento-style layout.
+ */
+
+import GlassCard from '@components/ui/GlassCard.astro';
+import Badge from '@components/common/Badge.astro';
+
+interface Props {
+  stats: {
+    findings: number;
+    vindication: number;
+    breach: number;
+    verified: number;
+    delayMonths: number;
+  };
+  priorityFindings?: Array<{
+    id: string;
+    title: string;
+    category: string;
+  }>;
+}
+
+const { stats, priorityFindings = [] } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const getHref = (path: string) => path === '/' ? (base || '/') : `${base}${path}`;
+
+// Key timeline dates for the preview
+const keyDates = [
+  { label: 'First Seizure', date: '23 Dec 2021', color: 'text-white' },
+  { label: 'MRI Confirms', date: 'Oct 2022', color: 'text-white' },
+  { label: 'Covert Diagnosis', date: '5 Jan 2023', color: 'text-red-400' },
+  { label: 'Vindication', date: '22 Jul 2025', color: 'text-green-400' },
+];
+
+// Quick navigation cards
+const navCards = [
+  {
+    href: '/findings',
+    label: 'Findings',
+    count: `${stats.findings}+`,
+    icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>`,
+    color: 'text-gold-500'
+  },
+  {
+    href: '/timeline',
+    label: 'Timeline',
+    count: '8 phases',
+    icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`,
+    color: 'text-gold-500'
+  },
+  {
+    href: '/evidence',
+    label: 'Evidence',
+    count: '7 tiers',
+    icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>`,
+    color: 'text-blue-400'
+  },
+  {
+    href: '/actors',
+    label: 'Actors',
+    count: '10+',
+    icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`,
+    color: 'text-purple-400'
+  },
+];
+---
+
+<section class="py-8 lg:py-12">
+  <div class="container-wide">
+    <!-- Main Bento Grid -->
+    <div class="grid grid-cols-12 gap-4 lg:gap-6">
+
+      <!-- ==========================================
+           ROW 1: Hero Statement + Stats
+           ========================================== -->
+
+      <!-- Hero Statement - Large Left (spans 2 rows on lg) -->
+      <div class="col-span-12 lg:col-span-6 lg:row-span-2">
+        <GlassCard variant="elevated" padding="lg" class="h-full flex flex-col justify-between min-h-[320px] lg:min-h-[400px]">
+          <div>
+            <Badge variant="default">Clinical Negligence Case</Badge>
+            <h1 class="text-3xl lg:text-4xl xl:text-5xl font-display font-bold text-white mt-6 mb-4 leading-tight">
+              Thomson v<br />
+              <span class="text-gold-500">Multiple NHS Defendants</span>
+            </h1>
+            <p class="text-navy-300 text-lg leading-relaxed max-w-lg">
+              An <strong class="text-white">{stats.delayMonths}-month diagnostic delay</strong>
+              for T5-T8 vertebral fractures, documented across
+              <strong class="text-gold-400">{stats.findings}+ forensic findings</strong>.
+            </p>
+          </div>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href={getHref('/findings')} class="btn-primary">
+              Explore Findings
+            </a>
+            <a href={getHref('/timeline')} class="btn-secondary">
+              View Timeline
+            </a>
+          </div>
+        </GlassCard>
+      </div>
+
+      <!-- Verified Stat Card -->
+      <div class="col-span-6 lg:col-span-3">
+        <GlassCard padding="md" class="h-full flex flex-col justify-center text-center min-h-[140px]">
+          <p class="text-4xl lg:text-5xl font-display font-bold text-white mb-2">{stats.verified}+</p>
+          <p class="text-sm text-navy-400 uppercase tracking-wider">Verified Findings</p>
+        </GlassCard>
+      </div>
+
+      <!-- Breach Stat Card -->
+      <div class="col-span-6 lg:col-span-3">
+        <GlassCard variant="breach" padding="md" class="h-full flex flex-col justify-center text-center min-h-[140px]">
+          <p class="text-4xl lg:text-5xl font-display font-bold text-red-400 mb-2">{stats.breach}+</p>
+          <p class="text-sm text-navy-400 uppercase tracking-wider">Breach Findings</p>
+        </GlassCard>
+      </div>
+
+      <!-- ==========================================
+           ROW 2: Vindication + Timeline Preview
+           ========================================== -->
+
+      <!-- Vindication Highlight Card -->
+      <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+        <a href={getHref('/vindication')} class="block h-full">
+          <GlassCard variant="vindication" padding="md" class="h-full hover:border-green-400/50 transition-all cursor-pointer min-h-[200px]">
+            <div class="flex items-start justify-between mb-4">
+              <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <Badge variant="vindication">KEY</Badge>
+            </div>
+            <p class="text-3xl lg:text-4xl font-display font-bold text-green-400 mb-1">{stats.vindication}+</p>
+            <p class="text-white font-semibold mb-2">Vindication Evidence</p>
+            <p class="text-sm text-navy-400 leading-relaxed">
+              Independent specialists confirmed: "there were clear causes for his pain"
+            </p>
+          </GlassCard>
+        </a>
+      </div>
+
+      <!-- Timeline Preview Card -->
+      <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+        <GlassCard variant="highlight" padding="md" class="h-full min-h-[200px]">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-semibold text-gold-500 uppercase tracking-wider">
+              Key Dates
+            </h3>
+            <svg class="w-5 h-5 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+
+          <div class="space-y-3">
+            {keyDates.map((item) => (
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-navy-400">{item.label}</span>
+                <span class:list={['font-medium', item.color]}>{item.date}</span>
+              </div>
+            ))}
+          </div>
+
+          <a href={getHref('/timeline')}
+             class="mt-4 inline-flex items-center text-sm text-gold-500 hover:text-gold-400 transition-colors">
+            Full Timeline
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </GlassCard>
+      </div>
+
+      <!-- ==========================================
+           ROW 3: Priority Findings (if available)
+           ========================================== -->
+
+      {priorityFindings.length > 0 && (
+        <div class="col-span-12">
+          <GlassCard padding="md">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-display font-semibold text-white">Priority Findings</h3>
+              <a href={getHref('/findings')} class="text-sm text-gold-500 hover:text-gold-400 transition-colors">
+                View all →
+              </a>
+            </div>
+
+            <div class="flex gap-4 overflow-x-auto pb-2 -mx-2 px-2 scrollbar-thin scrollbar-thumb-navy-700 scrollbar-track-transparent">
+              {priorityFindings.slice(0, 6).map((finding) => (
+                <a
+                  href={getHref(`/findings/${finding.id.toLowerCase()}`)}
+                  class="flex-shrink-0 w-64 p-4 rounded-xl bg-navy-800/40 border border-navy-700/50
+                         hover:border-navy-600/60 hover:bg-navy-800/60 transition-all"
+                >
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="text-xs font-mono text-navy-500">{finding.id}</span>
+                    <Badge variant={finding.category.toLowerCase() as any}>{finding.category}</Badge>
+                  </div>
+                  <p class="text-sm text-white font-medium line-clamp-2">{finding.title}</p>
+                </a>
+              ))}
+            </div>
+          </GlassCard>
+        </div>
+      )}
+
+      <!-- ==========================================
+           ROW 4: Quick Navigation Cards
+           ========================================== -->
+
+      {navCards.map((card) => (
+        <div class="col-span-6 sm:col-span-6 lg:col-span-3">
+          <a href={getHref(card.href)} class="block h-full">
+            <GlassCard variant="interactive" padding="md" class="h-full min-h-[120px]">
+              <div class="flex items-start justify-between mb-3">
+                <div class:list={[card.color]}>
+                  <Fragment set:html={card.icon} />
+                </div>
+                <span class="text-xs text-navy-500 font-medium">{card.count}</span>
+              </div>
+              <p class="text-white font-semibold">{card.label}</p>
+            </GlassCard>
+          </a>
+        </div>
+      ))}
+
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Custom scrollbar for priority findings */
+  .scrollbar-thin::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgba(42, 58, 92, 0.5);
+    border-radius: 3px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: rgba(42, 58, 92, 0.8);
+  }
+
+  /* Line clamp for truncating text */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

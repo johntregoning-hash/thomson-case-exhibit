@@ -1,5 +1,6 @@
 /* Google Fonts - must be first */
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+/* Playfair Display for headlines (legal authority), Inter for body (technical precision) */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -15,7 +16,13 @@
     font-feature-settings: 'liga' 1, 'calt' 1;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  /* Headlines use Playfair Display for legal authority */
+  h1, h2, h3 {
+    @apply font-display font-bold text-white;
+  }
+
+  /* Subheadings use IBM Plex Serif */
+  h4, h5, h6 {
     @apply font-serif font-semibold text-white;
   }
 
@@ -61,12 +68,65 @@
     @apply bg-gradient-to-r from-gold-400 to-gold-600 bg-clip-text text-transparent;
   }
 
+  /* Legacy card classes - kept for backwards compatibility */
   .card-base {
-    @apply bg-navy-900/50 border border-navy-800 rounded-xl backdrop-blur-sm;
+    @apply bg-navy-800/50 border border-navy-700 rounded-xl backdrop-blur-sm;
   }
 
   .card-interactive {
-    @apply card-base transition-all duration-300 hover:border-navy-700 hover:shadow-card-hover;
+    @apply card-base transition-all duration-300 hover:border-navy-600 hover:shadow-card-hover;
+  }
+
+  /* ============================================
+     GLASSMORPHISM SYSTEM - V2 Design Language
+     ============================================ */
+
+  /* Standard glass card - most common usage */
+  .glass-card {
+    @apply bg-navy-800/40 backdrop-blur-xl border border-navy-700/50 rounded-2xl;
+  }
+
+  /* Elevated glass card - for prominent elements */
+  .glass-card-elevated {
+    @apply bg-navy-800/60 backdrop-blur-2xl border border-navy-600/50 rounded-2xl shadow-lg;
+  }
+
+  /* Interactive glass card - with hover states */
+  .glass-card-interactive {
+    @apply glass-card transition-all duration-300
+           hover:bg-navy-800/60 hover:border-navy-600/60 hover:shadow-card-hover;
+  }
+
+  /* Vindication variant - green tint for victories */
+  .glass-card-vindication {
+    @apply bg-vindication-500/10 backdrop-blur-xl border border-vindication-500/30 rounded-2xl
+           shadow-vindication-glow;
+  }
+
+  /* Breach variant - red tint for breaches */
+  .glass-card-breach {
+    @apply bg-breach-500/10 backdrop-blur-xl border border-breach-500/30 rounded-2xl;
+  }
+
+  /* Highlight variant - gold accent for key items */
+  .glass-card-highlight {
+    @apply bg-navy-800/50 backdrop-blur-xl border border-gold-500/30 rounded-2xl
+           shadow-gold-glow;
+  }
+
+  /* Glass navigation bar */
+  .glass-nav {
+    @apply bg-navy-900/70 backdrop-blur-2xl border-b border-navy-700/30;
+  }
+
+  /* Keyboard shortcut hint (e.g., Cmd+K) */
+  .kbd-hint {
+    @apply inline-flex items-center gap-0.5 px-1.5 py-0.5 text-xs font-mono
+           bg-navy-800/80 border border-navy-700/50 rounded text-navy-400;
+  }
+
+  .kbd-hint kbd {
+    @apply text-navy-300;
   }
 
   .badge {

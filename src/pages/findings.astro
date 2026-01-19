@@ -1,39 +1,57 @@
 ---
+/**
+ * Findings Page - V2 Design
+ *
+ * Forensic evidence repository with:
+ * - Sticky filter bar with category pills
+ * - Evidence folder-styled cards
+ * - Priority findings highlight
+ * - Grid/List view toggle
+ * - Real-time search and filtering
+ */
+
 import BaseLayout from '@layouts/BaseLayout.astro';
 import FindingCard from '@components/findings/FindingCard.astro';
+import FindingFilters from '@components/findings/FindingFilters.astro';
+import GlassCard from '@components/ui/GlassCard.astro';
 import Badge from '@components/common/Badge.astro';
 
 // Import findings data from JSON
 import findingsData from '../data/findings.json';
 
-// Get all findings and metadata
-const allFindings = findingsData.findings;
-const metadata = findingsData.metadata;
-const categoryCounts = findingsData.categoryCounts;
-const statusCounts = findingsData.statusCounts;
-const priorityFindings = findingsData.priorityFindings;
+const base = import.meta.env.BASE_URL;
+const getHref = (path: string) => path === '/' ? (base || '/') : `${base}${path}`;
 
-// Create category list for filters
-const categories = [
-  { name: 'ALL', count: metadata.totalFindings },
-  { name: 'VINDICATION', count: categoryCounts.VINDICATION || 0, variant: 'vindication' },
-  { name: 'BREACH', count: categoryCounts.BREACH || 0, variant: 'breach' },
-  { name: 'WITNESS', count: categoryCounts.WITNESS || 0, variant: 'witness' },
-  { name: 'DISCREPANCY', count: categoryCounts.DISCREPANCY || 0, variant: 'discrepancy' },
-  { name: 'CAUSATION', count: categoryCounts.CAUSATION || 0, variant: 'causation' },
-  { name: 'NEUROLOGICAL', count: categoryCounts.NEUROLOGICAL || 0, variant: 'causation' },
-  { name: 'MEDICATION', count: categoryCounts.MEDICATION || 0, variant: 'breach' },
-  { name: 'FND/SOMATOFORM', count: categoryCounts['FND/SOMATOFORM'] || 0, variant: 'breach' },
-  { name: 'PROCEDURAL', count: categoryCounts.PROCEDURAL || 0, variant: 'procedural' },
-  { name: 'STRATEGIC', count: categoryCounts.STRATEGIC || 0, variant: 'strategic' },
-  { name: 'QUANTUM', count: categoryCounts.QUANTUM || 0, variant: 'quantum' }
-];
+// Get all findings and metadata
+const allFindings = findingsData.findings || [];
+const metadata = findingsData.metadata;
+const categoryCounts = (findingsData as any).categoryCounts || {};
+const statusCounts = (findingsData as any).statusCounts || {};
+const priorityFindingIds = findingsData.priorityFindings || [];
+
+// Get unique categories and statuses
+const categories = metadata.categories || [];
+const statuses = metadata.evidenceStatuses || [];
+
+// Calculate stats
+const stats = {
+  total: allFindings.length,
+  verified: allFindings.filter((f: any) => f.evidenceStatus === 'VERIFIED').length,
+  vindication: allFindings.filter((f: any) => f.category === 'VINDICATION').length,
+  breach: allFindings.filter((f: any) => f.category === 'BREACH').length,
+  critical: allFindings.filter((f: any) => f.critical).length
+};
+
+// Get priority findings
+const priorityFindings = priorityFindingIds
+  .map((id: string) => allFindings.find((f: any) => f.id === id))
+  .filter((f: any) => f !== undefined);
 
 // Sort findings - critical/priority ones first, then by ID
-const sortedFindings = [...allFindings].sort((a, b) => {
+const sortedFindings = [...allFindings].sort((a: any, b: any) => {
   // Priority findings first
-  const aIsPriority = priorityFindings.includes(a.id);
-  const bIsPriority = priorityFindings.includes(b.id);
+  const aIsPriority = priorityFindingIds.includes(a.id);
+  const bIsPriority = priorityFindingIds.includes(b.id);
   if (aIsPriority && !bIsPriority) return -1;
   if (!aIsPriority && bIsPriority) return 1;
 
@@ -46,241 +64,315 @@ const sortedFindings = [...allFindings].sort((a, b) => {
 });
 ---
 
-<BaseLayout title="Findings" description="Browse 200+ documented findings in the Thomson clinical negligence case">
-  <!-- Header -->
-  <section class="py-16 bg-navy-900/30">
-    <div class="container-wide">
-      <div class="max-w-3xl">
-        <h1 class="text-4xl font-serif font-bold text-white mb-4">Findings Registry</h1>
-        <p class="text-lg text-navy-300">
-          Browse {metadata.totalFindings}+ documented findings, each cross-referenced with primary evidence
-          and categorised by type. Last updated: {metadata.lastUpdated}.
+<BaseLayout title="Findings" description="Browse 200+ documented forensic findings in the Thomson clinical negligence case">
+  <!-- Hero Header -->
+  <section class="relative py-12 lg:py-16 overflow-hidden">
+    <!-- Background decoration -->
+    <div class="absolute inset-0 bg-gradient-to-b from-navy-800/30 to-transparent pointer-events-none"></div>
+    <div class="absolute top-0 right-0 w-96 h-96 bg-gold-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="container-wide relative">
+      <div class="max-w-4xl">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-sm mb-6">
+          <a href={getHref('/')} class="text-navy-500 hover:text-white transition-colors">Home</a>
+          <svg class="w-4 h-4 text-navy-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+          <span class="text-gold-500">Findings Registry</span>
+        </nav>
+
+        <h1 class="text-4xl lg:text-5xl font-display font-bold text-white mb-4">
+          Forensic Findings<br />
+          <span class="text-gold-500">Registry</span>
+        </h1>
+        <p class="text-lg text-navy-300 leading-relaxed max-w-2xl">
+          Browse <strong class="text-white">{stats.total}+</strong> documented findings, each cross-referenced
+          with primary evidence documents. Every finding is categorised, verified, and linked to relevant
+          actors in this clinical negligence case.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Stats Bar -->
-  <section class="border-y border-navy-800/50 bg-navy-950">
-    <div class="container-wide py-6">
-      <div class="flex flex-wrap items-center gap-6">
-        <div class="flex items-center gap-2">
-          <span class="text-2xl font-bold text-gold-400">{metadata.totalFindings}+</span>
-          <span class="text-sm text-navy-400">Total Findings</span>
+  <!-- Stats Dashboard -->
+  <section class="py-6 border-y border-navy-700/50 bg-navy-800/20">
+    <div class="container-wide">
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
+        <!-- Total -->
+        <div class="text-center">
+          <p class="text-3xl lg:text-4xl font-display font-bold text-white">{stats.total}+</p>
+          <p class="text-sm text-navy-500 uppercase tracking-wider mt-1">Total Findings</p>
         </div>
-        <div class="w-px h-8 bg-navy-800 hidden sm:block"></div>
-        <div class="flex items-center gap-2">
-          <span class="text-2xl font-bold text-vindication-400">{statusCounts.VERIFIED}</span>
-          <span class="text-sm text-navy-400">Verified</span>
+
+        <!-- Verified -->
+        <div class="text-center">
+          <p class="text-3xl lg:text-4xl font-display font-bold text-green-400">{stats.verified}</p>
+          <p class="text-sm text-navy-500 uppercase tracking-wider mt-1">Verified</p>
         </div>
-        <div class="w-px h-8 bg-navy-800 hidden sm:block"></div>
-        <div class="flex items-center gap-2">
-          <span class="text-2xl font-bold text-vindication-500">{categoryCounts.VINDICATION}+</span>
-          <span class="text-sm text-navy-400">Vindication</span>
+
+        <!-- Vindication -->
+        <div class="text-center">
+          <p class="text-3xl lg:text-4xl font-display font-bold text-green-500">{stats.vindication}+</p>
+          <p class="text-sm text-navy-500 uppercase tracking-wider mt-1">Vindication</p>
         </div>
-        <div class="w-px h-8 bg-navy-800 hidden sm:block"></div>
-        <div class="flex items-center gap-2">
-          <span class="text-2xl font-bold text-breach-400">{categoryCounts.BREACH}+</span>
-          <span class="text-sm text-navy-400">Breach</span>
+
+        <!-- Breach -->
+        <div class="text-center">
+          <p class="text-3xl lg:text-4xl font-display font-bold text-red-400">{stats.breach}+</p>
+          <p class="text-sm text-navy-500 uppercase tracking-wider mt-1">Breach</p>
+        </div>
+
+        <!-- Critical -->
+        <div class="text-center hidden lg:block">
+          <p class="text-3xl lg:text-4xl font-display font-bold text-gold-500">{stats.critical}</p>
+          <p class="text-sm text-navy-500 uppercase tracking-wider mt-1">Critical</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Priority Findings Alert -->
+  <!-- Priority Findings Highlight -->
   {priorityFindings.length > 0 && (
-    <section class="bg-gold-500/10 border-b border-gold-500/30">
-      <div class="container-wide py-4">
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center">
-            <svg class="w-4 h-4 text-gold-500" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+    <section class="py-6 bg-gold-500/5 border-b border-gold-500/20">
+      <div class="container-wide">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-gold-500/20 flex items-center justify-center">
+            <svg class="w-5 h-5 text-gold-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
             </svg>
           </div>
-          <div>
-            <span class="text-sm font-semibold text-gold-400">Priority Findings:</span>
-            <span class="text-sm text-navy-300 ml-2">{priorityFindings.join(', ')}</span>
+          <div class="flex-1 min-w-0">
+            <h2 class="text-sm font-semibold text-gold-400 uppercase tracking-wider mb-2">Priority Findings</h2>
+            <div class="flex flex-wrap gap-2">
+              {priorityFindings.slice(0, 8).map((finding: any) => (
+                <a
+                  href={getHref(`/findings/${finding.id.toLowerCase()}`)}
+                  class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-navy-800/60 border border-navy-700/50 hover:border-gold-500/50 hover:bg-navy-800 transition-all group"
+                >
+                  <span class="text-xs font-mono text-gold-500">{finding.id}</span>
+                  <span class="text-sm text-navy-300 group-hover:text-white transition-colors truncate max-w-[200px]">
+                    {finding.title}
+                  </span>
+                </a>
+              ))}
+              {priorityFindings.length > 8 && (
+                <span class="text-sm text-navy-500 self-center">+{priorityFindings.length - 8} more</span>
+              )}
+            </div>
           </div>
         </div>
       </div>
     </section>
   )}
 
-  <!-- Category Filters -->
-  <section class="sticky top-16 z-40 border-b border-navy-800/50 bg-navy-950/95 backdrop-blur-sm">
-    <div class="container-wide">
-      <div class="flex items-center gap-2 py-4 overflow-x-auto">
-        {categories.map((cat) => (
-          <button
-            class:list={[
-              'px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap',
-              cat.name === 'ALL'
-                ? 'bg-gold-600 text-navy-950'
-                : 'bg-navy-800/50 text-navy-300 hover:bg-navy-800 hover:text-white'
-            ]}
-            data-category={cat.name}
-          >
-            {cat.name}
-            <span class="ml-2 text-xs opacity-70">{cat.count}</span>
-          </button>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Search -->
-  <section class="py-6 border-b border-navy-800/50">
-    <div class="container-wide">
-      <div class="relative max-w-md">
-        <input
-          type="text"
-          id="finding-search"
-          placeholder="Search findings by ID, title, or content..."
-          class="w-full px-4 py-3 pl-10 rounded-lg bg-navy-800/50 border border-navy-700 text-white placeholder-navy-500 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500"
-        />
-        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-      </div>
-    </div>
-  </section>
+  <!-- Filter Bar -->
+  <div class="container-wide">
+    <FindingFilters
+      categories={categories}
+      statuses={statuses}
+      totalFindings={stats.total}
+    />
+  </div>
 
   <!-- Findings Grid -->
-  <section class="py-12">
+  <section class="py-8 lg:py-12">
     <div class="container-wide">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="findings-grid">
-        {sortedFindings.map((finding) => (
-          <FindingCard finding={finding} />
+      <div
+        id="findings-grid"
+        class="findings-grid-view grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8"
+      >
+        {sortedFindings.map((finding: any, index: number) => (
+          <div style={`animation-delay: ${Math.min(index * 50, 500)}ms`}>
+            <FindingCard finding={finding} />
+          </div>
         ))}
       </div>
 
-      <!-- Results Count -->
-      <div class="mt-8 text-center">
-        <p class="text-navy-400" id="results-count">
-          Showing <span id="visible-count">{sortedFindings.length}</span> of {metadata.totalFindings}+ findings
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Evidence Status Legend -->
-  <section class="py-8 border-t border-navy-800/50 bg-navy-900/30">
-    <div class="container-wide">
-      <h2 class="text-lg font-serif font-bold text-white mb-4">Evidence Status Key</h2>
-      <div class="flex flex-wrap gap-6">
-        <div class="flex items-center gap-2">
-          <span class="w-3 h-3 rounded-full bg-vindication-500"></span>
-          <span class="text-sm text-navy-300"><strong class="text-vindication-400">VERIFIED</strong> - Confirmed by independent documentary evidence</span>
+      <!-- Empty State -->
+      <div id="empty-state" class="hidden py-16 text-center">
+        <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-navy-800/50 flex items-center justify-center">
+          <svg class="w-8 h-8 text-navy-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
         </div>
-        <div class="flex items-center gap-2">
-          <span class="w-3 h-3 rounded-full bg-gold-500"></span>
-          <span class="text-sm text-navy-300"><strong class="text-gold-400">SUPPORTED</strong> - Consistent with evidence but not definitively proven</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="w-3 h-3 rounded-full bg-breach-500"></span>
-          <span class="text-sm text-navy-300"><strong class="text-breach-400">CONTRADICTED</strong> - Evidence disproves this claim</span>
-        </div>
+        <h3 class="text-lg font-display font-semibold text-white mb-2">No findings match your criteria</h3>
+        <p class="text-navy-400 mb-4">Try adjusting your filters or search terms</p>
+        <button
+          onclick="document.getElementById('clear-filters')?.click()"
+          class="text-gold-500 hover:text-gold-400 transition-colors"
+        >
+          Clear all filters
+        </button>
       </div>
     </div>
   </section>
 
   <!-- Category Legend -->
-  <section class="py-12 border-t border-navy-800/50">
+  <section class="py-12 border-t border-navy-700/50 bg-navy-800/20">
     <div class="container-wide">
-      <h2 class="text-xl font-serif font-bold text-white mb-6">Finding Categories</h2>
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-2xl font-display font-bold text-white">Finding Categories</h2>
+        <a href={getHref('/evidence')} class="text-sm text-gold-500 hover:text-gold-400 transition-colors">
+          View Evidence Tiers →
+        </a>
+      </div>
+
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="card-base p-4">
-          <Badge variant="vindication" class="mb-2">VINDICATION</Badge>
-          <p class="text-sm text-navy-400">Independent clinicians refuting problematic diagnoses</p>
+        <GlassCard variant="vindication" padding="md">
+          <Badge variant="vindication" class="mb-3">VINDICATION</Badge>
+          <p class="text-sm text-navy-300">Independent specialists confirming diagnoses were inappropriate or removing psychiatric labels</p>
+        </GlassCard>
+
+        <GlassCard variant="breach" padding="md">
+          <Badge variant="breach" class="mb-3">BREACH</Badge>
+          <p class="text-sm text-navy-300">Potential Bolam/Bolitho breach of duty by healthcare providers</p>
+        </GlassCard>
+
+        <GlassCard padding="md">
+          <Badge variant="discrepancy" class="mb-3">DISCREPANCY</Badge>
+          <p class="text-sm text-navy-300">GP entries contradicting contemporaneous medical evidence</p>
+        </GlassCard>
+
+        <GlassCard padding="md">
+          <Badge variant="witness" class="mb-3">WITNESS</Badge>
+          <p class="text-sm text-navy-300">Third-party corroboration of events from family or clinicians</p>
+        </GlassCard>
+
+        <GlassCard padding="md">
+          <Badge variant="causation" class="mb-3">CAUSATION</Badge>
+          <p class="text-sm text-navy-300">Evidence linking breach of duty to patient harm</p>
+        </GlassCard>
+
+        <GlassCard padding="md">
+          <Badge variant="fabrication" class="mb-3">FABRICATION</Badge>
+          <p class="text-sm text-navy-300">Entries impossible given known facts or timeline</p>
+        </GlassCard>
+
+        <GlassCard padding="md">
+          <Badge variant="procedural" class="mb-3">PROCEDURAL</Badge>
+          <p class="text-sm text-navy-300">Administrative failures and data protection issues</p>
+        </GlassCard>
+
+        <GlassCard padding="md">
+          <Badge variant="quantum" class="mb-3">QUANTUM</Badge>
+          <p class="text-sm text-navy-300">Evidence supporting damages calculation</p>
+        </GlassCard>
+      </div>
+    </div>
+  </section>
+
+  <!-- Evidence Status Legend -->
+  <section class="py-8 border-t border-navy-700/50">
+    <div class="container-wide">
+      <h3 class="text-lg font-display font-semibold text-white mb-6">Evidence Status Key</h3>
+      <div class="flex flex-wrap gap-6">
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-1.5 px-2 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-medium">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            VERIFIED
+          </div>
+          <span class="text-sm text-navy-400">Confirmed by independent documentary evidence</span>
         </div>
-        <div class="card-base p-4">
-          <Badge variant="breach" class="mb-2">BREACH</Badge>
-          <p class="text-sm text-navy-400">Potential Bolam/Bolitho breach of duty</p>
+
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-1.5 px-2 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs font-medium">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            SUPPORTED
+          </div>
+          <span class="text-sm text-navy-400">Consistent with evidence but not definitively proven</span>
         </div>
-        <div class="card-base p-4">
-          <Badge variant="discrepancy" class="mb-2">DISCREPANCY</Badge>
-          <p class="text-sm text-navy-400">GP entries contradicting contemporaneous evidence</p>
-        </div>
-        <div class="card-base p-4">
-          <Badge variant="witness" class="mb-2">WITNESS</Badge>
-          <p class="text-sm text-navy-400">Third-party corroboration of events</p>
-        </div>
-        <div class="card-base p-4">
-          <Badge variant="causation" class="mb-2">CAUSATION</Badge>
-          <p class="text-sm text-navy-400">Evidence linking breach to harm</p>
-        </div>
-        <div class="card-base p-4">
-          <Badge variant="quantum" class="mb-2">QUANTUM</Badge>
-          <p class="text-sm text-navy-400">Damages evidence</p>
-        </div>
-        <div class="card-base p-4">
-          <Badge variant="procedural" class="mb-2">PROCEDURAL</Badge>
-          <p class="text-sm text-navy-400">Administrative/data protection issues</p>
-        </div>
-        <div class="card-base p-4">
-          <Badge variant="strategic" class="mb-2">STRATEGIC</Badge>
-          <p class="text-sm text-navy-400">Case strategy insights</p>
+
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-1.5 px-2 py-1 rounded-full bg-red-500/20 text-red-400 text-xs font-medium">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            CONTRADICTED
+          </div>
+          <span class="text-sm text-navy-400">Evidence disproves this claim</span>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Last Updated -->
+  <section class="py-4 border-t border-navy-700/30">
+    <div class="container-wide">
+      <p class="text-xs text-navy-600 text-center">
+        Registry last updated: {metadata.lastUpdated} · Highest Finding ID: {metadata.highestFindingId}
+      </p>
+    </div>
+  </section>
 </BaseLayout>
 
+<style>
+  /* Grid view (default) */
+  .findings-grid-view {
+    display: grid;
+  }
+
+  /* List view */
+  .findings-list-view {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .findings-list-view > div {
+    max-width: none;
+  }
+
+  .findings-list-view .finding-card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  /* Staggered animation */
+  .findings-grid-view > div {
+    opacity: 0;
+    animation: fade-up 0.5s ease-out forwards;
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
 <script>
-  // Category filtering
-  const buttons = document.querySelectorAll('[data-category]') as NodeListOf<HTMLButtonElement>;
-  const cards = document.querySelectorAll('[data-finding-id]') as NodeListOf<HTMLElement>;
-  const searchInput = document.getElementById('finding-search') as HTMLInputElement;
-  const visibleCountEl = document.getElementById('visible-count');
+  // Show/hide empty state based on visible findings
+  function updateEmptyState() {
+    const visibleCards = document.querySelectorAll('.finding-card:not([style*="display: none"])');
+    const emptyState = document.getElementById('empty-state');
+    const grid = document.getElementById('findings-grid');
 
-  let activeCategory = 'ALL';
-  let searchTerm = '';
-
-  function filterCards() {
-    let visibleCount = 0;
-
-    cards.forEach(card => {
-      const cardCategory = card.dataset.category || '';
-      const cardText = card.textContent?.toLowerCase() || '';
-      const cardId = card.dataset.findingId?.toLowerCase() || '';
-
-      const matchesCategory = activeCategory === 'ALL' || cardCategory === activeCategory;
-      const matchesSearch = !searchTerm ||
-        cardText.includes(searchTerm) ||
-        cardId.includes(searchTerm);
-
-      if (matchesCategory && matchesSearch) {
-        card.style.display = 'block';
-        visibleCount++;
+    if (emptyState && grid) {
+      if (visibleCards.length === 0) {
+        emptyState.classList.remove('hidden');
+        grid.classList.add('hidden');
       } else {
-        card.style.display = 'none';
+        emptyState.classList.add('hidden');
+        grid.classList.remove('hidden');
       }
-    });
-
-    if (visibleCountEl) {
-      visibleCountEl.textContent = String(visibleCount);
     }
   }
 
-  buttons.forEach(button => {
-    button.addEventListener('click', () => {
-      activeCategory = button.dataset.category || 'ALL';
-
-      // Update button styles
-      buttons.forEach(btn => {
-        btn.classList.remove('bg-gold-600', 'text-navy-950');
-        btn.classList.add('bg-navy-800/50', 'text-navy-300');
-      });
-      button.classList.remove('bg-navy-800/50', 'text-navy-300');
-      button.classList.add('bg-gold-600', 'text-navy-950');
-
-      filterCards();
-    });
-  });
-
-  // Search functionality
-  searchInput?.addEventListener('input', (e) => {
-    searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
-    filterCards();
-  });
+  // Listen for filter changes
+  const observer = new MutationObserver(updateEmptyState);
+  const grid = document.getElementById('findings-grid');
+  if (grid) {
+    observer.observe(grid, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
+  }
 </script>

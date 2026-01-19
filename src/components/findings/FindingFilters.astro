@@ -1,0 +1,365 @@
+---
+/**
+ * FindingFilters Component - V2 Design
+ *
+ * Sticky filter bar for the Findings page with:
+ * - Category pills (multi-select)
+ * - Evidence status dropdown
+ * - Search input
+ * - Sort options
+ * - Active filter count badge
+ */
+
+interface Props {
+  categories: string[];
+  statuses: string[];
+  totalFindings: number;
+}
+
+const { categories, statuses, totalFindings } = Astro.props;
+
+// Category styling for filter pills
+const categoryStyles: Record<string, { bg: string; bgActive: string; text: string }> = {
+  'VINDICATION': { bg: 'bg-green-500/10', bgActive: 'bg-green-500', text: 'text-green-400' },
+  'BREACH': { bg: 'bg-red-500/10', bgActive: 'bg-red-500', text: 'text-red-400' },
+  'DISCREPANCY': { bg: 'bg-amber-500/10', bgActive: 'bg-amber-500', text: 'text-amber-400' },
+  'CAUSATION': { bg: 'bg-purple-500/10', bgActive: 'bg-purple-500', text: 'text-purple-400' },
+  'FABRICATION': { bg: 'bg-red-600/10', bgActive: 'bg-red-600', text: 'text-red-300' },
+  'WITNESS': { bg: 'bg-blue-500/10', bgActive: 'bg-blue-500', text: 'text-blue-400' },
+  'QUANTUM': { bg: 'bg-cyan-500/10', bgActive: 'bg-cyan-500', text: 'text-cyan-400' },
+  'PROCEDURAL': { bg: 'bg-slate-500/10', bgActive: 'bg-slate-500', text: 'text-slate-400' },
+  'STRATEGIC': { bg: 'bg-indigo-500/10', bgActive: 'bg-indigo-500', text: 'text-indigo-400' },
+  'NEUROLOGICAL': { bg: 'bg-purple-500/10', bgActive: 'bg-purple-500', text: 'text-purple-400' },
+  'MEDICATION': { bg: 'bg-red-500/10', bgActive: 'bg-red-500', text: 'text-red-400' },
+  'FND/SOMATOFORM': { bg: 'bg-red-500/10', bgActive: 'bg-red-500', text: 'text-red-400' }
+};
+---
+
+<div class="finding-filters sticky top-16 z-30 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 py-4 bg-navy-900/80 backdrop-blur-2xl border-b border-navy-700/50">
+  <div class="flex flex-col gap-4">
+    <!-- Top Row: Search + Sort -->
+    <div class="flex flex-col sm:flex-row gap-3">
+      <!-- Search Input -->
+      <div class="relative flex-1">
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-navy-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input
+          type="text"
+          id="finding-search"
+          placeholder="Search findings..."
+          class="w-full pl-10 pr-4 py-2.5 bg-navy-800/60 border border-navy-700/50 rounded-xl text-white placeholder-navy-500 focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500/50 transition-all"
+        />
+        <kbd class="hidden sm:flex absolute right-3 top-1/2 -translate-y-1/2 items-center gap-0.5 px-1.5 py-0.5 text-xs text-navy-500 bg-navy-800 border border-navy-700 rounded">
+          <span>/</span>
+        </kbd>
+      </div>
+
+      <!-- Sort Dropdown -->
+      <div class="relative">
+        <select
+          id="finding-sort"
+          class="appearance-none pl-4 pr-10 py-2.5 bg-navy-800/60 border border-navy-700/50 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500/50 transition-all cursor-pointer"
+        >
+          <option value="id-asc">ID (A-Z)</option>
+          <option value="id-desc">ID (Z-A)</option>
+          <option value="date-newest">Date (Newest)</option>
+          <option value="date-oldest">Date (Oldest)</option>
+          <option value="category">Category</option>
+          <option value="status">Status</option>
+        </select>
+        <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-500 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
+
+      <!-- View Toggle -->
+      <div class="flex items-center gap-1 p-1 bg-navy-800/60 border border-navy-700/50 rounded-xl">
+        <button
+          id="view-grid"
+          class="p-2 rounded-lg bg-gold-500/20 text-gold-400 transition-all"
+          title="Grid View"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+          </svg>
+        </button>
+        <button
+          id="view-list"
+          class="p-2 rounded-lg text-navy-500 hover:text-white transition-all"
+          title="List View"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Bottom Row: Category Pills + Status + Results Count -->
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+      <!-- Category Pills -->
+      <div class="flex flex-wrap gap-2" id="category-filters">
+        <button
+          data-category="ALL"
+          class="category-pill px-3 py-1.5 rounded-full text-xs font-medium bg-gold-500 text-navy-900 transition-all"
+        >
+          All
+        </button>
+        {categories.map((cat) => {
+          const style = categoryStyles[cat] || { bg: 'bg-navy-700/50', bgActive: 'bg-navy-600', text: 'text-navy-400' };
+          return (
+            <button
+              data-category={cat}
+              class:list={[
+                'category-pill px-3 py-1.5 rounded-full text-xs font-medium transition-all border border-transparent',
+                style.bg,
+                style.text,
+                'hover:border-current'
+              ]}
+            >
+              {cat}
+            </button>
+          );
+        })}
+      </div>
+
+      <!-- Status Filter + Results Count -->
+      <div class="flex items-center gap-4">
+        <!-- Status Dropdown -->
+        <select
+          id="status-filter"
+          class="appearance-none pl-3 pr-8 py-1.5 bg-navy-800/60 border border-navy-700/50 rounded-lg text-sm text-white focus:outline-none focus:ring-2 focus:ring-gold-500/50 transition-all cursor-pointer"
+        >
+          <option value="ALL">All Statuses</option>
+          {statuses.map((status) => (
+            <option value={status}>{status}</option>
+          ))}
+        </select>
+
+        <!-- Results Count -->
+        <div class="flex items-center gap-2 text-sm">
+          <span class="text-navy-500">Showing</span>
+          <span id="results-count" class="font-mono text-gold-500">{totalFindings}</span>
+          <span class="text-navy-500">findings</span>
+        </div>
+
+        <!-- Clear Filters Button (hidden by default) -->
+        <button
+          id="clear-filters"
+          class="hidden items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-red-400 bg-red-500/10 hover:bg-red-500/20 transition-all"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          Clear
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Finding Filters Client-Side Logic
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('finding-search') as HTMLInputElement;
+    const sortSelect = document.getElementById('finding-sort') as HTMLSelectElement;
+    const statusFilter = document.getElementById('status-filter') as HTMLSelectElement;
+    const categoryPills = document.querySelectorAll('.category-pill');
+    const clearFiltersBtn = document.getElementById('clear-filters');
+    const resultsCount = document.getElementById('results-count');
+    const viewGridBtn = document.getElementById('view-grid');
+    const viewListBtn = document.getElementById('view-list');
+    const findingsGrid = document.getElementById('findings-grid');
+
+    let activeCategories: Set<string> = new Set(['ALL']);
+    let currentStatus = 'ALL';
+    let currentSort = 'id-asc';
+    let searchQuery = '';
+
+    // Focus search on "/" key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== searchInput) {
+        e.preventDefault();
+        searchInput?.focus();
+      }
+    });
+
+    // Search input handler
+    searchInput?.addEventListener('input', (e) => {
+      searchQuery = (e.target as HTMLInputElement).value.toLowerCase();
+      applyFilters();
+    });
+
+    // Sort change handler
+    sortSelect?.addEventListener('change', (e) => {
+      currentSort = (e.target as HTMLSelectElement).value;
+      applyFilters();
+    });
+
+    // Status filter handler
+    statusFilter?.addEventListener('change', (e) => {
+      currentStatus = (e.target as HTMLSelectElement).value;
+      applyFilters();
+    });
+
+    // Category pill click handler
+    categoryPills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        const category = (pill as HTMLElement).dataset.category || 'ALL';
+
+        if (category === 'ALL') {
+          activeCategories = new Set(['ALL']);
+        } else {
+          activeCategories.delete('ALL');
+          if (activeCategories.has(category)) {
+            activeCategories.delete(category);
+            if (activeCategories.size === 0) {
+              activeCategories.add('ALL');
+            }
+          } else {
+            activeCategories.add(category);
+          }
+        }
+
+        updateCategoryPillStyles();
+        applyFilters();
+      });
+    });
+
+    // Clear filters handler
+    clearFiltersBtn?.addEventListener('click', () => {
+      activeCategories = new Set(['ALL']);
+      currentStatus = 'ALL';
+      searchQuery = '';
+      currentSort = 'id-asc';
+
+      if (searchInput) searchInput.value = '';
+      if (sortSelect) sortSelect.value = 'id-asc';
+      if (statusFilter) statusFilter.value = 'ALL';
+
+      updateCategoryPillStyles();
+      applyFilters();
+    });
+
+    // View toggle handlers
+    viewGridBtn?.addEventListener('click', () => {
+      viewGridBtn.classList.add('bg-gold-500/20', 'text-gold-400');
+      viewGridBtn.classList.remove('text-navy-500');
+      viewListBtn?.classList.remove('bg-gold-500/20', 'text-gold-400');
+      viewListBtn?.classList.add('text-navy-500');
+      findingsGrid?.classList.remove('findings-list-view');
+      findingsGrid?.classList.add('findings-grid-view');
+    });
+
+    viewListBtn?.addEventListener('click', () => {
+      viewListBtn.classList.add('bg-gold-500/20', 'text-gold-400');
+      viewListBtn.classList.remove('text-navy-500');
+      viewGridBtn?.classList.remove('bg-gold-500/20', 'text-gold-400');
+      viewGridBtn?.classList.add('text-navy-500');
+      findingsGrid?.classList.remove('findings-grid-view');
+      findingsGrid?.classList.add('findings-list-view');
+    });
+
+    function updateCategoryPillStyles() {
+      categoryPills.forEach((pill) => {
+        const category = (pill as HTMLElement).dataset.category || 'ALL';
+        const isActive = activeCategories.has(category);
+
+        if (isActive) {
+          if (category === 'ALL') {
+            pill.classList.add('bg-gold-500', 'text-navy-900');
+            pill.classList.remove('bg-navy-700/50', 'text-navy-400');
+          } else {
+            // Use the active background color
+            pill.classList.add('text-white', 'border-current');
+            const style = pill.className.match(/bg-\w+-500\/10/)?.[0];
+            if (style) {
+              pill.classList.remove(style);
+              pill.classList.add(style.replace('/10', ''));
+            }
+          }
+        } else {
+          if (category === 'ALL') {
+            pill.classList.remove('bg-gold-500', 'text-navy-900');
+            pill.classList.add('bg-navy-700/50', 'text-navy-400');
+          } else {
+            pill.classList.remove('text-white', 'border-current');
+            const style = pill.className.match(/bg-\w+-500(?!\/)/)?.[0];
+            if (style) {
+              pill.classList.remove(style);
+              pill.classList.add(style + '/10');
+            }
+          }
+        }
+      });
+    }
+
+    function applyFilters() {
+      const findingCards = document.querySelectorAll('.finding-card');
+      let visibleCount = 0;
+
+      findingCards.forEach((card) => {
+        const element = card as HTMLElement;
+        const cardCategory = element.dataset.category || '';
+        const cardId = element.dataset.findingId || '';
+        const cardStatus = element.querySelector('[class*="VERIFIED"], [class*="SUPPORTED"], [class*="UNVERIFIED"], [class*="DISPUTED"], [class*="CONTRADICTED"]')?.textContent || '';
+        const cardTitle = card.querySelector('h3')?.textContent?.toLowerCase() || '';
+        const cardSummary = card.querySelector('p')?.textContent?.toLowerCase() || '';
+
+        // Category filter
+        const categoryMatch = activeCategories.has('ALL') || activeCategories.has(cardCategory);
+
+        // Status filter
+        const statusMatch = currentStatus === 'ALL' || cardStatus.includes(currentStatus);
+
+        // Search filter
+        const searchMatch = !searchQuery ||
+          cardId.toLowerCase().includes(searchQuery) ||
+          cardTitle.includes(searchQuery) ||
+          cardSummary.includes(searchQuery);
+
+        if (categoryMatch && statusMatch && searchMatch) {
+          element.style.display = '';
+          visibleCount++;
+        } else {
+          element.style.display = 'none';
+        }
+      });
+
+      // Update results count
+      if (resultsCount) {
+        resultsCount.textContent = visibleCount.toString();
+      }
+
+      // Show/hide clear filters button
+      const hasActiveFilters = !activeCategories.has('ALL') || currentStatus !== 'ALL' || searchQuery !== '';
+      if (clearFiltersBtn) {
+        clearFiltersBtn.classList.toggle('hidden', !hasActiveFilters);
+        clearFiltersBtn.classList.toggle('flex', hasActiveFilters);
+      }
+    }
+
+    // Initial state
+    updateCategoryPillStyles();
+  });
+</script>
+
+<style>
+  .finding-filters {
+    /* Ensure blur works well */
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  /* Custom select arrow styling */
+  select {
+    background-image: none;
+  }
+
+  /* Focus visible styling */
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible {
+    @apply ring-2 ring-gold-500/50 outline-none;
+  }
+</style>

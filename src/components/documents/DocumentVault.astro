@@ -1,0 +1,273 @@
+---
+/**
+ * DocumentVault Component - V2 Design
+ *
+ * Category-based document organization with:
+ * - Expandable category sections
+ * - Document count per category
+ * - Tier filtering support
+ * - Smooth expand/collapse animations
+ * - Glassmorphism styling
+ */
+
+import DocumentCard from './DocumentCard.astro';
+
+interface Document {
+  name: string;
+  date: string;
+  significance: string;
+  tier: number;
+  type?: string;
+}
+
+interface Category {
+  name: string;
+  slug: string;
+  icon: string;
+  color: 'gold' | 'vindication' | 'causation' | 'breach' | 'default';
+  documents: Document[];
+}
+
+interface Props {
+  categories: Category[];
+  defaultExpanded?: string[];
+}
+
+const { categories, defaultExpanded = [] } = Astro.props;
+
+// Color styling
+const colorStyles: Record<string, {
+  iconBg: string;
+  iconText: string;
+  border: string;
+  headerBg: string;
+  countBg: string;
+  countText: string;
+}> = {
+  gold: {
+    iconBg: 'bg-gold-500/20',
+    iconText: 'text-gold-400',
+    border: 'border-gold-500/30 hover:border-gold-500/50',
+    headerBg: 'bg-gradient-to-r from-gold-500/5 to-transparent',
+    countBg: 'bg-gold-500/20',
+    countText: 'text-gold-400'
+  },
+  vindication: {
+    iconBg: 'bg-green-500/20',
+    iconText: 'text-green-400',
+    border: 'border-green-500/30 hover:border-green-500/50',
+    headerBg: 'bg-gradient-to-r from-green-500/5 to-transparent',
+    countBg: 'bg-green-500/20',
+    countText: 'text-green-400'
+  },
+  causation: {
+    iconBg: 'bg-purple-500/20',
+    iconText: 'text-purple-400',
+    border: 'border-purple-500/30 hover:border-purple-500/50',
+    headerBg: 'bg-gradient-to-r from-purple-500/5 to-transparent',
+    countBg: 'bg-purple-500/20',
+    countText: 'text-purple-400'
+  },
+  breach: {
+    iconBg: 'bg-red-500/20',
+    iconText: 'text-red-400',
+    border: 'border-red-500/30 hover:border-red-500/50',
+    headerBg: 'bg-gradient-to-r from-red-500/5 to-transparent',
+    countBg: 'bg-red-500/20',
+    countText: 'text-red-400'
+  },
+  default: {
+    iconBg: 'bg-navy-700/50',
+    iconText: 'text-navy-400',
+    border: 'border-navy-700/50 hover:border-navy-600/50',
+    headerBg: 'bg-gradient-to-r from-navy-700/20 to-transparent',
+    countBg: 'bg-navy-700/50',
+    countText: 'text-navy-400'
+  }
+};
+
+const getStyle = (color: string) => colorStyles[color] || colorStyles.default;
+
+// Tier colors for the distribution badges
+const tierBadgeColors: Record<number, string> = {
+  1: 'bg-gold-500/20 text-gold-400',
+  2: 'bg-green-500/20 text-green-400',
+  3: 'bg-purple-500/20 text-purple-400',
+  4: 'bg-blue-500/20 text-blue-400',
+  5: 'bg-cyan-500/20 text-cyan-400',
+  6: 'bg-amber-500/20 text-amber-400',
+  7: 'bg-red-500/20 text-red-400'
+};
+---
+
+<div class="document-vault space-y-6">
+  {categories.map((category, categoryIndex) => {
+    const style = getStyle(category.color);
+    const isExpanded = defaultExpanded.includes(category.slug);
+
+    return (
+      <div
+        class="vault-category rounded-2xl overflow-hidden border backdrop-blur-xl transition-all duration-300 bg-navy-800/40"
+        data-category={category.slug}
+        data-expanded={isExpanded ? 'true' : 'false'}
+        style={`animation-delay: ${categoryIndex * 100}ms`}
+      >
+        <!-- Category Header (clickable) -->
+        <button
+          class:list={[
+            'vault-header w-full p-5 flex items-center gap-4 transition-all duration-300',
+            style.headerBg,
+            style.border.split(' ')[0]
+          ]}
+          aria-expanded={isExpanded}
+        >
+          <!-- Icon -->
+          <div class:list={[
+            'w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0',
+            style.iconBg
+          ]}>
+            <svg class:list={['w-6 h-6', style.iconText]} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={category.icon} />
+            </svg>
+          </div>
+
+          <!-- Title & Count -->
+          <div class="flex-1 text-left">
+            <h3 class="text-lg font-display font-semibold text-white">
+              {category.name}
+            </h3>
+            <p class="text-sm text-navy-400">
+              {category.documents.length} document{category.documents.length !== 1 ? 's' : ''}
+            </p>
+          </div>
+
+          <!-- Document Count Badge -->
+          <div class:list={[
+            'hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium',
+            style.countBg,
+            style.countText
+          ]}>
+            <span>{category.documents.length}</span>
+            <span class="text-xs opacity-70">docs</span>
+          </div>
+
+          <!-- Expand/Collapse Icon -->
+          <div class="expand-icon w-8 h-8 rounded-lg bg-navy-700/50 flex items-center justify-center transition-transform duration-300">
+            <svg class="w-5 h-5 text-navy-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </button>
+
+        <!-- Documents Container -->
+        <div class="vault-content overflow-hidden transition-all duration-500" style={isExpanded ? '' : 'max-height: 0;'}>
+          <div class="p-5 pt-0 grid grid-cols-1 md:grid-cols-2 gap-4">
+            {category.documents.map((doc, docIndex) => (
+              <div style={`animation-delay: ${docIndex * 50}ms`}>
+                <DocumentCard document={doc} compact={true} />
+              </div>
+            ))}
+          </div>
+
+          <!-- Tier Summary Footer -->
+          <div class="px-5 pb-5">
+            <div class="flex items-center gap-4 p-3 rounded-xl bg-navy-900/50 border border-navy-700/30">
+              <span class="text-xs text-navy-500 uppercase tracking-wider">Tier Distribution:</span>
+              <div class="flex items-center gap-2 flex-wrap">
+                {[1, 2, 3, 4, 5, 6, 7].map(tier => {
+                  const count = category.documents.filter(d => d.tier === tier).length;
+                  if (count === 0) return null;
+                  return (
+                    <span class:list={[
+                      'px-2 py-0.5 rounded text-xs font-mono',
+                      tierBadgeColors[tier]
+                    ]}>
+                      T{tier}: {count}
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  })}
+</div>
+
+<style>
+  .vault-category {
+    opacity: 0;
+    animation: vault-appear 0.5s ease-out forwards;
+  }
+
+  @keyframes vault-appear {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .vault-category[data-expanded="true"] .expand-icon {
+    transform: rotate(180deg);
+  }
+
+  .vault-category[data-expanded="true"] {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .vault-content {
+    will-change: max-height;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const vaultCategories = document.querySelectorAll('.vault-category');
+
+    vaultCategories.forEach((category) => {
+      const header = category.querySelector('.vault-header');
+      const content = category.querySelector('.vault-content') as HTMLElement;
+
+      if (!header || !content) return;
+
+      // Set initial state
+      const isExpanded = category.getAttribute('data-expanded') === 'true';
+      if (isExpanded) {
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+
+      header.addEventListener('click', () => {
+        const currentlyExpanded = category.getAttribute('data-expanded') === 'true';
+
+        if (currentlyExpanded) {
+          // Collapse
+          content.style.maxHeight = content.scrollHeight + 'px';
+          requestAnimationFrame(() => {
+            content.style.maxHeight = '0';
+          });
+          category.setAttribute('data-expanded', 'false');
+          header.setAttribute('aria-expanded', 'false');
+        } else {
+          // Expand
+          content.style.maxHeight = content.scrollHeight + 'px';
+          category.setAttribute('data-expanded', 'true');
+          header.setAttribute('aria-expanded', 'true');
+
+          // Remove max-height after transition completes
+          const handleTransitionEnd = () => {
+            if (category.getAttribute('data-expanded') === 'true') {
+              content.style.maxHeight = 'none';
+            }
+            content.removeEventListener('transitionend', handleTransitionEnd);
+          };
+          content.addEventListener('transitionend', handleTransitionEnd);
+        }
+      });
+    });
+  });
+</script>

@@ -1,0 +1,350 @@
+---
+/**
+ * ActorFilters Component - V2 Design
+ *
+ * Filter bar for the Actors page with:
+ * - Classification toggle pills
+ * - Organisation dropdown
+ * - Search input
+ * - View mode toggle (Grid/Network)
+ */
+
+interface Props {
+  classifications: string[];
+  organisations: string[];
+  totalActors: number;
+}
+
+const { classifications, organisations, totalActors } = Astro.props;
+
+// Classification styling
+const classificationStyles: Record<string, { bg: string; bgActive: string; text: string; textActive: string }> = {
+  'DEFENDANT': { bg: 'bg-red-500/10', bgActive: 'bg-red-500', text: 'text-red-400', textActive: 'text-white' },
+  'WITNESS_FAVOURABLE': { bg: 'bg-green-500/10', bgActive: 'bg-green-500', text: 'text-green-400', textActive: 'text-white' },
+  'CURRENT_CARE': { bg: 'bg-green-500/10', bgActive: 'bg-green-500', text: 'text-green-400', textActive: 'text-white' },
+  'WITNESS_ADVERSE': { bg: 'bg-amber-500/10', bgActive: 'bg-amber-500', text: 'text-amber-400', textActive: 'text-white' },
+  'ADMINISTRATIVE': { bg: 'bg-slate-500/10', bgActive: 'bg-slate-500', text: 'text-slate-400', textActive: 'text-white' }
+};
+
+const classificationLabels: Record<string, string> = {
+  'DEFENDANT': 'Defendants',
+  'WITNESS_FAVOURABLE': 'Favourable',
+  'CURRENT_CARE': 'Current Care',
+  'WITNESS_ADVERSE': 'Adverse',
+  'ADMINISTRATIVE': 'Admin'
+};
+---
+
+<div class="actor-filters sticky top-16 z-30 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 py-4 bg-navy-900/80 backdrop-blur-2xl border-b border-navy-700/50">
+  <div class="flex flex-col gap-4">
+    <!-- Top Row: Search + View Toggle -->
+    <div class="flex flex-col sm:flex-row gap-3">
+      <!-- Search Input -->
+      <div class="relative flex-1">
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-navy-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input
+          type="text"
+          id="actor-search"
+          placeholder="Search by name, role, or organisation..."
+          class="w-full pl-10 pr-4 py-2.5 bg-navy-800/60 border border-navy-700/50 rounded-xl text-white placeholder-navy-500 focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500/50 transition-all"
+        />
+      </div>
+
+      <!-- Organisation Dropdown -->
+      <div class="relative">
+        <select
+          id="organisation-filter"
+          class="appearance-none pl-4 pr-10 py-2.5 bg-navy-800/60 border border-navy-700/50 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500/50 transition-all cursor-pointer min-w-[180px]"
+        >
+          <option value="ALL">All Organisations</option>
+          {organisations.map((org) => (
+            <option value={org}>{org.length > 30 ? org.substring(0, 27) + '...' : org}</option>
+          ))}
+        </select>
+        <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-500 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
+
+      <!-- View Toggle -->
+      <div class="flex items-center gap-1 p-1 bg-navy-800/60 border border-navy-700/50 rounded-xl">
+        <button
+          id="view-grid"
+          class="p-2 rounded-lg bg-gold-500/20 text-gold-400 transition-all"
+          title="Card View"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+          </svg>
+        </button>
+        <button
+          id="view-network"
+          class="p-2 rounded-lg text-navy-500 hover:text-white transition-all"
+          title="Network View"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Bottom Row: Classification Pills + Results Count -->
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+      <!-- Classification Pills -->
+      <div class="flex flex-wrap gap-2" id="classification-filters">
+        <button
+          data-classification="ALL"
+          class="classification-pill px-3 py-1.5 rounded-full text-xs font-medium bg-gold-500 text-navy-900 transition-all"
+        >
+          All
+        </button>
+        {classifications.map((cls) => {
+          const style = classificationStyles[cls] || { bg: 'bg-navy-700/50', bgActive: 'bg-navy-600', text: 'text-navy-400', textActive: 'text-white' };
+          const label = classificationLabels[cls] || cls;
+          return (
+            <button
+              data-classification={cls}
+              class:list={[
+                'classification-pill px-3 py-1.5 rounded-full text-xs font-medium transition-all border border-transparent',
+                style.bg,
+                style.text,
+                'hover:border-current'
+              ]}
+            >
+              {label}
+            </button>
+          );
+        })}
+      </div>
+
+      <!-- Results Count + Critical Toggle -->
+      <div class="flex items-center gap-4">
+        <!-- Critical Only Toggle -->
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input
+            type="checkbox"
+            id="critical-only"
+            class="w-4 h-4 rounded bg-navy-800 border-navy-600 text-gold-500 focus:ring-gold-500/50 focus:ring-offset-0"
+          />
+          <span class="text-sm text-navy-400">Critical only</span>
+        </label>
+
+        <!-- Results Count -->
+        <div class="flex items-center gap-2 text-sm">
+          <span class="text-navy-500">Showing</span>
+          <span id="results-count" class="font-mono text-gold-500">{totalActors}</span>
+          <span class="text-navy-500">actors</span>
+        </div>
+
+        <!-- Clear Filters Button -->
+        <button
+          id="clear-filters"
+          class="hidden items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-red-400 bg-red-500/10 hover:bg-red-500/20 transition-all"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          Clear
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Actor Filters Client-Side Logic
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('actor-search') as HTMLInputElement;
+    const orgFilter = document.getElementById('organisation-filter') as HTMLSelectElement;
+    const classificationPills = document.querySelectorAll('.classification-pill');
+    const criticalCheckbox = document.getElementById('critical-only') as HTMLInputElement;
+    const clearFiltersBtn = document.getElementById('clear-filters');
+    const resultsCount = document.getElementById('results-count');
+    const viewGridBtn = document.getElementById('view-grid');
+    const viewNetworkBtn = document.getElementById('view-network');
+    const actorsGrid = document.getElementById('actors-grid');
+    const actorsNetwork = document.getElementById('actors-network');
+
+    let activeClassifications: Set<string> = new Set(['ALL']);
+    let currentOrg = 'ALL';
+    let criticalOnly = false;
+    let searchQuery = '';
+
+    // Search input handler
+    searchInput?.addEventListener('input', (e) => {
+      searchQuery = (e.target as HTMLInputElement).value.toLowerCase();
+      applyFilters();
+    });
+
+    // Organisation filter handler
+    orgFilter?.addEventListener('change', (e) => {
+      currentOrg = (e.target as HTMLSelectElement).value;
+      applyFilters();
+    });
+
+    // Critical only toggle
+    criticalCheckbox?.addEventListener('change', (e) => {
+      criticalOnly = (e.target as HTMLInputElement).checked;
+      applyFilters();
+    });
+
+    // Classification pill click handler
+    classificationPills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        const classification = (pill as HTMLElement).dataset.classification || 'ALL';
+
+        if (classification === 'ALL') {
+          activeClassifications = new Set(['ALL']);
+        } else {
+          activeClassifications.delete('ALL');
+          if (activeClassifications.has(classification)) {
+            activeClassifications.delete(classification);
+            if (activeClassifications.size === 0) {
+              activeClassifications.add('ALL');
+            }
+          } else {
+            activeClassifications.add(classification);
+          }
+        }
+
+        updateClassificationPillStyles();
+        applyFilters();
+      });
+    });
+
+    // Clear filters handler
+    clearFiltersBtn?.addEventListener('click', () => {
+      activeClassifications = new Set(['ALL']);
+      currentOrg = 'ALL';
+      criticalOnly = false;
+      searchQuery = '';
+
+      if (searchInput) searchInput.value = '';
+      if (orgFilter) orgFilter.value = 'ALL';
+      if (criticalCheckbox) criticalCheckbox.checked = false;
+
+      updateClassificationPillStyles();
+      applyFilters();
+    });
+
+    // View toggle handlers
+    viewGridBtn?.addEventListener('click', () => {
+      viewGridBtn.classList.add('bg-gold-500/20', 'text-gold-400');
+      viewGridBtn.classList.remove('text-navy-500');
+      viewNetworkBtn?.classList.remove('bg-gold-500/20', 'text-gold-400');
+      viewNetworkBtn?.classList.add('text-navy-500');
+      actorsGrid?.classList.remove('hidden');
+      actorsNetwork?.classList.add('hidden');
+    });
+
+    viewNetworkBtn?.addEventListener('click', () => {
+      viewNetworkBtn.classList.add('bg-gold-500/20', 'text-gold-400');
+      viewNetworkBtn.classList.remove('text-navy-500');
+      viewGridBtn?.classList.remove('bg-gold-500/20', 'text-gold-400');
+      viewGridBtn?.classList.add('text-navy-500');
+      actorsGrid?.classList.add('hidden');
+      actorsNetwork?.classList.remove('hidden');
+    });
+
+    function updateClassificationPillStyles() {
+      classificationPills.forEach((pill) => {
+        const classification = (pill as HTMLElement).dataset.classification || 'ALL';
+        const isActive = activeClassifications.has(classification);
+
+        if (isActive) {
+          if (classification === 'ALL') {
+            pill.classList.add('bg-gold-500', 'text-navy-900');
+            pill.classList.remove('bg-navy-700/50', 'text-navy-400');
+          } else {
+            pill.classList.add('text-white', 'border-current');
+            const bgClass = Array.from(pill.classList).find(c => c.match(/bg-\w+-500\/10/));
+            if (bgClass) {
+              pill.classList.remove(bgClass);
+              pill.classList.add(bgClass.replace('/10', ''));
+            }
+          }
+        } else {
+          if (classification === 'ALL') {
+            pill.classList.remove('bg-gold-500', 'text-navy-900');
+            pill.classList.add('bg-navy-700/50', 'text-navy-400');
+          } else {
+            pill.classList.remove('text-white', 'border-current');
+            const bgClass = Array.from(pill.classList).find(c => c.match(/bg-\w+-500(?!\/)/));
+            if (bgClass) {
+              pill.classList.remove(bgClass);
+              pill.classList.add(bgClass + '/10');
+            }
+          }
+        }
+      });
+    }
+
+    function applyFilters() {
+      const actorCards = document.querySelectorAll('.actor-card');
+      let visibleCount = 0;
+
+      actorCards.forEach((card) => {
+        const element = card as HTMLElement;
+        const cardClassification = element.dataset.classification || '';
+        const cardId = element.dataset.actorId || '';
+        const isCritical = element.querySelector('.animate-pulse') !== null;
+        const cardText = card.textContent?.toLowerCase() || '';
+
+        // Classification filter
+        const classificationMatch = activeClassifications.has('ALL') || activeClassifications.has(cardClassification);
+
+        // Organisation filter (check card content)
+        const orgMatch = currentOrg === 'ALL' || cardText.includes(currentOrg.toLowerCase());
+
+        // Critical filter
+        const criticalMatch = !criticalOnly || isCritical;
+
+        // Search filter
+        const searchMatch = !searchQuery ||
+          cardId.toLowerCase().includes(searchQuery) ||
+          cardText.includes(searchQuery);
+
+        if (classificationMatch && orgMatch && criticalMatch && searchMatch) {
+          element.style.display = '';
+          visibleCount++;
+        } else {
+          element.style.display = 'none';
+        }
+      });
+
+      // Update results count
+      if (resultsCount) {
+        resultsCount.textContent = visibleCount.toString();
+      }
+
+      // Show/hide clear filters button
+      const hasActiveFilters = !activeClassifications.has('ALL') || currentOrg !== 'ALL' || criticalOnly || searchQuery !== '';
+      if (clearFiltersBtn) {
+        clearFiltersBtn.classList.toggle('hidden', !hasActiveFilters);
+        clearFiltersBtn.classList.toggle('flex', hasActiveFilters);
+      }
+    }
+
+    // Initial state
+    updateClassificationPillStyles();
+  });
+</script>
+
+<style>
+  .actor-filters {
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  select {
+    background-image: none;
+  }
+
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible {
+    @apply ring-2 ring-gold-500/50 outline-none;
+  }
+</style>

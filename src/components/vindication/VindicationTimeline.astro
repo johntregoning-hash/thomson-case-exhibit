@@ -1,0 +1,241 @@
+---
+/**
+ * VindicationTimeline Component - V2 Design
+ *
+ * Horizontal journey showing the path from misdiagnosis to vindication.
+ * Key milestones with dates and connecting lines.
+ */
+
+interface Milestone {
+  date: string;
+  title: string;
+  description: string;
+  type: 'negative' | 'neutral' | 'positive';
+  findingRef?: string;
+}
+
+interface Props {
+  milestones?: Milestone[];
+}
+
+const { milestones } = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const getHref = (path: string) => path === '/' ? (base || '/') : `${base}${path}`;
+
+// Default milestones if none provided
+const defaultMilestones: Milestone[] = [
+  {
+    date: 'Sep 2020',
+    title: 'MH1 Referral',
+    description: 'GP referral includes "somatisation" framing before any injuries',
+    type: 'negative',
+    findingRef: 'F002'
+  },
+  {
+    date: 'Jun 2019',
+    title: 'TOS Confirmed',
+    description: 'Duplex ultrasound shows vascular compression',
+    type: 'positive',
+    findingRef: 'F032'
+  },
+  {
+    date: 'Dec 2021',
+    title: 'Seizure Event',
+    description: 'Witnessed tonic-clonic seizure, ambulance response',
+    type: 'neutral'
+  },
+  {
+    date: 'Oct 2022',
+    title: 'Fractures Found',
+    description: 'MRI reveals T5-T8 vertebral fractures after 11-month delay',
+    type: 'neutral'
+  },
+  {
+    date: 'Jan 2023',
+    title: 'Covert Diagnosis',
+    description: 'Somatoform Pain Disorder applied without assessment',
+    type: 'negative',
+    findingRef: 'F040'
+  },
+  {
+    date: '2023',
+    title: 'Psychiatric Clearance',
+    description: 'Dr Gupta finds NO psychiatric disorders',
+    type: 'positive',
+    findingRef: 'F038'
+  },
+  {
+    date: 'Dec 2024',
+    title: 'Epilepsy Confirmed',
+    description: 'Formal epilepsy diagnosis validates seizure history',
+    type: 'positive',
+    findingRef: 'F354'
+  },
+  {
+    date: 'Jul 2025',
+    title: 'Diagnosis Removed',
+    description: '"There were clear causes for his pain"',
+    type: 'positive',
+    findingRef: 'F030'
+  }
+];
+
+const timelineMilestones = milestones || defaultMilestones;
+
+// Type styling
+const typeStyles: Record<string, { dot: string; glow: string; line: string }> = {
+  negative: {
+    dot: 'bg-red-500',
+    glow: 'shadow-red-500/50',
+    line: 'from-red-500/50'
+  },
+  neutral: {
+    dot: 'bg-amber-500',
+    glow: 'shadow-amber-500/50',
+    line: 'from-amber-500/50'
+  },
+  positive: {
+    dot: 'bg-green-500',
+    glow: 'shadow-green-500/50',
+    line: 'from-green-500/50'
+  }
+};
+---
+
+<div class="vindication-timeline relative py-8">
+  <!-- Timeline Track -->
+  <div class="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-red-500/30 via-amber-500/30 to-green-500/30 transform -translate-y-1/2 rounded-full"></div>
+
+  <!-- Progress Overlay (animated) -->
+  <div class="timeline-progress absolute top-1/2 left-0 h-1 bg-gradient-to-r from-red-500 via-amber-500 to-green-500 transform -translate-y-1/2 rounded-full" style="width: 0%;"></div>
+
+  <!-- Milestones Container -->
+  <div class="relative flex justify-between items-start px-4">
+    {timelineMilestones.map((milestone, index) => {
+      const style = typeStyles[milestone.type];
+      const isLast = index === timelineMilestones.length - 1;
+
+      return (
+        <div
+          class="milestone relative flex flex-col items-center"
+          style={`animation-delay: ${index * 150}ms`}
+          data-index={index}
+        >
+          <!-- Dot -->
+          <div class:list={[
+            'w-4 h-4 rounded-full z-10 transition-all duration-300',
+            'hover:scale-150 cursor-pointer',
+            style.dot,
+            `shadow-lg ${style.glow}`
+          ]}>
+            {isLast && (
+              <div class="absolute inset-0 rounded-full animate-ping bg-green-500/50"></div>
+            )}
+          </div>
+
+          <!-- Content Card -->
+          <div class:list={[
+            'mt-4 w-28 text-center group',
+            index % 2 === 0 ? '' : 'lg:-mt-20 lg:mb-4'
+          ]}>
+            <p class="text-xs font-mono text-navy-500 mb-1">{milestone.date}</p>
+            <h4 class:list={[
+              'text-sm font-semibold mb-1 transition-colors',
+              milestone.type === 'positive' ? 'text-green-400' :
+              milestone.type === 'negative' ? 'text-red-400' : 'text-white'
+            ]}>
+              {milestone.title}
+            </h4>
+            <p class="text-xs text-navy-400 leading-tight hidden lg:block">
+              {milestone.description}
+            </p>
+            {milestone.findingRef && (
+              <a
+                href={getHref(`/findings/${milestone.findingRef.toLowerCase()}`)}
+                class="inline-block mt-1 text-xs font-mono text-gold-500 hover:text-gold-400 transition-colors"
+              >
+                {milestone.findingRef}
+              </a>
+            )}
+          </div>
+
+          <!-- Tooltip for mobile -->
+          <div class="lg:hidden absolute top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-20">
+            <div class="bg-navy-800/95 backdrop-blur-xl border border-navy-700/50 rounded-lg p-3 whitespace-nowrap shadow-xl">
+              <p class="text-xs text-navy-400">{milestone.description}</p>
+            </div>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+<style>
+  .vindication-timeline {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .vindication-timeline::-webkit-scrollbar {
+    display: none;
+  }
+
+  .milestone {
+    opacity: 0;
+    animation: milestone-appear 0.5s ease-out forwards;
+  }
+
+  @keyframes milestone-appear {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .timeline-progress {
+    animation: progress-fill 3s ease-out forwards;
+    animation-delay: 0.5s;
+  }
+
+  @keyframes progress-fill {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  // Intersection Observer for timeline animation
+  document.addEventListener('DOMContentLoaded', () => {
+    const timeline = document.querySelector('.vindication-timeline');
+    const progress = document.querySelector('.timeline-progress') as HTMLElement;
+
+    if (timeline && progress) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              progress.style.animationPlayState = 'running';
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      observer.observe(timeline);
+
+      // Pause animation initially
+      progress.style.animationPlayState = 'paused';
+    }
+  });
+</script>

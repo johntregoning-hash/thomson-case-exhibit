@@ -4,32 +4,35 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Navy blue palette - trust, authority, legal
+        // Navy blue palette - "Legal Palette" deep midnight blues
+        // Forensic Cleanroom / Data Noir aesthetic
         navy: {
-          50: '#f0f4f8',
-          100: '#d9e2ec',
-          200: '#bcccdc',
-          300: '#9fb3c8',
-          400: '#829ab1',
-          500: '#627d98',
-          600: '#486581',
-          700: '#334e68',
-          800: '#243b53',
-          900: '#102a43',
-          950: '#0d1f2d',
+          50: '#e8ecf4',
+          100: '#c8d4e8',
+          200: '#a3b5d1',
+          300: '#7a8ba8',
+          400: '#5a6b8a',
+          500: '#3d4f6f',
+          600: '#2a3a5c',
+          700: '#1a2744',   // Elevated surfaces, borders
+          800: '#0d1526',   // Card backgrounds
+          900: '#0a0f1a',   // Deepest background (page bg)
+          950: '#060a12',   // Ultra-deep for extreme contrast
         },
-        // Gold accents - achievement, vindication
+        // Gold accents - RESERVED FOR VINDICATION ONLY
+        // Strict discipline: overuse dilutes impact
         gold: {
           50: '#fdfbf3',
           100: '#faf5e1',
           200: '#f5ebc4',
           300: '#eddc9c',
-          400: '#e4c872',
-          500: '#d4af37',
+          400: '#e5c158',   // Hover states
+          500: '#d4af37',   // Primary gold - vindication moments
           600: '#c9a227',
           700: '#a68523',
           800: '#866a1e',
           900: '#6d561a',
+          950: '#4a3a10',   // Deep gold for backgrounds
         },
         // Semantic colors
         vindication: {
@@ -62,8 +65,13 @@ export default {
         },
       },
       fontFamily: {
+        // Display: Playfair Display for headlines - legal authority
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        // Serif: IBM Plex Serif for body serif text
         serif: ['IBM Plex Serif', 'Georgia', 'serif'],
+        // Sans: Inter for body text - technical precision
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        // Mono: JetBrains Mono for Finding IDs, data
         mono: ['JetBrains Mono', 'Consolas', 'monospace'],
       },
       fontSize: {
@@ -87,6 +95,11 @@ export default {
         'fade-in': 'fadeIn 0.5s ease-out',
         'slide-up': 'slideUp 0.5s ease-out',
         'pulse-slow': 'pulse 3s ease-in-out infinite',
+        'slide-in-right': 'slideInRight 0.6s ease-out',
+        'slide-in-left': 'slideInLeft 0.6s ease-out',
+        'fade-up': 'fadeUp 0.5s ease-out forwards',
+        'glow-pulse': 'glowPulse 2s ease-in-out infinite',
+        'scale-in': 'scaleIn 0.3s ease-out',
       },
       keyframes: {
         fadeIn: {
@@ -97,6 +110,31 @@ export default {
           '0%': { opacity: '0', transform: 'translateY(20px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        slideInRight: {
+          '0%': { opacity: '0', transform: 'translateX(30px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        slideInLeft: {
+          '0%': { opacity: '0', transform: 'translateX(-30px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        fadeUp: {
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        glowPulse: {
+          '0%, 100%': { boxShadow: '0 0 20px rgba(212, 175, 55, 0.3)' },
+          '50%': { boxShadow: '0 0 30px rgba(212, 175, 55, 0.5)' },
+        },
+        scaleIn: {
+          '0%': { opacity: '0', transform: 'scale(0.95)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+      },
+      backdropBlur: {
+        xs: '2px',
+        '2xl': '40px',
+        '3xl': '64px',
       },
     },
   },

@@ -1,0 +1,207 @@
+---
+/**
+ * TimelineEventCard Component
+ *
+ * Individual event card for the scrollytelling timeline.
+ * Slides in from the right when it enters the viewport.
+ *
+ * Features:
+ * - Glassmorphism styling
+ * - Color-coded by event type (Truth Spine vs GP Entry)
+ * - Status indicator (Verified, Contradicted, etc.)
+ * - Finding reference link
+ * - Tier indicator for evidence reliability
+ */
+
+interface Props {
+  id: string;
+  date: string;
+  phase: number;
+  title: string;
+  description: string;
+  status: 'verified' | 'unverified' | 'contradicted' | 'fabricated';
+  findingRef?: string;
+  source?: string;
+  tier?: number;
+  isTruthSpine?: boolean;
+  isGpEntry?: boolean;
+  isAnchor?: boolean;
+  critical?: boolean;
+}
+
+const {
+  id,
+  date,
+  phase,
+  title,
+  description,
+  status,
+  findingRef,
+  source,
+  tier,
+  isTruthSpine = false,
+  isGpEntry = false,
+  isAnchor = false,
+  critical = false
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+
+// Status styling
+const statusStyles: Record<string, { bg: string; text: string; icon: string }> = {
+  verified: {
+    bg: 'bg-green-500/20 border-green-500/30',
+    text: 'text-green-400',
+    icon: '✓'
+  },
+  unverified: {
+    bg: 'bg-amber-500/20 border-amber-500/30',
+    text: 'text-amber-400',
+    icon: '?'
+  },
+  contradicted: {
+    bg: 'bg-red-500/20 border-red-500/30',
+    text: 'text-red-400',
+    icon: '✗'
+  },
+  fabricated: {
+    bg: 'bg-navy-700/50 border-navy-600/50',
+    text: 'text-navy-400',
+    icon: '⚫'
+  }
+};
+
+const currentStatus = statusStyles[status] || statusStyles.unverified;
+
+// Card styling based on type
+const cardType = isTruthSpine
+  ? 'truth-spine'
+  : isGpEntry
+  ? 'gp-entry'
+  : 'standard';
+
+const cardStyles: Record<string, string> = {
+  'truth-spine': 'bg-green-500/5 border-green-500/20 hover:border-green-500/40',
+  'gp-entry': 'bg-navy-800/40 border-navy-700/50 hover:border-navy-600/60',
+  'standard': 'bg-navy-800/40 border-navy-700/50 hover:border-navy-600/60'
+};
+
+// Tier labels
+const tierLabels: Record<number, string> = {
+  1: 'Imaging',
+  2: 'Specialist',
+  3: 'Hospital/A&E',
+  4: 'GP Entry'
+};
+---
+
+<div
+  class:list={[
+    'timeline-event timeline-event-hidden',
+    'relative rounded-2xl border backdrop-blur-xl p-5 transition-all duration-500',
+    cardStyles[cardType],
+    isAnchor && 'ring-2 ring-gold-500/50 shadow-gold-glow',
+    critical && 'ring-2 ring-red-500/50'
+  ]}
+  data-event-id={id}
+  data-event-date={date}
+  data-event-phase={phase}
+>
+  {/* Anchor badge */}
+  {isAnchor && (
+    <div class="absolute -top-3 left-4 px-3 py-1 bg-gold-500 text-navy-950 text-xs font-bold rounded-full shadow-gold-glow">
+      KEY MOMENT
+    </div>
+  )}
+
+  {/* Header row */}
+  <div class="flex items-start justify-between gap-4 mb-3">
+    <div class="flex items-center gap-3">
+      {/* Status indicator */}
+      <div class:list={['w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold border', currentStatus.bg]}>
+        <span class={currentStatus.text}>{currentStatus.icon}</span>
+      </div>
+
+      {/* Date */}
+      <div>
+        <p class="text-lg font-display font-bold text-white">{date}</p>
+        {tier && (
+          <p class="text-xs text-navy-500">Tier {tier}: {tierLabels[tier] || 'Evidence'}</p>
+        )}
+      </div>
+    </div>
+
+    {/* Finding reference */}
+    {findingRef && (
+      <a
+        href={`${base}/findings/${findingRef.toLowerCase()}`}
+        class="px-2 py-1 text-xs font-mono bg-navy-700/50 border border-navy-600/50 rounded text-gold-400 hover:text-gold-300 hover:border-gold-500/30 transition-colors"
+      >
+        {findingRef}
+      </a>
+    )}
+  </div>
+
+  {/* Title */}
+  <h4 class:list={[
+    'text-base font-semibold mb-2',
+    isTruthSpine ? 'text-green-300' : 'text-white'
+  ]}>
+    {isTruthSpine && (
+      <span class="inline-flex items-center gap-1 text-xs text-green-500 uppercase tracking-wider mr-2">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Truth Spine
+      </span>
+    )}
+    {isGpEntry && (
+      <span class="inline-flex items-center gap-1 text-xs text-navy-500 uppercase tracking-wider mr-2">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        GP Record
+      </span>
+    )}
+    {title}
+  </h4>
+
+  {/* Description */}
+  <p class="text-sm text-navy-300 leading-relaxed">{description}</p>
+
+  {/* Source footer */}
+  {source && (
+    <p class="mt-3 pt-3 border-t border-navy-700/30 text-xs text-navy-500">
+      Source: {source}
+    </p>
+  )}
+
+  {/* Critical warning */}
+  {critical && (
+    <div class="mt-3 pt-3 border-t border-red-500/20 flex items-center gap-2 text-xs text-red-400">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>
+      Critical finding - potential breach
+    </div>
+  )}
+</div>
+
+<style>
+  /* Initial hidden state - will slide in from right */
+  .timeline-event-hidden {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+
+  /* Visible state - triggered by ScrollObserver */
+  .timeline-event-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Stagger animation for multiple events */
+  .timeline-event:nth-child(2) { transition-delay: 100ms; }
+  .timeline-event:nth-child(3) { transition-delay: 200ms; }
+  .timeline-event:nth-child(4) { transition-delay: 300ms; }
+</style>
