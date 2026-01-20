@@ -376,7 +376,7 @@
           "critical": true
         }
       ],
-      "criticalFindings": ["F030", "F031", "F038", "F128", "F323", "F337", "F354"],
+      "criticalFindings": ["F030", "F031", "F128", "F323", "F337", "F354", "F356"],
       "keyMessage": "Internal NHS vindication from subsequent GP. Multiple independent specialists confirmed organic pathology and rejected psychiatric framing."
     },
     {
