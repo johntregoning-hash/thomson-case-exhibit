@@ -1,0 +1,227 @@
+---
+/**
+ * Actors Index Page - V3 Phase 5
+ *
+ * Lists all actors (medical professionals, administrators)
+ * with filtering by classification and critical status.
+ */
+
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ActorCard from '@components/actors/ActorCard.astro';
+import Badge from '@components/common/Badge.astro';
+
+import actorsData from '../../data/actors.json';
+
+const actors = (actorsData as any).actors || [];
+const base = import.meta.env.BASE_URL;
+const getHref = (path: string) => path === '/' ? (base || '/') : `${base}${path}`;
+
+// Group actors by classification
+const defendants = actors.filter((a: any) => a.classification === 'DEFENDANT');
+const adverseWitnesses = actors.filter((a: any) => a.classification === 'WITNESS_ADVERSE');
+const favourableWitnesses = actors.filter((a: any) => a.classification === 'WITNESS_FAVOURABLE');
+const currentCare = actors.filter((a: any) => a.classification === 'CURRENT_CARE');
+const administrative = actors.filter((a: any) => a.classification === 'ADMINISTRATIVE');
+
+const criticalActors = actors.filter((a: any) => a.critical);
+---
+
+<BaseLayout 
+  title="Actors - Conduct Reports" 
+  description="Medical professionals and administrators involved in the Thomson case"
+>
+  <!-- Hero Section -->
+  <section class="relative py-16 lg:py-20 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-navy-800/50 to-transparent pointer-events-none"></div>
+    
+    <div class="container-wide relative">
+      <div class="max-w-3xl">
+        <nav class="flex items-center gap-2 text-sm mb-6">
+          <a href={getHref('/')} class="text-navy-500 hover:text-white transition-colors">Home</a>
+          <svg class="w-4 h-4 text-navy-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+          <span class="text-gold-500">Actors</span>
+        </nav>
+
+        <h1 class="text-4xl lg:text-5xl font-display font-bold text-white mb-6">
+          Conduct Reports
+        </h1>
+        
+        <p class="text-xl text-navy-300 leading-relaxed mb-8">
+          Documented conduct of medical professionals and administrators involved in the Thomson case. 
+          Each actor's conduct is tracked with evidence sources and verification status.
+        </p>
+
+        <!-- Summary Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div class="glass-card p-4 text-center">
+            <div class="text-2xl font-bold text-red-400">{defendants.length}</div>
+            <div class="text-xs text-navy-400 uppercase tracking-wider">Defendants</div>
+          </div>
+          <div class="glass-card p-4 text-center">
+            <div class="text-2xl font-bold text-amber-400">{adverseWitnesses.length}</div>
+            <div class="text-xs text-navy-400 uppercase tracking-wider">Adverse</div>
+          </div>
+          <div class="glass-card p-4 text-center">
+            <div class="text-2xl font-bold text-green-400">{favourableWitnesses.length}</div>
+            <div class="text-xs text-navy-400 uppercase tracking-wider">Favourable</div>
+          </div>
+          <div class="glass-card p-4 text-center">
+            <div class="text-2xl font-bold text-green-400">{currentCare.length}</div>
+            <div class="text-xs text-navy-400 uppercase tracking-wider">Current Care</div>
+          </div>
+          <div class="glass-card p-4 text-center">
+            <div class="text-2xl font-bold text-gold-400">{criticalActors.length}</div>
+            <div class="text-xs text-navy-400 uppercase tracking-wider">Critical</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Critical Actors Highlight -->
+  {criticalActors.length > 0 && (
+    <section class="border-y border-red-500/20 bg-red-500/5">
+      <div class="container-wide py-10">
+        <h2 class="text-2xl font-display font-bold text-white mb-6 flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-red-500/20 flex items-center justify-center">
+            <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </span>
+          Critical Actors
+          <Badge variant="breach">{criticalActors.length}</Badge>
+        </h2>
+        <p class="text-navy-300 mb-6">
+          Individuals with documented conduct of highest legal significance.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {criticalActors.map((actor: any) => (
+            <ActorCard actor={actor} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Main Actor Lists -->
+  <div class="container-wide py-12 space-y-16">
+    
+    <!-- Potential Defendants -->
+    {defendants.length > 0 && (
+      <section>
+        <h2 class="text-2xl font-display font-bold text-white mb-6 flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-red-500/20 flex items-center justify-center">
+            <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </span>
+          Potential Defendants
+          <Badge variant="breach">{defendants.length}</Badge>
+        </h2>
+        <p class="text-navy-300 mb-6">
+          Individuals against whom breach of duty claims may be established.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {defendants.map((actor: any) => (
+            <ActorCard actor={actor} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Adverse Witnesses -->
+    {adverseWitnesses.length > 0 && (
+      <section>
+        <h2 class="text-2xl font-display font-bold text-white mb-6 flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center">
+            <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </span>
+          Adverse Witnesses
+          <Badge variant="discrepancy">{adverseWitnesses.length}</Badge>
+        </h2>
+        <p class="text-navy-300 mb-6">
+          Individuals whose testimony or records may be unfavourable but insufficient for defendant status.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {adverseWitnesses.map((actor: any) => (
+            <ActorCard actor={actor} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Favourable Witnesses -->
+    {favourableWitnesses.length > 0 && (
+      <section>
+        <h2 class="text-2xl font-display font-bold text-white mb-6 flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center">
+            <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </span>
+          Favourable Witnesses
+          <Badge variant="vindication">{favourableWitnesses.length}</Badge>
+        </h2>
+        <p class="text-navy-300 mb-6">
+          Medical professionals whose findings support the case.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {favourableWitnesses.map((actor: any) => (
+            <ActorCard actor={actor} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Current Care Providers -->
+    {currentCare.length > 0 && (
+      <section>
+        <h2 class="text-2xl font-display font-bold text-white mb-6 flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center">
+            <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </span>
+          Current Care Providers
+          <Badge variant="vindication">{currentCare.length}</Badge>
+        </h2>
+        <p class="text-navy-300 mb-6">
+          Healthcare professionals currently providing appropriate care.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {currentCare.map((actor: any) => (
+            <ActorCard actor={actor} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Administrative -->
+    {administrative.length > 0 && (
+      <section>
+        <h2 class="text-2xl font-display font-bold text-white mb-6 flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-slate-500/20 flex items-center justify-center">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+          </span>
+          Administrative
+          <Badge variant="default">{administrative.length}</Badge>
+        </h2>
+        <p class="text-navy-300 mb-6">
+          Non-clinical staff and organisations involved in the case.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {administrative.map((actor: any) => (
+            <ActorCard actor={actor} />
+          ))}
+        </div>
+      </section>
+    )}
+
+  </div>
+</BaseLayout>
