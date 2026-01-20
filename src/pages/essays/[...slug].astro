@@ -1,0 +1,252 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Badge from '@components/common/Badge.astro';
+import ReadingProgress from '@components/essays/ReadingProgress';
+import findingsData from '../../data/findings.json';
+
+export async function getStaticPaths() {
+  const essays = await getCollection('essays');
+  return essays.map(essay => ({
+    params: { slug: essay.slug },
+    props: { essay }
+  }));
+}
+
+const { essay } = Astro.props;
+const { Content } = await essay.render();
+
+// Base URL helper for GitHub Pages
+const base = import.meta.env.BASE_URL;
+const getHref = (path: string) => path === '/' ? (base || '/') : `${base}${path}`;
+
+type BadgeVariant = 'vindication' | 'breach' | 'discrepancy' | 'causation' | 'quantum' | 'procedural' | 'strategic' | 'witness' | 'fabrication' | 'default';
+
+const categoryVariants: Record<string, BadgeVariant> = {
+  'BREACH': 'breach',
+  'CAUSATION': 'causation',
+  'VINDICATION': 'vindication',
+  'PROCEDURAL': 'procedural'
+};
+
+const variant: BadgeVariant = categoryVariants[essay.data.category] || 'default';
+
+// Get related findings
+type FindingType = typeof findingsData.findings[0];
+const relatedFindings: FindingType[] = (essay.data.keyFindings || [])
+  .map((id: string) => findingsData.findings.find(f => f.id === id))
+  .filter((f): f is FindingType => f !== undefined);
+
+// Get other essays for navigation
+const allEssays = await getCollection('essays');
+const otherEssays = allEssays.filter(e => e.slug !== essay.slug);
+---
+
+<BaseLayout title={essay.data.title} description={essay.data.summary}>
+  <!-- Reading Progress Bar -->
+  <ReadingProgress client:load />
+  
+  <!-- Breadcrumb -->
+  <nav class="py-4 border-b border-navy-800/50 bg-navy-950">
+    <div class="container-wide">
+      <div class="flex items-center gap-2 text-sm">
+        <a href={getHref('/')} class="text-navy-400 hover:text-white transition-colors">Home</a>
+        <span class="text-navy-600">/</span>
+        <a href={getHref('/essays')} class="text-navy-400 hover:text-white transition-colors">Essays</a>
+        <span class="text-navy-600">/</span>
+        <span class="text-gold-500">{essay.slug}</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <section class="py-16 bg-navy-900/30">
+    <div class="container-wide">
+      <div class="max-w-4xl">
+        <div class="flex flex-wrap items-center gap-4 mb-6">
+          <Badge variant={variant} class="text-sm">{essay.data.category}</Badge>
+          {essay.data.critical && (
+            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-breach-500/20 text-breach-400 border border-breach-500/30">
+              CRITICAL
+            </span>
+          )}
+          <span class="text-sm text-navy-500">Version {essay.data.version}</span>
+        </div>
+        
+        <h1 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
+          {essay.data.title}
+        </h1>
+        <p class="text-xl text-gold-500/90 mb-6">{essay.data.subtitle}</p>
+
+        <div class="flex flex-wrap items-center gap-6 text-sm">
+          <div class="flex items-center gap-2">
+            <span class="text-navy-500">Date:</span>
+            <span class="text-white">{essay.data.date}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-navy-500">Status:</span>
+            <span class:list={[
+              'px-2 py-1 rounded-full text-xs font-medium',
+              essay.data.status === 'CURRENT' ? 'bg-vindication-500/20 text-vindication-400' : 'bg-navy-800 text-navy-400'
+            ]}>
+              {essay.data.status}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="py-12">
+    <div class="container-wide">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <!-- Main Column - Full Essay Content -->
+        <div class="lg:col-span-3">
+          <article class="card-base p-8 lg:p-12">
+            <div class="prose prose-lg prose-invert prose-gold max-w-none">
+              <Content />
+            </div>
+          </article>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="space-y-6">
+          <!-- Table of Contents Placeholder -->
+          <div class="card-base p-6 sticky top-24">
+            <h3 class="text-lg font-serif font-bold text-white mb-4">Document Info</h3>
+            <dl class="space-y-4">
+              <div>
+                <dt class="text-xs uppercase tracking-wider text-navy-500 mb-1">Category</dt>
+                <dd><Badge variant={variant}>{essay.data.category}</Badge></dd>
+              </div>
+              <div>
+                <dt class="text-xs uppercase tracking-wider text-navy-500 mb-1">Version</dt>
+                <dd class="text-white">{essay.data.version}</dd>
+              </div>
+              <div>
+                <dt class="text-xs uppercase tracking-wider text-navy-500 mb-1">Last Updated</dt>
+                <dd class="text-white">{essay.data.date}</dd>
+              </div>
+            </dl>
+
+            <!-- Key Findings Quick Links -->
+            <div class="mt-6 pt-6 border-t border-navy-700/50">
+              <h4 class="text-sm font-semibold text-white mb-3">Key Findings</h4>
+              <div class="flex flex-wrap gap-2">
+                {essay.data.keyFindings.map((finding: string) => (
+                  <a 
+                    href={getHref(`/findings/${finding.toLowerCase()}`)}
+                    class="px-2 py-1 text-xs font-mono rounded bg-navy-800 text-gold-500 hover:bg-navy-700 hover:text-gold-400 transition-colors"
+                  >
+                    {finding}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <!-- Other Essays -->
+            <div class="mt-6 pt-6 border-t border-navy-700/50">
+              <h4 class="text-sm font-semibold text-white mb-3">Related Essays</h4>
+              <ul class="space-y-2">
+                {otherEssays.slice(0, 3).map((other) => (
+                  <li>
+                    <a 
+                      href={getHref(`/essays/${other.slug}`)}
+                      class="block text-sm text-navy-400 hover:text-gold-400 transition-colors line-clamp-2"
+                    >
+                      {other.data.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <a href={getHref('/essays')} class="block mt-3 text-xs text-gold-500 hover:text-gold-400">
+                View All Essays →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation -->
+  <section class="py-8 border-t border-navy-800/50">
+    <div class="container-wide">
+      <div class="flex justify-between items-center">
+        <a 
+          href={getHref('/essays')}
+          class="px-6 py-3 rounded-lg bg-navy-800/50 text-navy-300 hover:bg-navy-800 hover:text-white transition-colors"
+        >
+          ← All Essays
+        </a>
+        <a 
+          href={getHref('/findings')}
+          class="px-6 py-3 rounded-lg bg-gold-600 text-navy-950 hover:bg-gold-500 transition-colors"
+        >
+          Browse Findings →
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  /* Prose styling for MDX content */
+  .prose-gold {
+    --tw-prose-headings: theme('colors.white');
+    --tw-prose-body: theme('colors.navy.200');
+    --tw-prose-bold: theme('colors.white');
+    --tw-prose-links: theme('colors.gold.400');
+    --tw-prose-quotes: theme('colors.gold.300');
+    --tw-prose-quote-borders: theme('colors.gold.500');
+  }
+  
+  .prose h2 {
+    @apply text-2xl font-serif font-bold text-white mt-12 mb-6 pb-3 border-b border-navy-700/50;
+  }
+  
+  .prose h3 {
+    @apply text-xl font-serif font-semibold text-gold-400 mt-8 mb-4;
+  }
+  
+  .prose h4 {
+    @apply text-lg font-semibold text-white mt-6 mb-3;
+  }
+  
+  .prose p {
+    @apply text-navy-200 leading-relaxed mb-4;
+  }
+  
+  .prose strong {
+    @apply text-white font-semibold;
+  }
+  
+  .prose em {
+    @apply text-gold-300 italic;
+  }
+  
+  .prose blockquote {
+    @apply border-l-4 border-gold-500/50 pl-6 py-2 my-6 bg-navy-800/30 rounded-r-lg italic text-gold-200;
+  }
+  
+  .prose ul, .prose ol {
+    @apply my-4 pl-6 space-y-2;
+  }
+  
+  .prose li {
+    @apply text-navy-200;
+  }
+  
+  .prose code {
+    @apply bg-navy-800 px-1.5 py-0.5 rounded text-gold-400 text-sm font-mono;
+  }
+  
+  .prose hr {
+    @apply border-navy-700/50 my-8;
+  }
+  
+  .prose a {
+    @apply text-gold-400 hover:text-gold-300 underline underline-offset-2;
+  }
+</style>

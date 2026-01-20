@@ -10,18 +10,39 @@
  * - Glassmorphism design throughout
  */
 
+import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import GlassCard from '@components/ui/GlassCard.astro';
 import Badge from '@components/common/Badge.astro';
 import EssayCard from '@components/essays/EssayCard.astro';
 import EssayCategoryNav from '@components/essays/EssayCategoryNav.astro';
-import essaysData from '../data/essays.json';
 
 const base = import.meta.env.BASE_URL;
 const getHref = (path: string) => path === '/' ? (base || '/') : `${base}${path}`;
 
-const essays = essaysData.essays;
-const metadata = essaysData.metadata;
+// Get essays from content collection
+const essayEntries = await getCollection('essays');
+
+// Transform to expected format for EssayCard
+const essays = essayEntries.map(entry => ({
+  id: entry.slug,
+  ...entry.data
+}));
+
+const metadata = {
+  lastUpdated: "2026-01-19",
+  totalEssays: essays.length,
+  description: "Foundational essays documenting the core arguments, evidence chains, and legal analysis for Thomson v NHS Providers"
+};
+
+// Correction log (static data)
+const correctionLog = [
+  {
+    date: "2026-01-18",
+    essay: "somatoform-contamination",
+    change: "FND/Somatoform distinction clarified. FND Tremor WAS assessed (methodology disputed); Somatoform Pain Disorder NEVER assessed - PRIMARY BREACH focus refocused accordingly."
+  }
+];
 
 // Calculate category counts
 const categoryCounts = essays.reduce((acc: Record<string, number>, essay) => {
@@ -167,7 +188,7 @@ const stats = {
   </section>
 
   <!-- Correction Log -->
-  {essaysData.correctionLog && essaysData.correctionLog.length > 0 && (
+  {correctionLog && correctionLog.length > 0 && (
     <section class="py-16">
       <div class="container-wide">
         <div class="max-w-3xl mx-auto">
@@ -185,7 +206,7 @@ const stats = {
             </div>
 
             <div class="space-y-4">
-              {essaysData.correctionLog.map((correction) => (
+              {correctionLog.map((correction) => (
                 <div class="p-4 bg-navy-900/50 rounded-lg border border-navy-700/30">
                   <div class="flex items-center gap-3 mb-2">
                     <span class="text-xs font-mono text-navy-500">{correction.date}</span>
