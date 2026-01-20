@@ -1,0 +1,155 @@
+---
+/**
+ * TimelineProgress Component - V3 Phase 4
+ *
+ * Floating progress indicator that shows current position in timeline.
+ * Fixed to bottom of viewport, updates as user scrolls through phases.
+ *
+ * Features:
+ * - Current phase indicator
+ * - Progress bar through timeline
+ * - Quick-jump to any phase
+ * - Minimized state when not needed
+ */
+
+interface Props {
+  totalPhases: number;
+  phaseNames: string[];
+}
+
+const { totalPhases, phaseNames } = Astro.props;
+---
+
+<div id="timeline-progress" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 opacity-0 translate-y-4 transition-all duration-500 pointer-events-none">
+  <div class="glass-card-elevated px-6 py-4 flex items-center gap-6 pointer-events-auto">
+    <!-- Current Phase -->
+    <div class="flex items-center gap-3">
+      <span class="text-xs text-navy-500 uppercase tracking-wider">Phase</span>
+      <span id="current-phase-number" class="text-2xl font-display font-bold text-gold-400">01</span>
+    </div>
+    
+    <!-- Progress Bar -->
+    <div class="flex items-center gap-1">
+      {Array.from({ length: totalPhases }).map((_, i) => (
+        <button
+          data-phase-jump={i + 1}
+          class="phase-dot w-3 h-3 rounded-full bg-navy-700 hover:bg-navy-600 transition-all duration-300"
+          title={phaseNames[i] || `Phase ${i + 1}`}
+        />
+      ))}
+    </div>
+    
+    <!-- Current Phase Name -->
+    <div class="hidden lg:block max-w-[200px]">
+      <p id="current-phase-name" class="text-sm text-navy-300 truncate">
+        Pre-Index Period
+      </p>
+    </div>
+    
+    <!-- Close/Minimize button -->
+    <button id="toggle-progress" class="p-1.5 rounded-lg hover:bg-navy-700/50 transition-colors text-navy-500 hover:text-navy-300">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .phase-dot.active {
+    @apply bg-gold-500 shadow-gold-glow scale-125;
+  }
+  
+  .phase-dot.passed {
+    @apply bg-vindication-500;
+  }
+  
+  #timeline-progress.visible {
+    @apply opacity-100 translate-y-0;
+  }
+  
+  #timeline-progress.minimized {
+    @apply translate-y-16;
+  }
+</style>
+
+<script define:vars={{ totalPhases, phaseNames }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    const progressBar = document.getElementById('timeline-progress');
+    const phaseNumber = document.getElementById('current-phase-number');
+    const phaseName = document.getElementById('current-phase-name');
+    const phaseDots = document.querySelectorAll('.phase-dot');
+    const toggleBtn = document.getElementById('toggle-progress');
+    const timelineSection = document.getElementById('scrollytelling-timeline');
+    
+    if (!progressBar || !timelineSection) return;
+    
+    let isMinimized = false;
+    let currentPhase = 1;
+    
+    // Phase sections
+    const phaseSections = document.querySelectorAll('.phase-section');
+    
+    // Toggle minimize
+    toggleBtn?.addEventListener('click', () => {
+      isMinimized = !isMinimized;
+      progressBar.classList.toggle('minimized', isMinimized);
+    });
+    
+    // Jump to phase
+    phaseDots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        const targetPhase = document.getElementById(`phase-${index + 1}`);
+        if (targetPhase) {
+          targetPhase.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+    
+    // Update progress on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const phase = parseInt(entry.target.dataset.phase || '1');
+          currentPhase = phase;
+          
+          // Update number
+          if (phaseNumber) {
+            phaseNumber.textContent = phase.toString().padStart(2, '0');
+          }
+          
+          // Update name
+          if (phaseName && phaseNames[phase - 1]) {
+            phaseName.textContent = phaseNames[phase - 1];
+          }
+          
+          // Update dots
+          phaseDots.forEach((dot, index) => {
+            dot.classList.remove('active', 'passed');
+            if (index + 1 === phase) {
+              dot.classList.add('active');
+            } else if (index + 1 < phase) {
+              dot.classList.add('passed');
+            }
+          });
+        }
+      });
+    }, {
+      threshold: 0.3,
+      rootMargin: '-20% 0px -60% 0px'
+    });
+    
+    phaseSections.forEach(section => observer.observe(section));
+    
+    // Show/hide progress bar based on timeline visibility
+    const timelineObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        progressBar.classList.toggle('visible', entry.isIntersecting);
+      });
+    }, {
+      threshold: 0.05
+    });
+    
+    timelineObserver.observe(timelineSection);
+  });
+</script>

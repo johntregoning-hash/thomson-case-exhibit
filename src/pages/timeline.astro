@@ -1,19 +1,21 @@
 ---
 /**
- * Timeline Page - V2 Scrollytelling Design
+ * Timeline Page - V3 Phase 4 Scrollytelling
  *
  * Features:
+ * - Dynamic phase backgrounds that shift as you scroll
+ * - Multiple "Void" sections for dramatic delays
  * - Vertical spine with anchor points
- * - Scroll-triggered event cards sliding in
- * - Floating date ticker
- * - Phase progress indicator
- * - Glassmorphism design
+ * - Scroll-triggered event cards
+ * - Floating progress indicator
+ * - Cinematic Data Noir aesthetic
  */
 
 import BaseLayout from '@layouts/BaseLayout.astro';
 import GlassCard from '@components/ui/GlassCard.astro';
 import TimelineSpine from '@components/timeline/TimelineSpine.astro';
 import TimelineEventCard from '@components/timeline/TimelineEventCard.astro';
+import TimelineProgress from '@components/timeline/TimelineProgress.astro';
 import ScrollObserver from '@components/timeline/ScrollObserver';
 import TheVoid from '@components/timeline/TheVoid.astro';
 import Badge from '@components/common/Badge.astro';
@@ -22,7 +24,6 @@ import Badge from '@components/common/Badge.astro';
 import timelineData from '../data/timeline.json';
 
 const base = import.meta.env.BASE_URL;
-const getHref = (path: string) => path === '/' ? (base || '/') : `${base}${path}`;
 
 // Get data
 const phases = timelineData.phases;
@@ -30,7 +31,6 @@ const metadata = timelineData.metadata;
 const causationChain = timelineData.causationChain;
 const breachRegister = timelineData.breachRegister;
 const limitationAnalysis = timelineData.limitationAnalysis;
-const colourCoding = timelineData.colourCoding;
 
 // Key anchor points for the spine
 const spineAnchors = [
@@ -61,6 +61,21 @@ const allEvents = phases.flatMap((phase: any) => [
 const totalEvents = allEvents.length;
 const truthSpineCount = phases.reduce((acc: number, p: any) => acc + p.truthSpine.length, 0);
 const gpEntryCount = phases.reduce((acc: number, p: any) => acc + (p.gpEntries?.length || 0), 0);
+
+// Phase color themes for dynamic backgrounds
+const phaseThemes: Record<number, { bg: string; accent: string; name: string }> = {
+  1: { bg: 'from-navy-950 via-navy-900/50 to-navy-950', accent: 'gold', name: 'Pre-Index' },
+  2: { bg: 'from-navy-950 via-amber-950/10 to-navy-950', accent: 'amber', name: 'Missed Opportunities' },
+  3: { bg: 'from-navy-950 via-red-950/10 to-navy-950', accent: 'red', name: 'The Index Event' },
+  4: { bg: 'from-navy-950 via-orange-950/10 to-navy-950', accent: 'orange', name: 'Diagnostic Delay' },
+  5: { bg: 'from-navy-950 via-red-950/15 to-navy-950', accent: 'red', name: 'The Covert Diagnosis' },
+  6: { bg: 'from-navy-950 via-amber-950/10 to-navy-950', accent: 'amber', name: 'Ongoing Harm' },
+  7: { bg: 'from-navy-950 via-green-950/10 to-navy-950', accent: 'green', name: 'Vindication Begins' },
+  8: { bg: 'from-navy-950 via-green-950/15 to-navy-950', accent: 'green', name: 'Full Vindication' }
+};
+
+// Phase names for progress indicator
+const phaseNames = Object.values(phaseThemes).map(t => t.name);
 ---
 
 <BaseLayout title="Timeline" description="8-phase forensic chronology with scrollytelling - Thomson clinical negligence case">
@@ -69,74 +84,102 @@ const gpEntryCount = phases.reduce((acc: number, p: any) => acc + (p.gpEntries?.
 
   <!-- Timeline Spine (fixed left sidebar) -->
   <TimelineSpine anchors={spineAnchors} />
+  
+  <!-- Floating Progress Indicator -->
+  <TimelineProgress totalPhases={metadata.totalPhases} phaseNames={phaseNames} />
 
-  <!-- Hero Header -->
-  <section class="relative py-16 lg:py-20 overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-b from-navy-800/30 to-transparent"></div>
+  <!-- HERO SECTION - Cinematic Data Noir -->
+  <section class="relative py-24 lg:py-32 overflow-hidden">
+    <!-- Cinematic gradient backdrop -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-0 left-1/3 w-[800px] h-[400px] 
+                  bg-gradient-radial from-gold-500/8 via-gold-500/2 to-transparent blur-3xl"></div>
+      <div class="absolute bottom-0 right-1/4 w-[600px] h-[300px] 
+                  bg-gradient-radial from-red-500/5 to-transparent blur-3xl"></div>
+      <!-- Grid overlay -->
+      <div class="absolute inset-0 opacity-[0.015]"
+           style="background-image: linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px); background-size: 80px 80px;"></div>
+    </div>
 
     <div class="container-wide relative">
-      <div class="max-w-3xl lg:ml-24">
-        <Badge variant="default" class="mb-4">Forensic Chronology</Badge>
-        <h1 class="text-4xl lg:text-5xl font-display font-bold text-white mb-6">
+      <div class="max-w-3xl lg:ml-28">
+        <!-- Tagline -->
+        <p class="inline-flex items-center gap-3 text-xs font-semibold text-navy-400 uppercase tracking-[0.2em] mb-6">
+          <span class="w-10 h-px bg-gradient-to-r from-gold-500/60 to-transparent"></span>
+          Forensic Chronology
+        </p>
+        
+        <h1 class="text-5xl lg:text-6xl xl:text-7xl font-display font-bold text-white mb-6 tracking-tight leading-[1.1]">
           Case Timeline
         </h1>
-        <p class="text-lg text-navy-300 leading-relaxed mb-6">
-          <strong class="text-gold-400">{metadata.totalPhases} phases</strong> spanning from pre-2020 to {metadata.vindicationDate}.
-          Scroll to witness the <strong class="text-white">{metadata.diagnosticDelay}</strong> diagnostic delay unfold.
+        
+        <p class="text-lg lg:text-xl text-navy-300 leading-relaxed mb-8">
+          <span class="text-gold-400 font-semibold">{metadata.totalPhases} phases</span> spanning 
+          from pre-2020 to {metadata.vindicationDate}. Scroll to witness the 
+          <span class="text-breach-400 font-semibold">{metadata.diagnosticDelay}</span> diagnostic delay unfold.
         </p>
 
         <!-- Quick stats -->
-        <div class="flex flex-wrap gap-6 text-sm">
-          <div>
-            <span class="text-2xl font-display font-bold text-gold-400">{totalEvents}</span>
-            <span class="text-navy-400 ml-2">Key Events</span>
+        <div class="flex flex-wrap gap-8">
+          <div class="stat-item">
+            <span class="text-3xl lg:text-4xl font-display font-bold text-gold-400">{totalEvents}</span>
+            <span class="text-sm text-navy-400 ml-2">Key Events</span>
           </div>
-          <div>
-            <span class="text-2xl font-display font-bold text-green-400">{truthSpineCount}</span>
-            <span class="text-navy-400 ml-2">Truth Spine</span>
+          <div class="stat-item">
+            <span class="text-3xl lg:text-4xl font-display font-bold text-vindication-400">{truthSpineCount}</span>
+            <span class="text-sm text-navy-400 ml-2">Truth Spine</span>
           </div>
-          <div>
-            <span class="text-2xl font-display font-bold text-navy-300">{gpEntryCount}</span>
-            <span class="text-navy-400 ml-2">GP Entries</span>
+          <div class="stat-item">
+            <span class="text-3xl lg:text-4xl font-display font-bold text-navy-300">{gpEntryCount}</span>
+            <span class="text-sm text-navy-400 ml-2">GP Entries</span>
           </div>
+        </div>
+        
+        <!-- Scroll hint -->
+        <div class="mt-12 flex items-center gap-3 text-navy-500">
+          <div class="w-6 h-10 rounded-full border-2 border-navy-600 flex items-start justify-center p-1">
+            <div class="w-1.5 h-3 bg-gold-500 rounded-full animate-bounce"></div>
+          </div>
+          <span class="text-sm">Scroll to explore</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Key Moments Mini-Timeline -->
-  <section class="border-y border-navy-700/30 bg-navy-900/50 sticky top-16 z-20 backdrop-blur-xl">
+  <!-- KEY MOMENTS NAVIGATION - Sticky -->
+  <section class="border-y border-navy-700/30 bg-navy-950/90 sticky top-16 z-30 backdrop-blur-2xl">
     <div class="container-wide py-4">
-      <div class="flex items-center gap-2 overflow-x-auto lg:ml-24 scrollbar-hide">
+      <div class="flex items-center gap-2 overflow-x-auto lg:ml-28 scrollbar-hide pb-2">
         {spineAnchors.map((anchor, index) => (
           <>
             <a
-              href={`#phase-${anchor.date.split('-')[0] === '2019' ? '1' : anchor.date.split('-')[0] === '2020' || anchor.date.split('-')[0] === '2021' && anchor.date.includes('12') ? '3' : '4'}`}
+              href={`#anchor-${anchor.findingRef?.toLowerCase()}`}
               class:list={[
-                'flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-lg transition-all',
-                anchor.type === 'vindication' && 'bg-green-500/10 hover:bg-green-500/20',
-                anchor.type === 'breach' && 'bg-red-500/10 hover:bg-red-500/20',
+                'flex-shrink-0 flex items-center gap-2.5 px-4 py-2.5 rounded-xl transition-all duration-300',
+                'border border-transparent hover:border-navy-600/50',
+                anchor.type === 'vindication' && 'bg-vindication-500/10 hover:bg-vindication-500/20',
+                anchor.type === 'breach' && 'bg-breach-500/10 hover:bg-breach-500/20',
                 anchor.type === 'anchor' && 'bg-gold-500/10 hover:bg-gold-500/20',
               ]}
             >
               <div class:list={[
-                'w-2.5 h-2.5 rounded-full',
-                anchor.type === 'vindication' && 'bg-green-500',
-                anchor.type === 'breach' && 'bg-red-500',
-                anchor.type === 'anchor' && 'bg-gold-500',
+                'w-3 h-3 rounded-full shadow-lg',
+                anchor.type === 'vindication' && 'bg-vindication-500 shadow-vindication-glow',
+                anchor.type === 'breach' && 'bg-breach-500 shadow-breach-glow',
+                anchor.type === 'anchor' && 'bg-gold-500 shadow-gold-glow',
               ]}></div>
               <div>
                 <p class:list={[
                   'text-sm font-semibold',
-                  anchor.type === 'vindication' && 'text-green-400',
-                  anchor.type === 'breach' && 'text-red-400',
+                  anchor.type === 'vindication' && 'text-vindication-400',
+                  anchor.type === 'breach' && 'text-breach-400',
                   anchor.type === 'anchor' && 'text-gold-400',
                 ]}>{anchor.shortDate}</p>
                 <p class="text-xs text-navy-500">{anchor.label}</p>
               </div>
             </a>
             {index < spineAnchors.length - 1 && (
-              <div class="w-8 h-px bg-gradient-to-r from-navy-600 to-transparent flex-shrink-0"></div>
+              <div class="w-12 h-px bg-gradient-to-r from-navy-600/50 via-navy-700/30 to-transparent flex-shrink-0"></div>
             )}
           </>
         ))}
@@ -144,202 +187,270 @@ const gpEntryCount = phases.reduce((acc: number, p: any) => acc + (p.gpEntries?.
     </div>
   </section>
 
-  <!-- Legend -->
-  <section class="border-b border-navy-700/30 bg-navy-900/30">
+  <!-- LEGEND -->
+  <section class="border-b border-navy-700/20 bg-navy-900/30">
     <div class="container-wide py-4">
-      <div class="flex flex-wrap items-center gap-6 text-sm lg:ml-24">
+      <div class="flex flex-wrap items-center gap-8 text-sm lg:ml-28">
         <span class="text-navy-500 font-medium">Evidence Track:</span>
         <div class="flex items-center gap-2">
-          <div class="w-3 h-3 rounded-full bg-green-500"></div>
-          <span class="text-green-400">Truth Spine</span>
-          <span class="text-navy-600">|</span>
+          <div class="w-3 h-3 rounded-full bg-vindication-500 shadow-vindication-glow"></div>
+          <span class="text-vindication-400 font-medium">Truth Spine</span>
+          <span class="text-navy-700">|</span>
           <span class="text-navy-500 text-xs">High reliability</span>
         </div>
         <div class="flex items-center gap-2">
           <div class="w-3 h-3 rounded-full bg-navy-500"></div>
           <span class="text-navy-300">GP Record</span>
-          <span class="text-navy-600">|</span>
+          <span class="text-navy-700">|</span>
           <span class="text-navy-500 text-xs">Subject to verification</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Main Scrollytelling Timeline -->
-  <section id="scrollytelling-timeline" class="py-12 lg:py-20">
-    <div class="container-wide">
-      <div class="lg:ml-24 max-w-3xl">
-        {phases.map((phase: any) => (
-          <>
-            {/* THE VOID - Insert between Phase 4 and Phase 5 */}
-            {phase.id === 5 && (
-              <TheVoid
-                startDate="16 Oct 2022"
-                endDate="05 Jan 2023"
-                delayDays={82}
-                delayMonths="~3 months"
-                message="MRI confirmed T5-T8 vertebral fractures. Patient was never informed of the results."
-              />
-            )}
+  <!-- MAIN SCROLLYTELLING TIMELINE -->
+  <section id="scrollytelling-timeline" class="relative">
+    {phases.map((phase: any, phaseIndex: number) => {
+      const theme = phaseThemes[phase.id] || phaseThemes[1];
+      
+      return (
+        <>
+          {/* THE VOID #1 - Between Phase 3 (Seizure) and Phase 4 (delayed investigations) */}
+          {phase.id === 4 && (
+            <TheVoid
+              startDate="23 Dec 2021"
+              endDate="Oct 2022"
+              delayDays={300}
+              delayMonths="~11 months"
+              message="Tonic-clonic seizure with fall. T5-T8 vertebral fractures went undiagnosed."
+              severity="major"
+              voidId="void-fracture-delay"
+            />
+          )}
+          
+          {/* THE VOID #2 - Between Phase 4 (MRI) and Phase 5 (Covert Diagnosis) */}
+          {phase.id === 5 && (
+            <TheVoid
+              startDate="16 Oct 2022"
+              endDate="05 Jan 2023"
+              delayDays={82}
+              delayMonths="~3 months"
+              message="MRI confirmed T5-T8 vertebral fractures. Patient was never informed of the results."
+              severity="critical"
+              voidId="void-diagnostic-delay"
+            />
+          )}
+          
+          {/* Phase Section with Dynamic Background */}
+          <div 
+            id={`phase-${phase.id}`} 
+            class="phase-section relative py-20 lg:py-28"
+            data-phase={phase.id}
+          >
+            <!-- Phase-specific gradient background -->
+            <div class={`absolute inset-0 bg-gradient-to-b ${theme.bg} pointer-events-none transition-opacity duration-1000`}></div>
             
-            <div id={`phase-${phase.id}`} class="mb-20 last:mb-0">
-            <!-- Phase Header -->
-            <div class="sticky top-32 z-10 mb-8">
-              <GlassCard variant="elevated" padding="md">
-                <div class="flex items-start justify-between gap-4">
-                  <div>
-                    <div class="flex items-center gap-3 mb-2">
-                      <span class="text-3xl font-display font-bold text-gold-400">
-                        {phase.id.toString().padStart(2, '0')}
-                      </span>
-                      <div class="h-px flex-1 bg-gradient-to-r from-gold-500/50 to-transparent"></div>
+            <!-- Subtle accent glow -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] rounded-full blur-3xl opacity-20 pointer-events-none"
+                 class:list={[
+                   theme.accent === 'gold' && 'bg-gold-500/10',
+                   theme.accent === 'amber' && 'bg-amber-500/10',
+                   theme.accent === 'red' && 'bg-red-500/10',
+                   theme.accent === 'orange' && 'bg-orange-500/10',
+                   theme.accent === 'green' && 'bg-vindication-500/10',
+                 ]}></div>
+            
+            <div class="container-wide relative">
+              <div class="lg:ml-28 max-w-3xl">
+                <!-- Phase Header -->
+                <div class="phase-header sticky top-36 z-20 mb-12">
+                  <div class="glass-card-elevated p-6 lg:p-8">
+                    <div class="flex items-start justify-between gap-6">
+                      <div class="flex-1">
+                        <div class="flex items-center gap-4 mb-4">
+                          <span class:list={[
+                            'text-5xl lg:text-6xl font-display font-black leading-none',
+                            theme.accent === 'gold' && 'text-gold-400',
+                            theme.accent === 'amber' && 'text-amber-400',
+                            theme.accent === 'red' && 'text-breach-400',
+                            theme.accent === 'orange' && 'text-orange-400',
+                            theme.accent === 'green' && 'text-vindication-400',
+                          ]}>
+                            {phase.id.toString().padStart(2, '0')}
+                          </span>
+                          <div class="flex-1 h-px bg-gradient-to-r from-navy-600/50 to-transparent"></div>
+                        </div>
+                        <h2 class="text-2xl lg:text-3xl font-display font-bold text-white mb-2">
+                          {phase.title}
+                        </h2>
+                        <p class="text-sm text-navy-400 font-mono">{phase.period}</p>
+                      </div>
                     </div>
-                    <h2 class="text-xl lg:text-2xl font-display font-bold text-white mb-2">
-                      {phase.title}
-                    </h2>
-                    <p class="text-sm text-navy-400">{phase.period}</p>
+                    {phase.keyMessage && (
+                      <div class="mt-6 pt-6 border-t border-navy-700/30">
+                        <p class="text-navy-300 leading-relaxed">
+                          <span class:list={[
+                            'font-semibold',
+                            theme.accent === 'gold' && 'text-gold-400',
+                            theme.accent === 'amber' && 'text-amber-400',
+                            theme.accent === 'red' && 'text-breach-400',
+                            theme.accent === 'orange' && 'text-orange-400',
+                            theme.accent === 'green' && 'text-vindication-400',
+                          ]}>Key:</span> {phase.keyMessage}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
-                {phase.keyMessage && (
-                  <p class="mt-4 pt-4 border-t border-navy-700/30 text-sm text-navy-300 leading-relaxed">
-                    <strong class="text-gold-400">Key:</strong> {phase.keyMessage}
-                  </p>
-                )}
-              </GlassCard>
-            </div>
 
-            <!-- Phase Events -->
-            <div class="space-y-4 pl-4 border-l-2 border-navy-700/30">
-              {/* Truth Spine Events */}
-              {phase.truthSpine.map((event: any, i: number) => (
-                <TimelineEventCard
-                  id={`${phase.id}-truth-${i}`}
-                  date={event.date}
-                  phase={phase.id}
-                  title={event.event}
-                  description={event.finding}
-                  status="verified"
-                  findingRef={event.findingRef}
-                  source={event.source}
-                  tier={event.tier}
-                  isTruthSpine={true}
-                  isAnchor={spineAnchors.some(a => a.findingRef === event.findingRef)}
-                />
-              ))}
+                <!-- Phase Events -->
+                <div class="space-y-6 pl-6 border-l-2 border-navy-700/30 relative">
+                  <!-- Progress line overlay -->
+                  <div class="absolute left-0 top-0 w-0.5 h-0 bg-gradient-to-b from-gold-500 to-vindication-500 transition-all duration-500 progress-line"></div>
+                  
+                  {/* Truth Spine Events */}
+                  {phase.truthSpine.map((event: any, i: number) => (
+                    <div id={event.findingRef ? `anchor-${event.findingRef.toLowerCase()}` : undefined}>
+                      <TimelineEventCard
+                        id={`${phase.id}-truth-${i}`}
+                        date={event.date}
+                        phase={phase.id}
+                        title={event.event}
+                        description={event.finding}
+                        status="verified"
+                        findingRef={event.findingRef}
+                        source={event.source}
+                        tier={event.tier}
+                        isTruthSpine={true}
+                        isAnchor={spineAnchors.some(a => a.findingRef === event.findingRef)}
+                      />
+                    </div>
+                  ))}
 
-              {/* GP Entries (if any) */}
-              {(phase.gpEntries || []).map((entry: any, i: number) => (
-                <TimelineEventCard
-                  id={`${phase.id}-gp-${i}`}
-                  date={entry.date}
-                  phase={phase.id}
-                  title={`GP Entry: ${entry.clinician || 'Unknown'}`}
-                  description={entry.content}
-                  status={entry.status?.toLowerCase() || 'unverified'}
-                  findingRef={entry.findingRef}
-                  isGpEntry={true}
-                  critical={entry.critical}
-                />
-              ))}
+                  {/* GP Entries (if any) */}
+                  {(phase.gpEntries || []).map((entry: any, i: number) => (
+                    <TimelineEventCard
+                      id={`${phase.id}-gp-${i}`}
+                      date={entry.date}
+                      phase={phase.id}
+                      title={`GP Entry: ${entry.clinician || 'Unknown'}`}
+                      description={entry.content}
+                      status={entry.status?.toLowerCase() || 'unverified'}
+                      findingRef={entry.findingRef}
+                      isGpEntry={true}
+                      critical={entry.critical}
+                    />
+                  ))}
 
-              {/* Breaches for this phase */}
-              {phase.breaches && phase.breaches.length > 0 && (
-                <div class="mt-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20">
-                  <h4 class="text-sm font-semibold text-red-400 mb-3 flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
-                    Breaches Identified
-                  </h4>
-                  <ul class="space-y-2">
-                    {phase.breaches.map((breach: string) => (
-                      <li class="text-sm text-red-300 flex items-start gap-2">
-                        <span class="text-red-500 mt-1">•</span>
-                        {breach}
-                      </li>
-                    ))}
-                  </ul>
+                  {/* Breaches for this phase */}
+                  {phase.breaches && phase.breaches.length > 0 && (
+                    <div class="mt-8 p-6 rounded-2xl bg-breach-500/5 border border-breach-500/20 backdrop-blur-xl">
+                      <h4 class="text-sm font-semibold text-breach-400 mb-4 flex items-center gap-2 uppercase tracking-wider">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        Breaches Identified
+                      </h4>
+                      <ul class="space-y-3">
+                        {phase.breaches.map((breach: string) => (
+                          <li class="text-sm text-breach-300 flex items-start gap-3">
+                            <span class="text-breach-500 mt-1">•</span>
+                            {breach}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
+            
+            {/* Phase transition spacer */}
+            {phaseIndex < phases.length - 1 && phase.id !== 4 && (
+              <div class="h-24 bg-gradient-to-b from-transparent to-navy-950"></div>
+            )}
           </div>
-          </>
-        ))}
-      </div>
-    </div>
+        </>
+      );
+    })}
   </section>
 
-  <!-- Causation Chain -->
-  <section class="py-16 border-t border-navy-700/30 bg-navy-900/30">
-    <div class="container-wide">
-      <div class="lg:ml-24 max-w-3xl">
-        <div class="flex items-center gap-3 mb-8">
-          <div class="w-4 h-4 rounded-full bg-blue-500"></div>
-          <h2 class="text-2xl font-display font-bold text-white">
+  <!-- CAUSATION CHAIN -->
+  <section class="py-20 lg:py-28 border-t border-navy-700/30 relative overflow-hidden">
+    <!-- Background -->
+    <div class="absolute inset-0 bg-gradient-to-b from-navy-950 via-causation-500/5 to-navy-950 pointer-events-none"></div>
+    
+    <div class="container-wide relative">
+      <div class="lg:ml-28 max-w-3xl">
+        <div class="flex items-center gap-4 mb-10">
+          <div class="w-5 h-5 rounded-full bg-causation-500 shadow-lg"></div>
+          <h2 class="text-3xl font-display font-bold text-white">
             Causation Chain
           </h2>
           <Badge variant="causation">{causationChain.findingRef}</Badge>
         </div>
 
-        <p class="text-navy-400 mb-8">{causationChain.title}</p>
+        <p class="text-navy-400 mb-10 text-lg">{causationChain.title}</p>
 
-        <div class="relative pl-8 border-l-2 border-blue-500/30 space-y-4">
+        <div class="relative pl-10 border-l-2 border-causation-500/30 space-y-6">
           {causationChain.steps.map((step: any) => (
             <div class="relative">
               <div class:list={[
-                'absolute -left-[25px] w-4 h-4 rounded-full border-2 border-navy-900',
-                step.critical ? 'bg-red-500' :
+                'absolute -left-[25px] w-5 h-5 rounded-full border-4 border-navy-950',
+                step.critical ? 'bg-breach-500' :
                 step.breach ? 'bg-amber-500' :
-                step.vindication ? 'bg-green-500' : 'bg-blue-500'
+                step.vindication ? 'bg-vindication-500' : 'bg-causation-500'
               ]}></div>
-              <GlassCard
-                variant={step.critical ? 'breach' : step.vindication ? 'vindication' : 'default'}
-                padding="sm"
-              >
-                <p class="text-xs text-navy-500 mb-1">{step.date}</p>
+              <div class:list={[
+                'p-5 rounded-2xl backdrop-blur-xl border',
+                step.critical ? 'bg-breach-500/5 border-breach-500/20' :
+                step.vindication ? 'bg-vindication-500/5 border-vindication-500/20' : 
+                'bg-navy-800/30 border-navy-700/30'
+              ]}>
+                <p class="text-xs text-navy-500 mb-2 font-mono">{step.date}</p>
                 <p class:list={[
-                  'text-sm',
-                  step.critical ? 'text-red-400 font-semibold' :
-                  step.vindication ? 'text-green-400' : 'text-navy-300'
+                  'text-sm leading-relaxed',
+                  step.critical ? 'text-breach-300 font-semibold' :
+                  step.vindication ? 'text-vindication-300' : 'text-navy-300'
                 ]}>{step.event}</p>
-              </GlassCard>
+              </div>
             </div>
           ))}
         </div>
 
-        <GlassCard variant="highlight" padding="md" class="mt-8">
-          <h4 class="text-sm font-semibold text-gold-400 mb-2">But-For Test</h4>
-          <p class="text-sm text-navy-300">{causationChain.butForTest}</p>
-        </GlassCard>
+        <div class="mt-10 p-6 rounded-2xl glass-card-highlight">
+          <h4 class="text-sm font-semibold text-gold-400 mb-3 uppercase tracking-wider">But-For Test</h4>
+          <p class="text-navy-300 leading-relaxed">{causationChain.butForTest}</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Breach Register -->
-  <section class="py-16 border-t border-navy-700/30">
+  <!-- BREACH REGISTER -->
+  <section class="py-20 lg:py-28 border-t border-navy-700/30">
     <div class="container-wide">
-      <div class="lg:ml-24">
-        <h2 class="text-2xl font-display font-bold text-white mb-8">Breach Register</h2>
+      <div class="lg:ml-28">
+        <h2 class="text-3xl font-display font-bold text-white mb-10">Breach Register</h2>
 
-        <div class="overflow-x-auto rounded-xl border border-navy-700/30">
+        <div class="overflow-x-auto rounded-2xl border border-navy-700/30 bg-navy-900/30 backdrop-blur-xl">
           <table class="w-full text-sm">
             <thead class="bg-navy-800/50">
               <tr>
-                <th class="text-left py-3 px-4 text-navy-500 font-medium">ID</th>
-                <th class="text-left py-3 px-4 text-navy-500 font-medium">Date</th>
-                <th class="text-left py-3 px-4 text-navy-500 font-medium">Clinician</th>
-                <th class="text-left py-3 px-4 text-navy-500 font-medium">Nature</th>
-                <th class="text-left py-3 px-4 text-navy-500 font-medium">Status</th>
+                <th class="text-left py-4 px-6 text-navy-400 font-semibold uppercase tracking-wider text-xs">ID</th>
+                <th class="text-left py-4 px-6 text-navy-400 font-semibold uppercase tracking-wider text-xs">Date</th>
+                <th class="text-left py-4 px-6 text-navy-400 font-semibold uppercase tracking-wider text-xs">Clinician</th>
+                <th class="text-left py-4 px-6 text-navy-400 font-semibold uppercase tracking-wider text-xs">Nature</th>
+                <th class="text-left py-4 px-6 text-navy-400 font-semibold uppercase tracking-wider text-xs">Status</th>
               </tr>
             </thead>
             <tbody>
               {breachRegister.map((breach: any) => (
                 <tr class="border-t border-navy-700/30 hover:bg-navy-800/30 transition-colors">
-                  <td class="py-3 px-4 font-mono text-gold-400">{breach.id}</td>
-                  <td class="py-3 px-4 text-navy-400">{breach.date}</td>
-                  <td class="py-3 px-4 text-white">{breach.clinician}</td>
-                  <td class="py-3 px-4 text-navy-300">{breach.nature}</td>
-                  <td class="py-3 px-4">
+                  <td class="py-4 px-6 font-mono text-gold-400">{breach.id}</td>
+                  <td class="py-4 px-6 text-navy-400">{breach.date}</td>
+                  <td class="py-4 px-6 text-white">{breach.clinician}</td>
+                  <td class="py-4 px-6 text-navy-300">{breach.nature}</td>
+                  <td class="py-4 px-6">
                     <Badge variant="vindication">{breach.status}</Badge>
                   </td>
                 </tr>
@@ -351,61 +462,61 @@ const gpEntryCount = phases.reduce((acc: number, p: any) => acc + (p.gpEntries?.
     </div>
   </section>
 
-  <!-- Limitation Analysis -->
-  <section class="py-16 border-t border-navy-700/30 bg-navy-900/30">
+  <!-- LIMITATION ANALYSIS -->
+  <section class="py-20 lg:py-28 border-t border-navy-700/30 bg-navy-900/20">
     <div class="container-wide">
-      <div class="lg:ml-24 max-w-2xl">
-        <div class="flex items-center gap-3 mb-8">
-          <div class="w-4 h-4 rounded-full bg-gold-500"></div>
-          <h2 class="text-2xl font-display font-bold text-white">Limitation Analysis</h2>
+      <div class="lg:ml-28 max-w-3xl">
+        <div class="flex items-center gap-4 mb-10">
+          <div class="w-5 h-5 rounded-full bg-gold-500 shadow-gold-glow"></div>
+          <h2 class="text-3xl font-display font-bold text-white">Limitation Analysis</h2>
           <Badge variant="default">{limitationAnalysis.findingRef}</Badge>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
-          <GlassCard padding="md">
-            <p class="text-xs text-navy-500 mb-1">Index Injury</p>
-            <p class="text-lg font-semibold text-white">{limitationAnalysis.indexInjury}</p>
-          </GlassCard>
-          <GlassCard padding="md">
-            <p class="text-xs text-navy-500 mb-1">Date of Knowledge</p>
-            <p class="text-lg font-semibold text-gold-400">{limitationAnalysis.dateOfKnowledge}</p>
-          </GlassCard>
-          <GlassCard padding="md">
-            <p class="text-xs text-navy-500 mb-1">Limitation Expires</p>
-            <p class="text-lg font-semibold text-red-400">{limitationAnalysis.limitationExpires}</p>
-          </GlassCard>
-          <GlassCard variant="vindication" padding="md">
-            <p class="text-xs text-navy-500 mb-1">Time Remaining</p>
-            <p class="text-lg font-semibold text-green-400">{limitationAnalysis.timeRemaining}</p>
-          </GlassCard>
+        <div class="grid grid-cols-2 gap-6">
+          <div class="glass-card p-6">
+            <p class="text-xs text-navy-500 uppercase tracking-wider mb-2">Index Injury</p>
+            <p class="text-xl font-semibold text-white">{limitationAnalysis.indexInjury}</p>
+          </div>
+          <div class="glass-card p-6">
+            <p class="text-xs text-navy-500 uppercase tracking-wider mb-2">Date of Knowledge</p>
+            <p class="text-xl font-semibold text-gold-400">{limitationAnalysis.dateOfKnowledge}</p>
+          </div>
+          <div class="glass-card-breach p-6">
+            <p class="text-xs text-navy-500 uppercase tracking-wider mb-2">Limitation Expires</p>
+            <p class="text-xl font-semibold text-breach-400">{limitationAnalysis.limitationExpires}</p>
+          </div>
+          <div class="glass-card-vindication p-6">
+            <p class="text-xs text-navy-500 uppercase tracking-wider mb-2">Time Remaining</p>
+            <p class="text-xl font-semibold text-vindication-400">{limitationAnalysis.timeRemaining}</p>
+          </div>
         </div>
 
-        <p class="text-sm text-navy-400 mt-6">
+        <p class="text-sm text-navy-400 mt-8">
           <strong class="text-gold-400">s.32(1)(b):</strong> {limitationAnalysis.section32}
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Summary Stats -->
-  <section class="py-16 border-t border-navy-700/30">
+  <!-- SUMMARY STATS -->
+  <section class="py-20 border-t border-navy-700/30">
     <div class="container-wide">
-      <div class="lg:ml-24 grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="lg:ml-28 grid grid-cols-2 md:grid-cols-4 gap-8">
         <div class="text-center">
-          <p class="text-4xl font-display font-bold text-gold-400">{metadata.totalPhases}</p>
-          <p class="text-sm text-navy-400 mt-1">Timeline Phases</p>
+          <p class="text-5xl font-display font-bold text-gold-400">{metadata.totalPhases}</p>
+          <p class="text-sm text-navy-400 mt-2">Timeline Phases</p>
         </div>
         <div class="text-center">
-          <p class="text-4xl font-display font-bold text-white">{totalEvents}+</p>
-          <p class="text-sm text-navy-400 mt-1">Key Events</p>
+          <p class="text-5xl font-display font-bold text-white">{totalEvents}+</p>
+          <p class="text-sm text-navy-400 mt-2">Key Events</p>
         </div>
         <div class="text-center">
-          <p class="text-4xl font-display font-bold text-red-400">{metadata.diagnosticDelay}</p>
-          <p class="text-sm text-navy-400 mt-1">Diagnostic Delay</p>
+          <p class="text-5xl font-display font-bold text-breach-400">{metadata.diagnosticDelay}</p>
+          <p class="text-sm text-navy-400 mt-2">Diagnostic Delay</p>
         </div>
         <div class="text-center">
-          <p class="text-4xl font-display font-bold text-green-400">6+</p>
-          <p class="text-sm text-navy-400 mt-1">Years of Evidence</p>
+          <p class="text-5xl font-display font-bold text-vindication-400">6+</p>
+          <p class="text-sm text-navy-400 mt-2">Years of Evidence</p>
         </div>
       </div>
     </div>
@@ -420,5 +531,19 @@ const gpEntryCount = phases.reduce((acc: number, p: any) => acc + (p.gpEntries?.
   }
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+  
+  /* Phase section transitions */
+  .phase-section {
+    transition: background 0.5s ease-out;
+  }
+  
+  /* Phase header sticky shadow */
+  .phase-header {
+    transition: all 0.3s ease;
+  }
+  
+  .phase-header.is-stuck {
+    transform: scale(0.98);
   }
 </style>

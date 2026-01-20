@@ -1,17 +1,17 @@
 ---
 /**
- * TheVoid Component - V3 Scrollytelling Enhancement
+ * TheVoid Component - V3 Phase 4 Scrollytelling
  *
- * Creates a visual "void" effect between timeline phases to emphasize
- * the diagnostic delay period. Uses exaggerated spacing and visual
- * effects to represent the ~3 month gap between MRI confirmation
- * and proper diagnosis.
+ * Creates a dramatic visual "void" effect between timeline phases
+ * representing the diagnostic delay period. This is where the patient
+ * existed in limbo - fractures confirmed but never told.
  *
  * Features:
- * - Dramatic vertical spacing
- * - Gradient void effect
- * - Animated particles
- * - Delay counter
+ * - Massive vertical spacing for dramatic effect
+ * - Animated gradient void effect
+ * - Floating particles with parallax
+ * - Pulsing delay counter
+ * - Scroll-triggered reveal
  */
 
 interface Props {
@@ -20,6 +20,8 @@ interface Props {
   delayDays: number;
   delayMonths: string;
   message?: string;
+  severity?: 'critical' | 'major' | 'standard';
+  voidId?: string;
 }
 
 const { 
@@ -27,126 +29,266 @@ const {
   endDate, 
   delayDays = 82, 
   delayMonths = "~3 months",
-  message = "MRI confirmed fractures. Patient still wasn't told." 
+  message = "MRI confirmed fractures. Patient still wasn't told.",
+  severity = 'critical',
+  voidId = 'the-void'
 } = Astro.props;
+
+const severityColors = {
+  critical: {
+    primary: 'red',
+    glow: 'rgba(239, 68, 68, 0.15)',
+    particle: 'rgba(239, 68, 68, 0.4)',
+    border: 'border-red-500/30',
+    text: 'text-red-400',
+    bg: 'from-red-950/20'
+  },
+  major: {
+    primary: 'amber',
+    glow: 'rgba(245, 158, 11, 0.15)',
+    particle: 'rgba(245, 158, 11, 0.4)',
+    border: 'border-amber-500/30',
+    text: 'text-amber-400',
+    bg: 'from-amber-950/20'
+  },
+  standard: {
+    primary: 'navy',
+    glow: 'rgba(30, 41, 59, 0.3)',
+    particle: 'rgba(148, 163, 184, 0.3)',
+    border: 'border-navy-600/30',
+    text: 'text-navy-400',
+    bg: 'from-navy-900/50'
+  }
+};
+
+const colors = severityColors[severity];
 ---
 
-<div class="the-void relative py-32 my-8" id="the-void">
-  <!-- Void Background -->
-  <div class="absolute inset-0 bg-gradient-to-b from-navy-950 via-[#020617] to-navy-950 opacity-80"></div>
+<div class="the-void relative" id={voidId}>
+  <!-- Outer gradient fade (top) -->
+  <div class="h-24 bg-gradient-to-b from-transparent via-navy-950/50 to-navy-950"></div>
   
-  <!-- Animated particles (subtle) -->
-  <div class="absolute inset-0 overflow-hidden pointer-events-none">
-    <div class="void-particle particle-1"></div>
-    <div class="void-particle particle-2"></div>
-    <div class="void-particle particle-3"></div>
-  </div>
-  
-  <!-- Content -->
-  <div class="relative z-10 text-center px-6">
-    <!-- The Void Label -->
-    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-navy-900/80 border border-navy-700/50 mb-8">
-      <div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
-      <span class="text-sm font-mono text-red-400 uppercase tracking-wider">The Void</span>
+  <!-- Main Void Container -->
+  <div class="void-container relative py-40 lg:py-56 overflow-hidden">
+    <!-- Deep black void background with subtle gradients -->
+    <div class="absolute inset-0">
+      <div class="absolute inset-0 bg-[#010204]"></div>
+      <div class={`absolute inset-0 bg-gradient-to-b ${colors.bg} via-transparent to-transparent opacity-50`}></div>
+      <div class="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-[#010204]"></div>
     </div>
     
-    <!-- Time Markers -->
-    <div class="flex justify-center items-center gap-4 mb-8">
-      <div class="text-right">
-        <p class="text-sm text-navy-500">MRI Confirmed</p>
-        <p class="text-xl font-display font-bold text-gold-400">{startDate}</p>
-      </div>
-      
-      <!-- Arrow with days -->
-      <div class="flex items-center gap-2 px-6">
-        <div class="h-px w-12 bg-gradient-to-r from-gold-500/50 to-transparent"></div>
-        <span class="text-3xl font-display font-bold text-red-400">{delayDays}</span>
-        <span class="text-sm text-navy-400">days</span>
-        <div class="h-px w-12 bg-gradient-to-l from-red-500/50 to-transparent"></div>
-      </div>
-      
-      <div class="text-left">
-        <p class="text-sm text-navy-500">Covert Diagnosis</p>
-        <p class="text-xl font-display font-bold text-red-400">{endDate}</p>
-      </div>
+    <!-- Animated void particles -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="void-particle particle-1" style={`background: ${colors.particle}`}></div>
+      <div class="void-particle particle-2" style={`background: ${colors.particle}`}></div>
+      <div class="void-particle particle-3" style={`background: ${colors.particle}`}></div>
+      <div class="void-particle particle-4" style={`background: ${colors.particle}`}></div>
+      <div class="void-particle particle-5" style={`background: ${colors.particle}`}></div>
     </div>
     
-    <!-- Delay Counter -->
-    <div class="inline-block px-8 py-4 rounded-2xl bg-navy-900/60 border border-red-500/20 backdrop-blur-xl">
-      <p class="text-sm text-navy-400 mb-1">Diagnostic Gap</p>
-      <p class="text-4xl font-display font-bold text-white">
-        {delayMonths}
+    <!-- Subtle grid pattern -->
+    <div class="absolute inset-0 opacity-[0.02]"
+         style="background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 80px 80px;"></div>
+    
+    <!-- Radial glow in center -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-3xl opacity-30"
+         style={`background: radial-gradient(circle, ${colors.glow} 0%, transparent 70%)`}></div>
+    
+    <!-- Content -->
+    <div class="relative z-10 text-center px-6 void-content">
+      <!-- The Void Label -->
+      <div class="void-label inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-navy-900/80 border mb-12"
+           class:list={[colors.border, 'backdrop-blur-xl']}>
+        <div class:list={['w-2.5 h-2.5 rounded-full animate-pulse', 
+                          severity === 'critical' && 'bg-red-500',
+                          severity === 'major' && 'bg-amber-500',
+                          severity === 'standard' && 'bg-navy-400']}></div>
+        <span class:list={['text-sm font-mono uppercase tracking-[0.2em]', colors.text]}>
+          The Void
+        </span>
+        <div class:list={['w-2.5 h-2.5 rounded-full animate-pulse animation-delay-500', 
+                          severity === 'critical' && 'bg-red-500',
+                          severity === 'major' && 'bg-amber-500',
+                          severity === 'standard' && 'bg-navy-400']}></div>
+      </div>
+      
+      <!-- Time Markers -->
+      <div class="void-markers flex flex-col lg:flex-row justify-center items-center gap-6 lg:gap-8 mb-12">
+        <!-- Start Date -->
+        <div class="text-center lg:text-right">
+          <p class="text-xs text-navy-500 uppercase tracking-wider mb-1">MRI Confirmed</p>
+          <p class="text-2xl lg:text-3xl font-display font-bold text-gold-400">{startDate}</p>
+        </div>
+        
+        <!-- Arrow with days -->
+        <div class="flex items-center gap-4 py-4">
+          <div class="w-16 h-px bg-gradient-to-r from-gold-500/50 to-transparent"></div>
+          <div class="flex flex-col items-center">
+            <span class="text-5xl lg:text-6xl font-display font-black text-white leading-none">{delayDays}</span>
+            <span class="text-sm text-navy-400 mt-1">days in limbo</span>
+          </div>
+          <div class="w-16 h-px bg-gradient-to-l from-red-500/50 to-transparent"></div>
+        </div>
+        
+        <!-- End Date -->
+        <div class="text-center lg:text-left">
+          <p class="text-xs text-navy-500 uppercase tracking-wider mb-1">Covert Diagnosis</p>
+          <p class:list={['text-2xl lg:text-3xl font-display font-bold', colors.text]}>{endDate}</p>
+        </div>
+      </div>
+      
+      <!-- Delay Counter Card -->
+      <div class="void-counter inline-block px-10 py-6 rounded-3xl bg-navy-900/40 backdrop-blur-2xl relative overflow-hidden"
+           class:list={['border', colors.border]}>
+        <!-- Inner glow -->
+        <div class="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none"></div>
+        
+        <p class="text-xs text-navy-400 uppercase tracking-widest mb-2">Diagnostic Gap</p>
+        <p class="text-5xl lg:text-6xl font-display font-black text-white tracking-tight">
+          {delayMonths}
+        </p>
+      </div>
+      
+      <!-- Message -->
+      <p class="void-message mt-12 text-lg lg:text-xl text-navy-300 max-w-lg mx-auto leading-relaxed">
+        {message}
       </p>
+      
+      <!-- Accusation -->
+      <p class:list={['void-accusation mt-6 text-sm italic opacity-80', colors.text]}>
+        "Instead, a psychiatric label was applied without assessment or knowledge."
+      </p>
+      
+      <!-- Scroll indicator -->
+      <div class="mt-16 flex flex-col items-center gap-2 animate-bounce">
+        <span class="text-xs text-navy-500 uppercase tracking-widest">Scroll to Continue</span>
+        <svg class="w-5 h-5 text-navy-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </div>
     </div>
-    
-    <!-- Message -->
-    <p class="mt-8 text-lg text-navy-300 max-w-md mx-auto leading-relaxed">
-      {message}
-    </p>
-    
-    <!-- Subtle accusation -->
-    <p class="mt-4 text-sm text-red-400/70 italic">
-      "Instead, a psychiatric label was applied."
-    </p>
   </div>
   
-  <!-- Bottom gradient fade -->
-  <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-navy-950 to-transparent"></div>
+  <!-- Outer gradient fade (bottom) -->
+  <div class="h-24 bg-gradient-to-t from-transparent via-navy-950/50 to-navy-950"></div>
 </div>
 
 <style>
   .the-void {
-    /* Exaggerated height to emphasize the "void" */
-    min-height: 40vh;
+    /* Even more dramatic height */
+    min-height: 100vh;
   }
   
-  /* Floating particles effect */
+  .void-container {
+    min-height: 80vh;
+  }
+  
+  /* Scroll-triggered animations */
+  .void-content > * {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .the-void.in-view .void-content > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Staggered reveal */
+  .the-void.in-view .void-label { transition-delay: 0.1s; }
+  .the-void.in-view .void-markers { transition-delay: 0.3s; }
+  .the-void.in-view .void-counter { transition-delay: 0.5s; }
+  .the-void.in-view .void-message { transition-delay: 0.7s; }
+  .the-void.in-view .void-accusation { transition-delay: 0.9s; }
+  
+  /* Floating particles effect - enhanced */
   .void-particle {
     position: absolute;
-    width: 4px;
-    height: 4px;
-    background: rgba(239, 68, 68, 0.3);
     border-radius: 50%;
-    animation: float 10s ease-in-out infinite;
+    animation: void-float linear infinite;
+    opacity: 0;
   }
   
   .particle-1 {
-    left: 20%;
-    top: 30%;
+    width: 3px;
+    height: 3px;
+    left: 15%;
+    animation-duration: 25s;
     animation-delay: 0s;
-    animation-duration: 12s;
   }
   
   .particle-2 {
-    left: 70%;
-    top: 50%;
-    animation-delay: 2s;
-    animation-duration: 14s;
+    width: 5px;
+    height: 5px;
+    left: 35%;
+    animation-duration: 30s;
+    animation-delay: 5s;
   }
   
   .particle-3 {
-    left: 45%;
-    top: 70%;
-    animation-delay: 4s;
-    animation-duration: 16s;
+    width: 2px;
+    height: 2px;
+    left: 55%;
+    animation-duration: 22s;
+    animation-delay: 10s;
   }
   
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0) translateX(0);
-      opacity: 0.3;
+  .particle-4 {
+    width: 4px;
+    height: 4px;
+    left: 75%;
+    animation-duration: 28s;
+    animation-delay: 3s;
+  }
+  
+  .particle-5 {
+    width: 3px;
+    height: 3px;
+    left: 90%;
+    animation-duration: 35s;
+    animation-delay: 8s;
+  }
+  
+  @keyframes void-float {
+    0% {
+      transform: translateY(100vh) translateX(0);
+      opacity: 0;
     }
-    25% {
-      transform: translateY(-20px) translateX(10px);
+    10% {
       opacity: 0.6;
     }
-    50% {
-      transform: translateY(-10px) translateX(-5px);
-      opacity: 0.4;
+    90% {
+      opacity: 0.6;
     }
-    75% {
-      transform: translateY(-30px) translateX(15px);
-      opacity: 0.5;
+    100% {
+      transform: translateY(-100vh) translateX(50px);
+      opacity: 0;
     }
   }
+  
+  /* Animation delay utility */
+  .animation-delay-500 {
+    animation-delay: 0.5s;
+  }
 </style>
+
+<script>
+  // Intersection Observer for scroll-triggered reveal
+  document.addEventListener('DOMContentLoaded', () => {
+    const voids = document.querySelectorAll('.the-void');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, {
+      threshold: 0.2,
+      rootMargin: '0px 0px -10% 0px'
+    });
+    
+    voids.forEach(v => observer.observe(v));
+  });
+</script>
