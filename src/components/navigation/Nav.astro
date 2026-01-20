@@ -145,59 +145,66 @@ const isActive = (href: string) => {
   </div>
 </nav>
 
-<script>
-  // Simple mobile menu toggle - works with View Transitions
-  const menuBtn = document.getElementById('mobile-menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const menuIconOpen = document.getElementById('menu-icon-open');
-  const menuIconClose = document.getElementById('menu-icon-close');
-
-  function openMenu() {
-    mobileMenu?.classList.remove('hidden');
-    menuIconOpen?.classList.add('hidden');
-    menuIconClose?.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeMenu() {
-    mobileMenu?.classList.add('hidden');
-    menuIconOpen?.classList.remove('hidden');
-    menuIconClose?.classList.add('hidden');
-    document.body.style.overflow = '';
-  }
-
-  menuBtn?.addEventListener('click', () => {
-    const isHidden = mobileMenu?.classList.contains('hidden');
-    if (isHidden) {
-      openMenu();
-    } else {
-      closeMenu();
+<script is:inline>
+  // Mobile menu - using event delegation for View Transitions compatibility
+  document.addEventListener('click', function(e) {
+    const menuBtn = e.target.closest('#mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIconOpen = document.getElementById('menu-icon-open');
+    const menuIconClose = document.getElementById('menu-icon-close');
+    
+    if (menuBtn) {
+      e.preventDefault();
+      const isHidden = mobileMenu?.classList.contains('hidden');
+      if (isHidden) {
+        mobileMenu?.classList.remove('hidden');
+        menuIconOpen?.classList.add('hidden');
+        menuIconClose?.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      } else {
+        mobileMenu?.classList.add('hidden');
+        menuIconOpen?.classList.remove('hidden');
+        menuIconClose?.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+      return;
+    }
+    
+    // Close menu when clicking a link inside it
+    const menuLink = e.target.closest('#mobile-menu a');
+    if (menuLink && mobileMenu) {
+      mobileMenu.classList.add('hidden');
+      menuIconOpen?.classList.remove('hidden');
+      menuIconClose?.classList.add('hidden');
+      document.body.style.overflow = '';
     }
   });
 
-  // Close menu when clicking a link
-  mobileMenu?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', closeMenu);
-  });
-
   // Close on escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeMenu();
-  });
-
-  // Close on View Transitions
-  document.addEventListener('astro:before-swap', closeMenu);
-
-  // Command Palette keyboard shortcut
-  document.addEventListener('keydown', (e) => {
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuIconOpen = document.getElementById('menu-icon-open');
+      const menuIconClose = document.getElementById('menu-icon-close');
+      if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.add('hidden');
+        menuIconOpen?.classList.remove('hidden');
+        menuIconClose?.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    }
+    
+    // Command palette shortcut
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
       e.preventDefault();
       window.dispatchEvent(new CustomEvent('open-command-palette'));
     }
   });
 
-  // Command Palette trigger button
-  document.getElementById('cmd-palette-trigger')?.addEventListener('click', () => {
-    window.dispatchEvent(new CustomEvent('open-command-palette'));
+  // Command Palette trigger
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('#cmd-palette-trigger')) {
+      window.dispatchEvent(new CustomEvent('open-command-palette'));
+    }
   });
 </script>
