@@ -14,7 +14,7 @@
       "version": "2.0 (Corrected)",
       "category": "BREACH",
       "status": "CURRENT",
-      "keyFindings": ["F040", "F030", "F031", "F038", "F127", "F323"],
+      "keyFindings": ["F040", "F030", "F031", "F127", "F323"],
       "summary": "Documents how Dr Bulale Ali applied Somatoform Pain Disorder (F45.4) during a telephone consultation about opioid medication switching on 5 January 2023 - after MRI had confirmed T5-T8 vertebral fractures. The patient was never informed. The diagnosis was later removed by Dr Gorrie in July 2025 with the note 'there were clear causes for his pain.'",
       "keyArguments": [
         "Psychiatric diagnosis applied without psychiatric assessment",

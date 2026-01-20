@@ -278,7 +278,7 @@
       "evidenceRefs": "Dr Gupta psychiatric assessment",
       "legalSignificance": "VINDICATION - Formal psychiatric clearance undermines somatoform labelling.",
       "relatedFindings": ["F030", "F031", "F040"],
-      "critical": true
+      "critical": false
     },
     {
       "id": "F040",
