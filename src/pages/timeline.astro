@@ -15,6 +15,7 @@ import GlassCard from '@components/ui/GlassCard.astro';
 import TimelineSpine from '@components/timeline/TimelineSpine.astro';
 import TimelineEventCard from '@components/timeline/TimelineEventCard.astro';
 import ScrollObserver from '@components/timeline/ScrollObserver';
+import TheVoid from '@components/timeline/TheVoid.astro';
 import Badge from '@components/common/Badge.astro';
 
 // Import timeline data from JSON
@@ -169,7 +170,19 @@ const gpEntryCount = phases.reduce((acc: number, p: any) => acc + (p.gpEntries?.
     <div class="container-wide">
       <div class="lg:ml-24 max-w-3xl">
         {phases.map((phase: any) => (
-          <div id={`phase-${phase.id}`} class="mb-20 last:mb-0">
+          <>
+            {/* THE VOID - Insert between Phase 4 and Phase 5 */}
+            {phase.id === 5 && (
+              <TheVoid
+                startDate="16 Oct 2022"
+                endDate="05 Jan 2023"
+                delayDays={82}
+                delayMonths="~3 months"
+                message="MRI confirmed T5-T8 vertebral fractures. Patient was never informed of the results."
+              />
+            )}
+            
+            <div id={`phase-${phase.id}`} class="mb-20 last:mb-0">
             <!-- Phase Header -->
             <div class="sticky top-32 z-10 mb-8">
               <GlassCard variant="elevated" padding="md">
@@ -250,6 +263,7 @@ const gpEntryCount = phases.reduce((acc: number, p: any) => acc + (p.gpEntries?.
               )}
             </div>
           </div>
+          </>
         ))}
       </div>
     </div>
