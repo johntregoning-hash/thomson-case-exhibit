@@ -14,6 +14,10 @@ export function getStaticPaths() {
 
 const { essay } = Astro.props;
 
+// Base URL helper for GitHub Pages
+const base = import.meta.env.BASE_URL;
+const getHref = (path: string) => path === '/' ? (base || '/') : `${base}${path}`;
+
 type BadgeVariant = 'vindication' | 'breach' | 'discrepancy' | 'causation' | 'quantum' | 'procedural' | 'strategic' | 'witness' | 'fabrication' | 'default';
 
 const categoryVariants: Record<string, BadgeVariant> = {
@@ -40,9 +44,9 @@ const otherEssays = essaysData.essays.filter(e => e.id !== essay.id);
   <nav class="py-4 border-b border-navy-800/50 bg-navy-950">
     <div class="container-wide">
       <div class="flex items-center gap-2 text-sm">
-        <a href="/" class="text-navy-400 hover:text-white transition-colors">Home</a>
+        <a href={getHref('/')} class="text-navy-400 hover:text-white transition-colors">Home</a>
         <span class="text-navy-600">/</span>
-        <a href="/essays" class="text-navy-400 hover:text-white transition-colors">Essays</a>
+        <a href={getHref('/essays')} class="text-navy-400 hover:text-white transition-colors">Essays</a>
         <span class="text-navy-600">/</span>
         <span class="text-gold-500">{essay.id}</span>
       </div>
@@ -127,7 +131,7 @@ const otherEssays = essaysData.essays.filter(e => e.id !== essay.id);
               <div class="space-y-4">
                 {relatedFindings.map((finding) => (
                   <a 
-                    href={`/findings/${finding.id.toLowerCase()}`}
+                    href={getHref(`/findings/${finding.id.toLowerCase()}`)}
                     class="block p-4 rounded-lg bg-navy-800/30 hover:bg-navy-800/50 transition-colors group"
                   >
                     <div class="flex items-start justify-between mb-2">
@@ -179,7 +183,7 @@ const otherEssays = essaysData.essays.filter(e => e.id !== essay.id);
             <div class="flex flex-wrap gap-2">
               {essay.keyFindings.map((finding: string) => (
                 <a 
-                  href={`/findings/${finding.toLowerCase()}`}
+                  href={getHref(`/findings/${finding.toLowerCase()}`)}
                   class="px-3 py-1.5 text-sm font-mono rounded bg-navy-800 text-gold-500 hover:bg-navy-700 hover:text-gold-400 transition-colors"
                 >
                   {finding}
@@ -195,7 +199,7 @@ const otherEssays = essaysData.essays.filter(e => e.id !== essay.id);
               {otherEssays.slice(0, 4).map((other) => (
                 <li>
                   <a 
-                    href={`/essays/${other.id}`}
+                    href={getHref(`/essays/${other.id}`)}
                     class="block p-3 rounded-lg bg-navy-800/50 hover:bg-navy-800 transition-colors group"
                   >
                     <Badge variant={categoryVariants[other.category] || 'default'} class="text-xs mb-2">{other.category}</Badge>
@@ -204,7 +208,7 @@ const otherEssays = essaysData.essays.filter(e => e.id !== essay.id);
                 </li>
               ))}
             </ul>
-            <a href="/essays" class="block mt-4 text-sm text-gold-500 hover:text-gold-400 transition-colors text-center">
+            <a href={getHref('/essays')} class="block mt-4 text-sm text-gold-500 hover:text-gold-400 transition-colors text-center">
               View All Essays →
             </a>
           </div>
@@ -214,7 +218,7 @@ const otherEssays = essaysData.essays.filter(e => e.id !== essay.id);
             <h3 class="text-lg font-serif font-bold text-white mb-4">Actions</h3>
             <div class="space-y-3">
               <a 
-                href="/essays" 
+                href={getHref('/essays')} 
                 class="flex items-center gap-2 text-navy-300 hover:text-white transition-colors"
               >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -223,7 +227,7 @@ const otherEssays = essaysData.essays.filter(e => e.id !== essay.id);
                 Back to All Essays
               </a>
               <a 
-                href="/findings" 
+                href={getHref('/findings')} 
                 class="flex items-center gap-2 text-navy-300 hover:text-white transition-colors"
               >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -232,7 +236,7 @@ const otherEssays = essaysData.essays.filter(e => e.id !== essay.id);
                 Browse Findings
               </a>
               <a 
-                href="/timeline" 
+                href={getHref('/timeline')} 
                 class="flex items-center gap-2 text-navy-300 hover:text-white transition-colors"
               >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -252,13 +256,13 @@ const otherEssays = essaysData.essays.filter(e => e.id !== essay.id);
     <div class="container-wide">
       <div class="flex justify-between items-center">
         <a 
-          href="/essays"
+          href={getHref('/essays')}
           class="px-6 py-3 rounded-lg bg-navy-800/50 text-navy-300 hover:bg-navy-800 hover:text-white transition-colors"
         >
           ← All Essays
         </a>
         <a 
-          href="/findings"
+          href={getHref('/findings')}
           class="px-6 py-3 rounded-lg bg-gold-600 text-navy-950 hover:bg-gold-500 transition-colors"
         >
           Browse Findings →

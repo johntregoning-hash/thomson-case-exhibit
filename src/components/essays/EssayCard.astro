@@ -182,7 +182,7 @@ const readingTime = Math.max(5, Math.ceil(wordCount / 200) + 3); // Assume full 
 
     <!-- Related Findings -->
     {essay.keyFindings && essay.keyFindings.length > 0 && (
-      <div class="flex items-center gap-2 flex-wrap">
+      <div class="flex items-center gap-2 flex-wrap relative z-20">
         <span class="text-xs text-navy-500">Related:</span>
         {essay.keyFindings.slice(0, featured ? 6 : 4).map((findingId) => (
           <a
@@ -211,6 +211,13 @@ const readingTime = Math.max(5, Math.ceil(wordCount / 200) + 3); // Assume full 
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
       </svg>
     </div>
+
+    <!-- Full card link overlay -->
+    <a 
+      href={getHref(`/essays/${essay.id}`)}
+      class="absolute inset-0 z-10"
+      aria-label={`Read ${essay.title}`}
+    ></a>
   </div>
 </article>
 
