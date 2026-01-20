@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Badge from '@components/common/Badge.astro';
+import ReadingProgress from '@components/essays/ReadingProgress';
 import essaysData from '../../data/essays.json';
 import findingsData from '../../data/findings.json';
 
@@ -40,6 +41,9 @@ const otherEssays = essaysData.essays.filter(e => e.id !== essay.id);
 ---
 
 <BaseLayout title={essay.title} description={essay.summary}>
+  <!-- Reading Progress Bar -->
+  <ReadingProgress client:load />
+  
   <!-- Breadcrumb -->
   <nav class="py-4 border-b border-navy-800/50 bg-navy-950">
     <div class="container-wide">
