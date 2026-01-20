@@ -1,12 +1,12 @@
 ---
 /**
- * Home Page - V2 Design
+ * Home Page - V3 Data Noir Design
  *
  * Features:
- * - Bento Grid dashboard layout
+ * - Cinematic hero with dramatic gradients
+ * - Enhanced glassmorphism cards
+ * - Dynamic scroll-based backgrounds
  * - Command Palette integration (Cmd+K)
- * - Glassmorphism design system
- * - Dynamic stats from findings data
  */
 
 import BaseLayout from '@layouts/BaseLayout.astro';
@@ -34,13 +34,13 @@ const stats = {
   delayMonths: 11
 };
 
-// Get priority findings for the carousel (cast to any to avoid type issues with JSON import)
+// Get priority findings for the carousel
 const priorityFindings = (priorityFindingIds
   .map((id: string) => allFindings.find((f: any) => f.id === id))
   .filter((f: any) => f !== undefined)
   .slice(0, 6)) as Array<{ id: string; title: string; category: string }>;
 
-// Prepare data for Command Palette (simplified for client-side)
+// Prepare data for Command Palette
 const cmdFindings = allFindings.map((f: any) => ({
   id: f.id,
   title: f.title,
@@ -66,7 +66,7 @@ const featuredFinding = allFindings.find((f: any) => f.id === 'F030') || {
 ---
 
 <BaseLayout title="Home">
-  <!-- Command Palette (React component with client:load for immediate interactivity) -->
+  <!-- Command Palette -->
   <CommandPalette
     client:load
     findings={cmdFindings}
@@ -74,128 +74,227 @@ const featuredFinding = allFindings.find((f: any) => f.id === 'F030') || {
     basePath={base}
   />
 
-  <!-- Hero Banner -->
-  <section class="relative py-12 lg:py-16 overflow-hidden">
-    <!-- Subtle background gradient -->
-    <div class="absolute inset-0 bg-gradient-to-b from-navy-800/20 to-transparent pointer-events-none"></div>
+  <!-- HERO SECTION - Data Noir Cinematic -->
+  <section class="relative py-20 lg:py-28 overflow-hidden">
+    <!-- Cinematic gradient backdrop -->
+    <div class="absolute inset-0 pointer-events-none">
+      <!-- Top gold accent glow -->
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] 
+                  bg-gradient-radial from-gold-500/8 via-gold-500/2 to-transparent 
+                  blur-3xl"></div>
+      <!-- Side accent glows -->
+      <div class="absolute top-1/2 -left-40 w-80 h-80 
+                  bg-gradient-radial from-navy-600/30 to-transparent 
+                  blur-3xl"></div>
+      <div class="absolute top-1/2 -right-40 w-80 h-80 
+                  bg-gradient-radial from-navy-600/30 to-transparent 
+                  blur-3xl"></div>
+      <!-- Subtle grid overlay -->
+      <div class="absolute inset-0 opacity-[0.02]"
+           style="background-image: linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px); background-size: 60px 60px;"></div>
+    </div>
 
     <div class="container-wide relative">
       <!-- Tagline -->
-      <div class="text-center mb-8">
-        <p class="inline-flex items-center gap-3 text-sm text-navy-400">
-          <span class="w-8 h-px bg-navy-700"></span>
-          Digital Legal Exhibit & Forensic Evidence Platform
-          <span class="w-8 h-px bg-navy-700"></span>
+      <div class="text-center mb-6">
+        <p class="inline-flex items-center gap-4 text-sm text-navy-400 tracking-wide">
+          <span class="w-12 h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent"></span>
+          DIGITAL LEGAL EXHIBIT
+          <span class="w-12 h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent"></span>
         </p>
+      </div>
+
+      <!-- Main Title -->
+      <h1 class="text-center text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 tracking-tight">
+        Thomson v NHS Providers
+      </h1>
+      
+      <!-- Subtitle -->
+      <p class="text-center text-lg md:text-xl text-navy-300 max-w-3xl mx-auto mb-10 leading-relaxed">
+        Forensic evidence repository documenting clinical negligence with 
+        <span class="text-gold-400 font-semibold">{stats.findings}+ verified findings</span>
+      </p>
+
+      <!-- Quick Stats Row -->
+      <div class="flex flex-wrap justify-center gap-6 md:gap-10 mb-12">
+        <div class="text-center">
+          <p class="text-3xl md:text-4xl font-display font-bold text-white">{stats.findings}</p>
+          <p class="text-sm text-navy-400 mt-1">Findings</p>
+        </div>
+        <div class="w-px h-12 bg-navy-700/50 hidden md:block"></div>
+        <div class="text-center">
+          <p class="text-3xl md:text-4xl font-display font-bold text-vindication-400">{stats.vindication}</p>
+          <p class="text-sm text-navy-400 mt-1">Vindication</p>
+        </div>
+        <div class="w-px h-12 bg-navy-700/50 hidden md:block"></div>
+        <div class="text-center">
+          <p class="text-3xl md:text-4xl font-display font-bold text-breach-400">{stats.delayMonths}</p>
+          <p class="text-sm text-navy-400 mt-1">Month Delay</p>
+        </div>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href={getHref('/findings')} class="btn-primary">
+          Browse Findings
+        </a>
+        <button 
+          onclick="window.dispatchEvent(new CustomEvent('open-command-palette'))"
+          class="btn-secondary gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          Search
+          <span class="kbd-hint ml-1"><kbd>⌘</kbd><kbd>K</kbd></span>
+        </button>
       </div>
     </div>
   </section>
 
-  <!-- Bento Grid Dashboard -->
+  <!-- BENTO GRID DASHBOARD -->
   <BentoGrid stats={stats} priorityFindings={priorityFindings} />
 
-  <!-- Featured Finding Section -->
-  <section class="py-12 lg:py-16">
-    <div class="container-wide">
-      <div class="text-center mb-8">
-        <h2 class="text-2xl lg:text-3xl font-display font-bold text-white mb-2">Featured Vindication</h2>
-        <p class="text-navy-400">Key evidence demonstrating independent medical validation</p>
+  <!-- FEATURED VINDICATION - Data Noir Card -->
+  <section class="py-16 lg:py-24 relative">
+    <!-- Section gradient -->
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-vindication-500/[0.02] to-transparent pointer-events-none"></div>
+    
+    <div class="container-wide relative">
+      <div class="text-center mb-10">
+        <p class="text-sm font-semibold text-vindication-400 uppercase tracking-wider mb-3">Key Evidence</p>
+        <h2 class="text-2xl lg:text-3xl font-display font-bold text-white">Featured Vindication</h2>
       </div>
 
-      <GlassCard variant="vindication" padding="lg" class="max-w-4xl mx-auto">
-        <div class="flex flex-col lg:flex-row lg:items-start gap-6">
-          <!-- Left: Icon and ID -->
-          <div class="flex-shrink-0 flex lg:flex-col items-center gap-4 lg:gap-2">
-            <div class="w-16 h-16 rounded-2xl bg-green-500/20 flex items-center justify-center">
-              <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <span class="text-sm font-mono text-green-400">{featuredFinding.id}</span>
-          </div>
+      <!-- Enhanced Glass Card -->
+      <div class="max-w-4xl mx-auto">
+        <div class="relative group">
+          <!-- Glow effect behind card -->
+          <div class="absolute -inset-1 bg-gradient-to-r from-vindication-500/20 via-vindication-500/10 to-vindication-500/20 
+                      rounded-3xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
+          
+          <div class="relative glass-card-vindication p-8 lg:p-10">
+            <div class="flex flex-col lg:flex-row lg:items-start gap-6">
+              <!-- Left: Icon and ID -->
+              <div class="flex-shrink-0 flex lg:flex-col items-center gap-4 lg:gap-3">
+                <div class="w-16 h-16 rounded-2xl bg-vindication-500/20 border border-vindication-500/30 
+                            flex items-center justify-center shadow-vindication-glow">
+                  <svg class="w-8 h-8 text-vindication-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <span class="text-sm font-mono text-vindication-400 bg-vindication-500/10 px-2 py-1 rounded">
+                  {featuredFinding.id}
+                </span>
+              </div>
 
-          <!-- Right: Content -->
-          <div class="flex-1">
-            <Badge variant="vindication" class="mb-3">VINDICATION</Badge>
-            <h3 class="text-xl lg:text-2xl font-display font-bold text-white mb-4">
-              {featuredFinding.title}
-            </h3>
-            <p class="text-navy-300 leading-relaxed mb-4">
-              {featuredFinding.summary}
-            </p>
-            <p class="text-sm text-navy-400 italic">
-              <strong class="text-green-400 not-italic">Legal Significance:</strong> {featuredFinding.legalSignificance}
-            </p>
+              <!-- Right: Content -->
+              <div class="flex-1">
+                <Badge variant="vindication" class="mb-4">VINDICATION</Badge>
+                <h3 class="text-xl lg:text-2xl font-display font-bold text-white mb-4">
+                  {featuredFinding.title}
+                </h3>
+                <p class="text-navy-200 leading-relaxed mb-5">
+                  {featuredFinding.summary}
+                </p>
+                <div class="p-4 rounded-xl bg-navy-900/50 border border-vindication-500/20">
+                  <p class="text-sm text-navy-300">
+                    <strong class="text-vindication-400">Legal Significance:</strong> {featuredFinding.legalSignificance}
+                  </p>
+                </div>
 
-            <div class="mt-6 pt-6 border-t border-green-500/20">
-              <a href={getHref('/vindication')}
-                 class="inline-flex items-center text-green-400 hover:text-green-300 transition-colors font-medium">
-                View all vindication evidence
-                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </a>
+                <div class="mt-6 pt-6 border-t border-vindication-500/20">
+                  <a href={getHref('/vindication')}
+                     class="inline-flex items-center text-vindication-400 hover:text-vindication-300 transition-colors font-medium group/link">
+                    View all vindication evidence
+                    <svg class="w-4 h-4 ml-2 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </GlassCard>
+      </div>
     </div>
   </section>
 
-  <!-- Key Case Elements Timeline -->
-  <section class="py-12 lg:py-16 bg-navy-800/20">
-    <div class="container-wide">
-      <div class="text-center mb-10">
-        <h2 class="text-2xl lg:text-3xl font-display font-bold text-white mb-2">Case Milestones</h2>
-        <p class="text-navy-400">Critical events in the chronology of this clinical negligence case</p>
+  <!-- CASE MILESTONES TIMELINE - Data Noir -->
+  <section class="py-16 lg:py-24 relative">
+    <!-- Dark section background -->
+    <div class="absolute inset-0 section-elevated"></div>
+    
+    <div class="container-wide relative">
+      <div class="text-center mb-12">
+        <p class="text-sm font-semibold text-gold-500 uppercase tracking-wider mb-3">Timeline</p>
+        <h2 class="text-2xl lg:text-3xl font-display font-bold text-white mb-3">Case Milestones</h2>
+        <p class="text-navy-400 max-w-2xl mx-auto">Critical events in the chronology of this clinical negligence case</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <!-- Index Event -->
-        <div class="relative">
-          <div class="hidden lg:block absolute top-1/2 left-full w-full h-px bg-gradient-to-r from-gold-500/50 to-transparent -translate-y-1/2 z-0"></div>
-          <GlassCard padding="md" class="relative z-10">
-            <p class="text-xs font-semibold text-gold-500 uppercase tracking-wider mb-2">Index Event</p>
-            <p class="text-xl font-display font-bold text-white mb-2">23 December 2021</p>
-            <p class="text-sm text-navy-400">Witnessed tonic-clonic seizure with 5-minute ambulance response</p>
-          </GlassCard>
+        <div class="relative group">
+          <div class="hidden lg:block absolute top-1/2 left-full w-full h-px 
+                      bg-gradient-to-r from-gold-500/40 to-transparent -translate-y-1/2 z-0"></div>
+          <div class="glass-card-interactive p-6 relative z-10 h-full">
+            <div class="flex items-center gap-2 mb-3">
+              <div class="w-2 h-2 rounded-full bg-gold-500 shadow-gold-glow"></div>
+              <p class="text-xs font-semibold text-gold-500 uppercase tracking-wider">Index Event</p>
+            </div>
+            <p class="text-2xl font-display font-bold text-white mb-2">23 Dec 2021</p>
+            <p class="text-sm text-navy-400 leading-relaxed">Witnessed tonic-clonic seizure with 5-minute ambulance response</p>
+          </div>
         </div>
 
         <!-- Fracture Discovery -->
-        <div class="relative">
-          <div class="hidden lg:block absolute top-1/2 left-full w-full h-px bg-gradient-to-r from-gold-500/40 to-transparent -translate-y-1/2 z-0"></div>
-          <GlassCard padding="md" class="relative z-10">
-            <p class="text-xs font-semibold text-gold-500 uppercase tracking-wider mb-2">Fracture Discovery</p>
-            <p class="text-xl font-display font-bold text-white mb-2">October 2022</p>
-            <p class="text-sm text-navy-400">MRI reveals T5-T8 vertebral fractures after <strong class="text-red-400">11-month delay</strong></p>
-          </GlassCard>
+        <div class="relative group">
+          <div class="hidden lg:block absolute top-1/2 left-full w-full h-px 
+                      bg-gradient-to-r from-discrepancy-500/40 to-transparent -translate-y-1/2 z-0"></div>
+          <div class="glass-card-interactive p-6 relative z-10 h-full">
+            <div class="flex items-center gap-2 mb-3">
+              <div class="w-2 h-2 rounded-full bg-discrepancy-500"></div>
+              <p class="text-xs font-semibold text-discrepancy-400 uppercase tracking-wider">Fracture Discovery</p>
+            </div>
+            <p class="text-2xl font-display font-bold text-white mb-2">Oct 2022</p>
+            <p class="text-sm text-navy-400 leading-relaxed">
+              MRI reveals T5-T8 vertebral fractures after 
+              <span class="text-breach-400 font-semibold">11-month delay</span>
+            </p>
+          </div>
         </div>
 
         <!-- Covert Diagnosis -->
-        <div class="relative">
-          <div class="hidden lg:block absolute top-1/2 left-full w-full h-px bg-gradient-to-r from-gold-500/30 to-transparent -translate-y-1/2 z-0"></div>
-          <GlassCard variant="breach" padding="md" class="relative z-10">
-            <p class="text-xs font-semibold text-red-400 uppercase tracking-wider mb-2">Covert Diagnosis</p>
-            <p class="text-xl font-display font-bold text-white mb-2">5 January 2023</p>
-            <p class="text-sm text-navy-400">F45.4 Somatoform Pain Disorder applied without assessment or patient knowledge</p>
-          </GlassCard>
+        <div class="relative group">
+          <div class="hidden lg:block absolute top-1/2 left-full w-full h-px 
+                      bg-gradient-to-r from-breach-500/40 to-transparent -translate-y-1/2 z-0"></div>
+          <div class="glass-card-breach p-6 relative z-10 h-full">
+            <div class="flex items-center gap-2 mb-3">
+              <div class="w-2 h-2 rounded-full bg-breach-500 shadow-breach-glow"></div>
+              <p class="text-xs font-semibold text-breach-400 uppercase tracking-wider">Covert Diagnosis</p>
+            </div>
+            <p class="text-2xl font-display font-bold text-white mb-2">5 Jan 2023</p>
+            <p class="text-sm text-navy-400 leading-relaxed">F45.4 Somatoform applied without assessment or patient knowledge</p>
+          </div>
         </div>
 
         <!-- Vindication -->
-        <div>
-          <GlassCard variant="vindication" padding="md">
-            <p class="text-xs font-semibold text-green-400 uppercase tracking-wider mb-2">Vindication</p>
-            <p class="text-xl font-display font-bold text-white mb-2">22 July 2025</p>
-            <p class="text-sm text-navy-400">New GP removes diagnosis: "there were clear causes for his pain"</p>
-          </GlassCard>
+        <div class="relative group">
+          <div class="glass-card-vindication p-6 h-full">
+            <div class="flex items-center gap-2 mb-3">
+              <div class="w-2 h-2 rounded-full bg-vindication-500 shadow-vindication-glow"></div>
+              <p class="text-xs font-semibold text-vindication-400 uppercase tracking-wider">Vindication</p>
+            </div>
+            <p class="text-2xl font-display font-bold text-white mb-2">22 Jul 2025</p>
+            <p class="text-sm text-navy-400 leading-relaxed">New GP removes diagnosis: "there were clear causes for his pain"</p>
+          </div>
         </div>
       </div>
 
-      <div class="text-center mt-10">
-        <a href={getHref('/timeline')} class="btn-secondary gap-2">
+      <div class="text-center mt-12">
+        <a href={getHref('/timeline')} class="btn-secondary gap-2 group">
           View Full Timeline
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
         </a>
@@ -203,26 +302,32 @@ const featuredFinding = allFindings.find((f: any) => f.id === 'F030') || {
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="py-12 lg:py-16">
-    <div class="container-wide">
-      <GlassCard variant="highlight" padding="lg" class="text-center">
-        <h2 class="text-2xl lg:text-3xl font-display font-bold text-white mb-4">
-          {stats.findings}+ Documented Findings
-        </h2>
-        <p class="text-navy-300 max-w-2xl mx-auto mb-8">
-          Each finding is cross-referenced with primary evidence documents, creating a comprehensive
-          and verifiable forensic record of the case. Press <kbd class="kbd-hint mx-1"><kbd>⌘</kbd><kbd>K</kbd></kbd> to search.
-        </p>
-        <div class="flex flex-wrap justify-center gap-4">
-          <a href={getHref('/findings')} class="btn-primary">
-            Browse All Findings
-          </a>
-          <a href={getHref('/documents')} class="btn-secondary">
-            View Key Documents
-          </a>
+  <!-- CTA SECTION - Data Noir -->
+  <section class="py-16 lg:py-24 relative">
+    <div class="container-wide relative">
+      <div class="relative group">
+        <!-- Glow effect -->
+        <div class="absolute -inset-1 bg-gradient-to-r from-gold-500/10 via-gold-500/5 to-gold-500/10 
+                    rounded-3xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
+        
+        <div class="relative glass-card-highlight p-10 lg:p-14 text-center">
+          <h2 class="text-2xl lg:text-4xl font-display font-bold text-white mb-4">
+            {stats.findings}+ Documented Findings
+          </h2>
+          <p class="text-navy-300 max-w-2xl mx-auto mb-8 text-lg">
+            Each finding is cross-referenced with primary evidence documents, creating a comprehensive
+            and verifiable forensic record of the case.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a href={getHref('/findings')} class="btn-primary">
+              Browse All Findings
+            </a>
+            <a href={getHref('/essays')} class="btn-secondary">
+              Read Essays
+            </a>
+          </div>
         </div>
-      </GlassCard>
+      </div>
     </div>
   </section>
 </BaseLayout>

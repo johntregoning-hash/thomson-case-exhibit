@@ -65,11 +65,18 @@ const sortedFindings = [...allFindings].sort((a: any, b: any) => {
 ---
 
 <BaseLayout title="Findings" description="Browse 200+ documented forensic findings in the Thomson clinical negligence case">
-  <!-- Hero Header -->
-  <section class="relative py-12 lg:py-16 overflow-hidden">
-    <!-- Background decoration -->
-    <div class="absolute inset-0 bg-gradient-to-b from-navy-800/30 to-transparent pointer-events-none"></div>
-    <div class="absolute top-0 right-0 w-96 h-96 bg-gold-500/5 rounded-full blur-3xl pointer-events-none"></div>
+  <!-- Hero Header - Data Noir -->
+  <section class="relative py-16 lg:py-20 overflow-hidden">
+    <!-- Cinematic background -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-0 left-1/4 w-[600px] h-[300px] 
+                  bg-gradient-radial from-gold-500/6 via-gold-500/2 to-transparent blur-3xl"></div>
+      <div class="absolute bottom-0 right-0 w-[400px] h-[400px] 
+                  bg-gradient-radial from-navy-600/30 to-transparent blur-3xl"></div>
+      <!-- Subtle grid -->
+      <div class="absolute inset-0 opacity-[0.015]"
+           style="background-image: linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px); background-size: 50px 50px;"></div>
+    </div>
 
     <div class="container-wide relative">
       <div class="max-w-4xl">
@@ -82,51 +89,56 @@ const sortedFindings = [...allFindings].sort((a: any, b: any) => {
           <span class="text-gold-500">Findings Registry</span>
         </nav>
 
-        <h1 class="text-4xl lg:text-5xl font-display font-bold text-white mb-4">
-          Forensic Findings<br />
-          <span class="text-gold-500">Registry</span>
+        <!-- Tagline -->
+        <p class="inline-flex items-center gap-3 text-xs font-semibold text-navy-400 uppercase tracking-widest mb-4">
+          <span class="w-8 h-px bg-gradient-to-r from-gold-500/50 to-transparent"></span>
+          Forensic Evidence Repository
+        </p>
+
+        <h1 class="text-4xl lg:text-5xl xl:text-6xl font-display font-bold text-white mb-6 tracking-tight">
+          Findings Registry
         </h1>
         <p class="text-lg text-navy-300 leading-relaxed max-w-2xl">
-          Browse <strong class="text-white">{stats.total}+</strong> documented findings, each cross-referenced
-          with primary evidence documents. Every finding is categorised, verified, and linked to relevant
-          actors in this clinical negligence case.
+          Browse <span class="text-gold-400 font-semibold">{stats.total}+</span> documented findings, 
+          each cross-referenced with primary evidence documents. Every finding is categorised, 
+          verified, and linked to relevant actors.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Stats Dashboard -->
-  <section class="py-6 border-y border-navy-700/50 bg-navy-800/20">
+  <!-- Stats Dashboard - Data Noir -->
+  <section class="py-8 border-y border-navy-700/30 section-elevated">
     <div class="container-wide">
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8">
         <!-- Total -->
-        <div class="text-center">
+        <div class="text-center p-4 rounded-xl bg-navy-800/30 border border-navy-700/30">
           <p class="text-3xl lg:text-4xl font-display font-bold text-white">{stats.total}+</p>
-          <p class="text-sm text-navy-500 uppercase tracking-wider mt-1">Total Findings</p>
+          <p class="text-xs text-navy-400 uppercase tracking-wider mt-2">Total Findings</p>
         </div>
 
         <!-- Verified -->
-        <div class="text-center">
-          <p class="text-3xl lg:text-4xl font-display font-bold text-green-400">{stats.verified}</p>
-          <p class="text-sm text-navy-500 uppercase tracking-wider mt-1">Verified</p>
+        <div class="text-center p-4 rounded-xl bg-vindication-500/5 border border-vindication-500/20">
+          <p class="text-3xl lg:text-4xl font-display font-bold text-vindication-400">{stats.verified}</p>
+          <p class="text-xs text-navy-400 uppercase tracking-wider mt-2">Verified</p>
         </div>
 
         <!-- Vindication -->
-        <div class="text-center">
-          <p class="text-3xl lg:text-4xl font-display font-bold text-green-500">{stats.vindication}+</p>
-          <p class="text-sm text-navy-500 uppercase tracking-wider mt-1">Vindication</p>
+        <div class="text-center p-4 rounded-xl bg-vindication-500/5 border border-vindication-500/20">
+          <p class="text-3xl lg:text-4xl font-display font-bold text-vindication-500">{stats.vindication}+</p>
+          <p class="text-xs text-navy-400 uppercase tracking-wider mt-2">Vindication</p>
         </div>
 
         <!-- Breach -->
-        <div class="text-center">
-          <p class="text-3xl lg:text-4xl font-display font-bold text-red-400">{stats.breach}+</p>
-          <p class="text-sm text-navy-500 uppercase tracking-wider mt-1">Breach</p>
+        <div class="text-center p-4 rounded-xl bg-breach-500/5 border border-breach-500/20">
+          <p class="text-3xl lg:text-4xl font-display font-bold text-breach-400">{stats.breach}+</p>
+          <p class="text-xs text-navy-400 uppercase tracking-wider mt-2">Breach</p>
         </div>
 
         <!-- Critical -->
-        <div class="text-center hidden lg:block">
+        <div class="text-center p-4 rounded-xl bg-gold-500/5 border border-gold-500/20 hidden lg:block">
           <p class="text-3xl lg:text-4xl font-display font-bold text-gold-500">{stats.critical}</p>
-          <p class="text-sm text-navy-500 uppercase tracking-wider mt-1">Critical</p>
+          <p class="text-xs text-navy-400 uppercase tracking-wider mt-2">Critical</p>
         </div>
       </div>
     </div>
