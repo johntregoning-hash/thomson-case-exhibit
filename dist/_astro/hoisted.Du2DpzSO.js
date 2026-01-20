@@ -1,1 +1,0 @@
-import"./hoisted.BPD5kGXT.js";document.addEventListener("DOMContentLoaded",()=>{const o=document.querySelectorAll(".the-void"),r=new IntersectionObserver(e=>{e.forEach(t=>{t.isIntersecting&&t.target.classList.add("in-view")})},{threshold:.2,rootMargin:"0px 0px -10% 0px"});o.forEach(e=>r.observe(e))});
