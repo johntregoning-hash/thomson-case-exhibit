@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Badge from '@components/common/Badge.astro';
 import ReadingProgress from '@components/essays/ReadingProgress';
+import TableOfContents from '@components/essays/TableOfContents';
 import findingsData from '../../data/findings.json';
 
 export async function getStaticPaths() {
@@ -114,8 +115,12 @@ const otherEssays = allEssays.filter(e => e.slug !== essay.slug);
         <div class="space-y-6">
           <!-- Table of Contents Placeholder -->
           <div class="card-base p-6 sticky top-24">
-            <h3 class="text-lg font-serif font-bold text-white mb-4">Document Info</h3>
-            <dl class="space-y-4">
+            <!-- Dynamic Table of Contents -->
+            <TableOfContents client:load />
+            
+            <div class="mt-6 pt-6 border-t border-navy-700/50">
+              <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-3">Document Info</h3>
+              <dl class="space-y-4">
               <div>
                 <dt class="text-xs uppercase tracking-wider text-navy-500 mb-1">Category</dt>
                 <dd><Badge variant={variant}>{essay.data.category}</Badge></dd>
@@ -129,6 +134,7 @@ const otherEssays = allEssays.filter(e => e.slug !== essay.slug);
                 <dd class="text-white">{essay.data.date}</dd>
               </div>
             </dl>
+            </div>
 
             <!-- Key Findings Quick Links -->
             <div class="mt-6 pt-6 border-t border-navy-700/50">
