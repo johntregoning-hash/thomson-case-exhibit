@@ -204,4 +204,15 @@ const tierLabels: Record<number, string> = {
   .timeline-event:nth-child(2) { transition-delay: 100ms; }
   .timeline-event:nth-child(3) { transition-delay: 200ms; }
   .timeline-event:nth-child(4) { transition-delay: 300ms; }
+  
+  /* Scroll margin to clear sticky header when navigating to anchors */
+  .timeline-event {
+    scroll-margin-top: 12rem;
+  }
+  
+  @media (min-width: 1024px) {
+    .timeline-event {
+      scroll-margin-top: 14rem;
+    }
+  }
 </style>

@@ -110,17 +110,17 @@ const isActive = (href: string) => {
     </div>
   </div>
 
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden lg:hidden border-t border-navy-700/30 bg-navy-900/95 backdrop-blur-2xl">
-    <div class="container-wide py-4 space-y-1">
+  <!-- Mobile Menu - Full screen overlay -->
+  <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 top-16 z-40 bg-navy-950/98 backdrop-blur-2xl overflow-y-auto">
+    <div class="container-wide py-6 space-y-2">
       {navItems.map((item) => (
         <a
           href={getHref(item.href)}
           class:list={[
-            'block px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200',
+            'block px-5 py-4 rounded-xl text-base font-medium transition-all duration-200',
             isActive(item.href)
-              ? 'bg-navy-700/60 text-gold-400'
-              : 'text-navy-300 hover:text-white hover:bg-navy-700/40'
+              ? 'bg-navy-700/60 text-gold-400 border-l-4 border-gold-500'
+              : 'text-navy-200 hover:text-white hover:bg-navy-800/60'
           ]}
         >
           {item.label}
@@ -129,13 +129,13 @@ const isActive = (href: string) => {
 
       <!-- Mobile Search Button -->
       <button
-        class="w-full mt-4 flex items-center justify-center gap-2 px-4 py-3 rounded-lg
+        class="w-full mt-6 flex items-center justify-center gap-2 px-5 py-4 rounded-xl
                bg-navy-800/50 border border-navy-700/50
                text-navy-300 hover:text-white hover:border-navy-600
-               transition-all text-sm"
+               transition-all text-base"
         onclick="window.dispatchEvent(new CustomEvent('open-command-palette'))"
       >
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
@@ -146,26 +146,61 @@ const isActive = (href: string) => {
 </nav>
 
 <script>
-  // Mobile menu toggle
-  const menuBtn = document.getElementById('mobile-menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const menuIconOpen = document.getElementById('menu-icon-open');
-  const menuIconClose = document.getElementById('menu-icon-close');
+  // Mobile menu toggle - improved with better state management
+  function initMobileMenu() {
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIconOpen = document.getElementById('menu-icon-open');
+    const menuIconClose = document.getElementById('menu-icon-close');
+    let isOpen = false;
 
-  function toggleMenu() {
-    mobileMenu?.classList.toggle('hidden');
-    menuIconOpen?.classList.toggle('hidden');
-    menuIconClose?.classList.toggle('hidden');
+    function toggleMenu() {
+      isOpen = !isOpen;
+      if (isOpen) {
+        mobileMenu?.classList.remove('hidden');
+        menuIconOpen?.classList.add('hidden');
+        menuIconClose?.classList.remove('hidden');
+        // Prevent body scroll when menu is open
+        document.body.style.overflow = 'hidden';
+      } else {
+        mobileMenu?.classList.add('hidden');
+        menuIconOpen?.classList.remove('hidden');
+        menuIconClose?.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function closeMenu() {
+      if (isOpen) {
+        isOpen = false;
+        mobileMenu?.classList.add('hidden');
+        menuIconOpen?.classList.remove('hidden');
+        menuIconClose?.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    }
+
+    menuBtn?.addEventListener('click', toggleMenu);
+    
+    // Close menu when clicking a link
+    mobileMenu?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Close mobile menu on View Transitions navigation
+    document.addEventListener('astro:before-swap', closeMenu);
+    
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
   }
 
-  menuBtn?.addEventListener('click', toggleMenu);
-
-  // Close mobile menu on View Transitions navigation
-  document.addEventListener('astro:before-swap', () => {
-    mobileMenu?.classList.add('hidden');
-    menuIconOpen?.classList.remove('hidden');
-    menuIconClose?.classList.add('hidden');
-  });
+  // Initialize on page load
+  initMobileMenu();
+  
+  // Re-initialize after View Transitions
+  document.addEventListener('astro:after-swap', initMobileMenu);
 
   // Command Palette keyboard shortcut
   document.addEventListener('keydown', (e) => {
