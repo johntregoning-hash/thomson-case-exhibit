@@ -1,7 +1,7 @@
 {
   "metadata": {
     "lastUpdated": "2026-01-21",
-    "totalFindings": 55,
+    "totalFindings": 63,
     "highestFindingId": "F372",
     "categories": [
       "DISCREPANCY",
@@ -51,7 +51,14 @@
     "F371",
     "F372",
     "F026",
-    "F045"
+    "F045",
+    "F024",
+    "F047",
+    "F048",
+    "F104",
+    "F115",
+    "F116",
+    "F117"
   ],
   "findings": [
     {
@@ -1146,6 +1153,169 @@
         "F368"
       ],
       "critical": true
+    },
+    {
+      "id": "F024",
+      "title": "Second Seizure - Epilepsy Formally Diagnosed",
+      "date": "2022-02",
+      "dateFound": "2026-01-21",
+      "source": "ED records - second seizure attendance",
+      "category": "BREACH",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Second tonic-clonic seizure in February 2022 led to formal epilepsy diagnosis. ED records document right rib fracture 'aggravated further'. This second seizure occurred BEFORE fractures were diagnosed, demonstrating ongoing neurological harm from first seizure that went uninvestigated.",
+      "evidenceRefs": "ED records Feb 2022; Neurology follow-up letters",
+      "legalSignificance": "Demonstrates continuation of harm during diagnostic delay. Patient suffered second seizure and rib fracture progression while GP practice failed to investigate thoracic spine from first seizure.",
+      "relatedFindings": [
+        "F023",
+        "F047",
+        "F048"
+      ],
+      "critical": true,
+      "tier": 2
+    },
+    {
+      "id": "F047",
+      "title": "A&E Discharged Fractures as 'Soft Tissue Injury'",
+      "date": "2021-12-24",
+      "dateFound": "2026-01-21",
+      "source": "ED Depart Summary - CXH",
+      "category": "BREACH",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "24 Dec 2021 A&E attendance following first seizure: CT Head performed (NAD), but NO thoracic spine imaging despite severe back pain. Patient discharged with 'soft tissue injury' diagnosis. T5-T8 vertebral fractures confirmed 10 months later in same location.",
+      "evidenceRefs": "CXH ED Depart Summary 24 Dec 2021; MRI 16 Oct 2022 (F048)",
+      "legalSignificance": "NICE NG59 mandates spinal imaging with seizure + back pain red flags. Failure to image resulted in 10-month diagnostic delay. 'Soft tissue' diagnosis FABRICATED - no imaging to support this assessment.",
+      "relatedFindings": [
+        "F023",
+        "F048",
+        "F-GEM-011"
+      ],
+      "critical": true,
+      "tier": 2
+    },
+    {
+      "id": "F048",
+      "title": "T5-T8 Vertebral Fractures Confirmed on MRI",
+      "date": "2022-10-16",
+      "dateFound": "2026-01-21",
+      "source": "MRI Report - Dr A. Kenji Yamamoto, UCLH",
+      "category": "VINDICATION",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "UCLH MRI 16 October 2022 confirms T5-T8 VERTEBRAL FRACTURES. Report documents: 'Development of mild depression... superior endplate of T5 to T8.' This Tier 1 imaging evidence VINDICATES patient's 10-month complaints of thoracic pain and CONTRADICTS all GP/A&E 'soft tissue' diagnoses.",
+      "evidenceRefs": "MRI Report Dr A. Kenji Yamamoto 16/10/2022",
+      "legalSignificance": "TIER 1 EVIDENCE. Definitive proof of organic spinal pathology. Location (T5-T8) exactly matches patient's documented pain complaints from Dec 2021. Irrefutable basis for Lane A (fracture delay) causation.",
+      "relatedFindings": [
+        "F047",
+        "F023",
+        "F024"
+      ],
+      "critical": true,
+      "tier": 1
+    },
+    {
+      "id": "F104",
+      "title": "Dr Morgan Ignores 2-Year Cardiac Documentation",
+      "date": "2023-08-02",
+      "dateFound": "2026-01-21",
+      "source": "GP Record - Dr Morgan consultation",
+      "category": "DISCREPANCY",
+      "evidenceStatus": "CONTRADICTED",
+      "workflowStatus": "OPEN",
+      "summary": "Dr Morgan documented 'Pulse 100 - I'm not sure about this' regarding patient's denial of stimulant use. This IGNORES 2 years of documented cardiac investigation including 2021 Holter monitor showing mean HR 99bpm as established baseline sinus tachycardia. GP used tachycardia to support false 'addiction' narrative.",
+      "evidenceRefs": "GP Record 02/08/2023; Holter Monitor Aug 2021 (F117)",
+      "legalSignificance": "GP entry CONTRADICTED by Tier 1 Holter evidence. Demonstrates Morgan either failed to review cardiac history or deliberately ignored it to construct addiction narrative. Either constitutes breach.",
+      "relatedFindings": [
+        "F117",
+        "F044",
+        "F045"
+      ],
+      "critical": true,
+      "tier": 5
+    },
+    {
+      "id": "F115",
+      "title": "Addiction Diagnosis Without Toxicology Testing",
+      "date": "2023-08",
+      "dateFound": "2026-01-21",
+      "source": "GP Records - Morgan/Drewry entries Aug 2023",
+      "category": "BREACH",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "'Addiction' label applied by Dr Morgan and reinforced by practice without any toxicology testing or formal substance misuse assessment. No urine drug screen, no blood test, no referral to addiction services. Diagnosis entirely based on GP subjective impression and family history bias.",
+      "evidenceRefs": "GP Records Aug 2023; Absence of toxicology in all records",
+      "legalSignificance": "Breach of NICE CG115 (Drug Misuse Assessment) which requires objective assessment before diagnosis. Defamatory entry made without clinical evidence. Pattern consistent with psychiatric contamination from 2020.",
+      "relatedFindings": [
+        "F044",
+        "F104",
+        "F002",
+        "F045"
+      ],
+      "critical": true,
+      "tier": 5
+    },
+    {
+      "id": "F116",
+      "title": "Brother's Suicide Weaponised to Dismiss Pain - Continuation",
+      "date": "2023-08-18",
+      "dateFound": "2026-01-21",
+      "source": "GP Record - Dr Drewry entry",
+      "category": "DISCREPANCY",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Dr Drewry documented: 'doing same behaviour as brother trying to get pain medication and he committed suicide'. This mirrors Dr Gupta's 2020 entry (F045) and demonstrates 3-year continuation of psychiatric contamination pattern. Family tragedy weaponised to dismiss legitimate pain complaints.",
+      "evidenceRefs": "GP Record 18/08/2023 Dr Drewry; Dr Gupta entry 23/10/2020 (F045)",
+      "legalSignificance": "Proves psychiatric framing was not isolated incident but systemic practice pattern spanning 2020-2023. Same defamatory narrative passed between clinicians. Pattern evidence for breach across multiple GPs.",
+      "relatedFindings": [
+        "F045",
+        "F002",
+        "F044",
+        "F115"
+      ],
+      "critical": true,
+      "tier": 5
+    },
+    {
+      "id": "F117",
+      "title": "Holter Monitor Documents Baseline Tachycardia Pre-Morgan",
+      "date": "2021-08-04",
+      "dateFound": "2026-01-21",
+      "source": "Holter Monitor Report - UCLH",
+      "category": "VINDICATION",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "UCLH Holter Monitor 04 August 2021 documented mean HR 99bpm with sinus tachycardia. This OBJECTIVE Tier 1 evidence establishes patient's elevated heart rate as baseline condition - 2 YEARS BEFORE Dr Morgan used tachycardia to accuse patient of stimulant abuse.",
+      "evidenceRefs": "Holter Monitor Report 04/08/2021 UCLH",
+      "legalSignificance": "TIER 1 EVIDENCE. Directly CONTRADICTS Dr Morgan's 2023 implication that elevated pulse indicated stimulant use. Morgan either failed to review documented cardiac history or deliberately ignored it. Vindicates patient completely.",
+      "relatedFindings": [
+        "F104",
+        "F044",
+        "F115"
+      ],
+      "critical": true,
+      "tier": 1
+    },
+    {
+      "id": "F-GEM-011",
+      "title": "Dr Idowu Claims 'Imaging All Normal' - Only CT Head Done",
+      "date": "2021-12-31",
+      "dateFound": "2026-01-21",
+      "source": "GP Record - Dr Idowu entry",
+      "category": "DISCREPANCY",
+      "evidenceStatus": "CONTRADICTED",
+      "workflowStatus": "OPEN",
+      "summary": "Dr Idowu documented 'imaging has all been normal' on 31 Dec 2021. This is MISLEADING - only CT Head was performed at A&E. NO thoracic spine imaging was ever done. GP entry creates false impression of comprehensive investigation when fractures remained undiagnosed.",
+      "evidenceRefs": "GP Record 31/12/2021; CXH ED records showing only CT Head",
+      "legalSignificance": "GP entry CONTRADICTED by A&E records showing only head CT. Either demonstrates failure to properly review A&E documentation OR deliberate misrepresentation. Contributed to diagnostic delay by creating false reassurance.",
+      "relatedFindings": [
+        "F047",
+        "F023",
+        "F048"
+      ],
+      "critical": false,
+      "tier": 5,
+      "verificationMethod": "Gemini analysis 21 Jan 2026"
     }
   ],
   "categoryCounts": {
