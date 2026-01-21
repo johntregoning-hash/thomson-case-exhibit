@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "lastUpdated": "2026-01-19",
-    "totalFindings": 204,
-    "highestFindingId": "F359",
+    "lastUpdated": "2026-01-21",
+    "totalFindings": 53,
+    "highestFindingId": "F372",
     "categories": [
       "DISCREPANCY",
       "FABRICATION",
@@ -17,12 +17,39 @@
       "MEDICATION",
       "FND/SOMATOFORM"
     ],
-    "evidenceStatuses": ["VERIFIED", "SUPPORTED", "UNVERIFIED", "DISPUTED", "CONTRADICTED"],
-    "workflowStatuses": ["OPEN", "IN_REVIEW", "ACTIONED", "PARKED", "CLOSED"],
+    "evidenceStatuses": [
+      "VERIFIED",
+      "SUPPORTED",
+      "UNVERIFIED",
+      "DISPUTED",
+      "CONTRADICTED"
+    ],
+    "workflowStatuses": [
+      "OPEN",
+      "IN_REVIEW",
+      "ACTIONED",
+      "PARKED",
+      "CLOSED"
+    ],
     "correctionNote": "18 Jan 2026 - FND/Somatoform distinction clarified: FND Tremor WAS assessed (methodology disputed); Somatoform Pain Disorder NEVER assessed - this is the PRIMARY BREACH."
   },
   "priorityFindings": [
-    "F319", "F323", "F324", "F325", "F334", "F337", "F344", "F347", "F354", "F356", "F357", "F358"
+    "F319",
+    "F323",
+    "F324",
+    "F325",
+    "F334",
+    "F337",
+    "F344",
+    "F347",
+    "F354",
+    "F356",
+    "F357",
+    "F358",
+    "F365",
+    "F368",
+    "F371",
+    "F372"
   ],
   "findings": [
     {
@@ -37,7 +64,11 @@
       "summary": "Dr Bulale Ali recorded patient was 'sleeping pain-free' in September 2021. This directly contradicts documented inability to lie flat due to thoracic pain, which had been ongoing since October 2020.",
       "evidenceRefs": "GP Record Sep 2021 entry; MSK Physio notes Aug 2021; MRI Nov 2022 confirming T5-T8 fractures",
       "legalSignificance": "Demonstrates either failure to accurately document patient presentation OR deliberate falsification. Either undermines GP record reliability.",
-      "relatedFindings": ["F002", "F003", "F022"],
+      "relatedFindings": [
+        "F002",
+        "F003",
+        "F022"
+      ],
       "critical": false
     },
     {
@@ -52,7 +83,12 @@
       "summary": "GP referral to adult secondary mental health services includes narrative stating patient presents with symptoms 'hard to explain,' references brother's suicide, and explicitly links to 'somatisation.' Exists as contemporaneous written artefact predating seizure/fractures by over a year.",
       "evidenceRefs": "Core Adult Secondary Mental Health Service GP Referral Form (MH1) dated 28 Sep 2020",
       "legalSignificance": "Demonstrates pre-existing documented 'psychological overlay/somatisation' narrative BEFORE key injury events. Critical for contamination pathway mapping.",
-      "relatedFindings": ["F001", "F003", "F040", "F043"],
+      "relatedFindings": [
+        "F001",
+        "F003",
+        "F040",
+        "F043"
+      ],
       "critical": true
     },
     {
@@ -67,7 +103,11 @@
       "summary": "Imperial outpatient letter documents seizure history as two witnessed episodes but does not clearly anchor the earlier episode as the 23 Dec 2021 tonic-clonic recorded in the ambulance ePCR.",
       "evidenceRefs": "Outpatient Letter Dr Karunaratne 22/03/2022; Ambulance ePCR F250",
       "legalSignificance": "Supports history divergence line - later documentation may have under-recorded or misdated the Dec 2021 seizure.",
-      "relatedFindings": ["F023", "F050", "F020"],
+      "relatedFindings": [
+        "F023",
+        "F050",
+        "F020"
+      ],
       "critical": false
     },
     {
@@ -82,7 +122,12 @@
       "summary": "Dorian Thomson died by suicide in 2011 after years of dismissed EDS chronic pain. Healthcare providers subsequently weaponised this family tragedy to justify psychiatric dismissal of John's physical symptoms, despite objective evidence of mechanical pathology.",
       "evidenceRefs": "Daily Mail article 2012; F002 - MH1 referral; F040 - Somatoform diagnosis; Dr Gupta psychiatric assessment",
       "legalSignificance": "CRITICAL - Demonstrates bad faith pattern, not clinical error. Using family tragedy to justify non-treatment aggravates quantum. May support aggravated damages.",
-      "relatedFindings": ["F001", "F002", "F040", "F043"],
+      "relatedFindings": [
+        "F001",
+        "F002",
+        "F040",
+        "F043"
+      ],
       "critical": true
     },
     {
@@ -97,7 +142,10 @@
       "summary": "NHS epilepsy specialist Dr Kushan Karunaratne verbally used the phrase 'data manipulation' when discussing GP care issues, with patient's parents present as witnesses.",
       "evidenceRefs": "Patient testimony; parent witness statements (to be obtained)",
       "legalSignificance": "Independent NHS specialist raising concerns about data integrity at former practice. Powerful corroboration of bad faith conduct concerns.",
-      "relatedFindings": ["F021", "F030"],
+      "relatedFindings": [
+        "F021",
+        "F030"
+      ],
       "critical": true
     },
     {
@@ -112,7 +160,11 @@
       "summary": "Current GP Dr Alexander Gorrie verbally referenced 'sketchy stuff' that practice manager Clive Polles had done which blocked a recent practice merger.",
       "evidenceRefs": "Patient testimony; context of merger failure",
       "legalSignificance": "Independent NHS GP expressing concerns about former practice manager's conduct. Supports pattern of administrative misconduct.",
-      "relatedFindings": ["F020", "F030", "F071"],
+      "relatedFindings": [
+        "F020",
+        "F030",
+        "F071"
+      ],
       "critical": false
     },
     {
@@ -127,7 +179,11 @@
       "summary": "Independent MSK physiotherapist documented: 'issues with GP, as they did not believe his pain and accused him for attention seeking' - PREDATES December 2021 seizure and fractures. Also documented 'pain not controlled since 2016.'",
       "evidenceRefs": "MSK Physio records 04 August 2021 - Sumeer Bhamm, Charing Cross Hospital",
       "legalSignificance": "CRITICAL EVIDENCE - Third-party contemporaneous documentation of GP dismissal pattern BEFORE major injury event.",
-      "relatedFindings": ["F001", "F030", "F046"],
+      "relatedFindings": [
+        "F001",
+        "F030",
+        "F046"
+      ],
       "critical": true
     },
     {
@@ -142,7 +198,12 @@
       "summary": "London Ambulance Service ePCR documents a witnessed tonic-clonic seizure at home on 23 Dec 2021, including call/scene/hand-over timings, post-ictal confusion, and recovery to GCS 15.",
       "evidenceRefs": "Ambulance Notes ePCR F250.pdf",
       "legalSignificance": "HIGHEST-TIER CONTEMPORANEOUS EVIDENCE - Hardcoded timestamps from third-party source.",
-      "relatedFindings": ["F003", "F050", "F041", "F023a"],
+      "relatedFindings": [
+        "F003",
+        "F050",
+        "F041",
+        "F023a"
+      ],
       "critical": true
     },
     {
@@ -154,10 +215,15 @@
       "category": "WITNESS",
       "evidenceStatus": "VERIFIED",
       "workflowStatus": "OPEN",
-      "summary": "London Ambulance Service reached scene in 5 minutes (Call 22:39 → On Scene 22:44). This indicates Category 1 (Life Threatening) or High Category 2 (Emergency) triaging.",
+      "summary": "London Ambulance Service reached scene in 5 minutes (Call 22:39 \u2192 On Scene 22:44). This indicates Category 1 (Life Threatening) or High Category 2 (Emergency) triaging.",
       "evidenceRefs": "Ambulance Notes ePCR F250.pdf",
       "legalSignificance": "Objective third-party evidence that the index event was triaged as life-threatening/emergency. Contradicts GP characterisation as 'soft tissue injury'.",
-      "relatedFindings": ["F023", "F024", "F047", "F050"],
+      "relatedFindings": [
+        "F023",
+        "F024",
+        "F047",
+        "F050"
+      ],
       "critical": false
     },
     {
@@ -172,7 +238,11 @@
       "summary": "Independent MSK physiotherapist documented Pain Clinic REJECTED patient's referral because mother mentioned low mood/suicide concern. Patient was NEVER spoken to directly before discharge. 30 DAYS BEFORE the 23 December 2021 seizure.",
       "evidenceRefs": "Sumeer Bhamm MSK Letter 23/11/2021",
       "legalSignificance": "CRITICAL - Demonstrates institutional decision-making without patient involvement. Shows patient was being REJECTED by services, not avoiding them.",
-      "relatedFindings": ["F022", "F043", "F050"],
+      "relatedFindings": [
+        "F022",
+        "F043",
+        "F050"
+      ],
       "critical": true
     },
     {
@@ -187,7 +257,11 @@
       "summary": "Dr Alexander Gorrie marked the Somatoform Pain Disorder diagnosis as INACTIVE on 22 July 2025, noting 'there were clear causes for his pain.' Highly unusual to remove without formal psychiatric reassessment - error was self-evident.",
       "evidenceRefs": "GP Record 22/07/2025",
       "legalSignificance": "CRITICAL EVIDENCE - Subsequent NHS clinician independently determined original psychiatric diagnosis was inappropriate. Internal vindication, not litigation-driven.",
-      "relatedFindings": ["F040", "F041", "F031"],
+      "relatedFindings": [
+        "F040",
+        "F041",
+        "F031"
+      ],
       "critical": true
     },
     {
@@ -202,7 +276,10 @@
       "summary": "Pain Clinic explicitly disagreed with somatoform characterisation. GP record states: 'GP prev told somatic, pain clinic at C&W; felt not somatic.'",
       "evidenceRefs": "GP record 03/05/2023",
       "legalSignificance": "VINDICATION - Independent specialist refutation of GP diagnosis.",
-      "relatedFindings": ["F030", "F040"],
+      "relatedFindings": [
+        "F030",
+        "F040"
+      ],
       "critical": true
     },
     {
@@ -214,10 +291,14 @@
       "category": "VINDICATION",
       "evidenceStatus": "VERIFIED",
       "workflowStatus": "OPEN",
-      "summary": "Bilateral upper-limb arterial duplex study recorded complete cessation of flow within the distal subclavian artery during Adson's and EAST manoeuvres bilaterally. Conclusion: 'Marked haemodynamic changes… a positive result.'",
+      "summary": "Bilateral upper-limb arterial duplex study recorded complete cessation of flow within the distal subclavian artery during Adson's and EAST manoeuvres bilaterally. Conclusion: 'Marked haemodynamic changes\u2026 a positive result.'",
       "evidenceRefs": "Royal Free Doppler 13/06/2019",
       "legalSignificance": "HIGH-TIER OBJECTIVE EVIDENCE - Vascular compression existed years before later disputes. Undermines 'no objective evidence / purely functional' framing.",
-      "relatedFindings": ["F033", "F036", "F037"],
+      "relatedFindings": [
+        "F033",
+        "F036",
+        "F037"
+      ],
       "critical": true
     },
     {
@@ -232,7 +313,11 @@
       "summary": "UCLH MR thoracic inlet/outlet report describes compression of left subclavian artery and vein with arms abducted, including apparent focal stenosis.",
       "evidenceRefs": "MR Thoracic Inlet/Outlet 10/01/2024",
       "legalSignificance": "HIGH-TIER IMAGING EVIDENCE - Objective vascular compression confirmed, reinforcing long-running TOS reality.",
-      "relatedFindings": ["F032", "F036", "F037"],
+      "relatedFindings": [
+        "F032",
+        "F036",
+        "F037"
+      ],
       "critical": true
     },
     {
@@ -244,10 +329,14 @@
       "category": "VINDICATION",
       "evidenceStatus": "VERIFIED",
       "workflowStatus": "OPEN",
-      "summary": "Royal Free ultrasound Doppler documents dynamic vascular compression. Both arms at 90° abduction: subclavian veins 'compressed with no flow'. Right arm in Surrender position: both artery and vein 'compressed with no flow detected'.",
+      "summary": "Royal Free ultrasound Doppler documents dynamic vascular compression. Both arms at 90\u00b0 abduction: subclavian veins 'compressed with no flow'. Right arm in Surrender position: both artery and vein 'compressed with no flow detected'.",
       "evidenceRefs": "US Doppler 09/06/2025 - Royal Free",
       "legalSignificance": "HIGH-TIER OBJECTIVE EVIDENCE - Dynamic vascular TOS demonstrated. Establishes SIX-YEAR timeline of documented vascular pathology.",
-      "relatedFindings": ["F032", "F033", "F037"],
+      "relatedFindings": [
+        "F032",
+        "F033",
+        "F037"
+      ],
       "critical": true
     },
     {
@@ -262,7 +351,11 @@
       "summary": "UCLH CT Aorta performed with arms down shows no stenosis in that position but explicitly states 'A thoracic outlet syndrome affecting left subclavian artery cannot be excluded.'",
       "evidenceRefs": "CT Aorta 16/04/2024",
       "legalSignificance": "CRITICAL - Radiologist explicitly acknowledging TOS cannot be excluded with static imaging.",
-      "relatedFindings": ["F033", "F036", "F032"],
+      "relatedFindings": [
+        "F033",
+        "F036",
+        "F032"
+      ],
       "critical": false
     },
     {
@@ -277,7 +370,11 @@
       "summary": "Psychiatric assessment by Dr Gupta found NO: PTSD, depression, psychosis, personality disorder, OR somatisation disorder. Presentation consistent with inadequately treated physical illness.",
       "evidenceRefs": "Dr Gupta psychiatric assessment",
       "legalSignificance": "VINDICATION - Formal psychiatric clearance undermines somatoform labelling.",
-      "relatedFindings": ["F030", "F031", "F040"],
+      "relatedFindings": [
+        "F030",
+        "F031",
+        "F040"
+      ],
       "critical": false
     },
     {
@@ -292,7 +389,12 @@
       "summary": "Dr Bulale Ali applied Somatoform Pain Disorder during a telephone consultation about switching opioid medication - NOT a psychiatric assessment. Patient was never informed. Applied AFTER MRI had proven T5-T8 fractures. Wrong ICD-10 code used (E278 instead of F45.4).",
       "evidenceRefs": "GP Record 05 Jan 2023; MRI Report 16/10/2022",
       "legalSignificance": "PRIMARY BREACH - Psychiatric diagnosis applied without psychiatric assessment, without patient knowledge, after physical pathology was proven. No responsible body of medical opinion would support this.",
-      "relatedFindings": ["F030", "F031", "F001", "F323"],
+      "relatedFindings": [
+        "F030",
+        "F031",
+        "F001",
+        "F323"
+      ],
       "critical": true
     },
     {
@@ -307,7 +409,11 @@
       "summary": "T5-T8 vertebral fractures from December 2021 seizure were not diagnosed until UCLH MRI on 16 October 2022 - approximately 10-month delay. Initial A&E assessment dismissed injury as 'soft tissue.' NICE NG59 red flags were present.",
       "evidenceRefs": "A&E records Dec 2021; UCLH MRI 16/10/2022; NICE NG59 guidelines",
       "legalSignificance": "PRIMARY BREACH - Failure to image and diagnose vertebral fractures despite red flag presentation.",
-      "relatedFindings": ["F050", "F048", "F047"],
+      "relatedFindings": [
+        "F050",
+        "F048",
+        "F047"
+      ],
       "critical": true
     },
     {
@@ -322,7 +428,10 @@
       "summary": "Pregabalin reduced from 600mg to 100mg daily between 18-20 October 2021 without proper tapering protocol. BNF mandates gradual withdrawal. Occurred ~10 weeks before December 2021 seizure.",
       "evidenceRefs": "GP Record Oct 2021; BNF pregabalin tapering guidelines",
       "legalSignificance": "DIRECT BREACH of BNF guidance. Contributes to causation chain leading to December 2021 seizure.",
-      "relatedFindings": ["F050", "F324"],
+      "relatedFindings": [
+        "F050",
+        "F324"
+      ],
       "critical": true
     },
     {
@@ -337,7 +446,15 @@
       "summary": "Pain Medicine correspondence states patient 'would not benefit from a referral to secondary care services.' Letter includes guidance re suicide risk referral to psychiatry. 10 weeks before December 2021 seizure.",
       "evidenceRefs": "CL007_2021-10-14_Pain-Medicine_Bhaskar_CRITICAL.pdf",
       "legalSignificance": "CRITICAL - Pain service declining specialist intervention and routing toward community/psychiatric channels 10 weeks pre-seizure.",
-      "relatedFindings": ["F002", "F022", "F040", "F050", "F072", "F091", "F344"],
+      "relatedFindings": [
+        "F002",
+        "F022",
+        "F040",
+        "F050",
+        "F072",
+        "F091",
+        "F344"
+      ],
       "critical": true
     },
     {
@@ -352,22 +469,35 @@
       "summary": "Dr Sian Morgan stated 'main issue here is opiate addiction' with NO toxicology or formal addiction assessment documented. Entry includes misspelling 'opaite'.",
       "evidenceRefs": "GP Record 02 Aug 2023",
       "legalSignificance": "BREACH - Addiction label applied without appropriate assessment. Defamatory label without evidence.",
-      "relatedFindings": ["F030", "F031", "F040", "F045", "F115", "F116", "F117"],
+      "relatedFindings": [
+        "F030",
+        "F031",
+        "F040",
+        "F045",
+        "F115",
+        "F116",
+        "F117"
+      ],
       "critical": true
     },
     {
       "id": "F050",
-      "title": "Sleep Deprivation → Seizure → Fracture Chain",
+      "title": "Sleep Deprivation \u2192 Seizure \u2192 Fracture Chain",
       "date": "2020-10 to 2021-12",
       "dateFound": "Pre-existing",
       "source": "Clinical timeline analysis",
       "category": "CAUSATION",
       "evidenceStatus": "VERIFIED",
       "workflowStatus": "OPEN",
-      "summary": "Causation chain: Undertreated back pain → Inability to lie flat → 14+ months sleep deprivation → Lowered seizure threshold → Tonic-clonic seizure 23 Dec 2021 → T5-T8 vertebral fractures.",
+      "summary": "Causation chain: Undertreated back pain \u2192 Inability to lie flat \u2192 14+ months sleep deprivation \u2192 Lowered seizure threshold \u2192 Tonic-clonic seizure 23 Dec 2021 \u2192 T5-T8 vertebral fractures.",
       "evidenceRefs": "GP records Oct 2020 onwards; Ambulance ePCR; MRI 16/10/2022; Jason Parry letter 22/07/2021",
       "legalSignificance": "Establishes but-for causation: but for failure to treat pain adequately, patient would not have experienced seizure-inducing sleep deprivation.",
-      "relatedFindings": ["F041", "F042", "F114", "F126"],
+      "relatedFindings": [
+        "F041",
+        "F042",
+        "F114",
+        "F126"
+      ],
       "critical": true
     },
     {
@@ -382,7 +512,14 @@
       "summary": "Patient sustained third-degree burn with blistering from hot water bottle over 4-day period WITHOUT FEELING PAIN OR HEAT. GP documented but NO REFERRAL for sensory loss investigation.",
       "evidenceRefs": "GP record 20/12/2023; A&E attendance; Patient photograph",
       "legalSignificance": "BREACH + VINDICATION - Objective proof of neurological dysfunction ignored. Combined with bladder/erectile symptoms = cauda equina red flags.",
-      "relatedFindings": ["F119A", "F120", "F121", "F122", "F123", "F125"],
+      "relatedFindings": [
+        "F119A",
+        "F120",
+        "F121",
+        "F122",
+        "F123",
+        "F125"
+      ],
       "critical": true
     },
     {
@@ -397,7 +534,15 @@
       "summary": "Documented symptoms: urinary retention, post-micturition dribble, erectile dysfunction, two thermal burns from sensory loss, perianal/buttock symptoms, severe back pain. Despite constellation, comprehensive neurological workup NEVER performed.",
       "evidenceRefs": "Aggregate GP records, specialist letters, patient photographs",
       "legalSignificance": "BREACH - Failure to investigate progressive neurological symptoms. Once somatoform applied, red flags stopped triggering appropriate concern.",
-      "relatedFindings": ["F119", "F119A", "F120", "F121", "F122", "F123", "F124"],
+      "relatedFindings": [
+        "F119",
+        "F119A",
+        "F120",
+        "F121",
+        "F122",
+        "F123",
+        "F124"
+      ],
       "critical": true
     },
     {
@@ -412,7 +557,12 @@
       "summary": "Dr Karunaratne documented 'Has been sleep deprived for last 14 months' at first epilepsy assessment. Acute trigger 'Week running up to event had one night of no sleep.'",
       "evidenceRefs": "CL010_2022-02-15_Neurology_Karunaratne_CRITICAL.pdf",
       "legalSignificance": "CAUSATION - Independent specialist documentation of the mechanism linking GP failures to index injury.",
-      "relatedFindings": ["F050", "F114", "F022", "F026"],
+      "relatedFindings": [
+        "F050",
+        "F114",
+        "F022",
+        "F026"
+      ],
       "critical": true
     },
     {
@@ -427,7 +577,10 @@
       "summary": "Two days before Somatoform applied (05/01/2023), Dr Karunaratne documented: 'Pain remains a major concern,' patient 'needs to prop himself against a wall' to sleep, MRI spine completed, skull surgery scheduled. No psychiatric concerns raised.",
       "evidenceRefs": "CL016_2023-01-03_Neurology_Karunaratne.pdf",
       "legalSignificance": "DEVASTATING - Independent specialist documenting severe physical symptoms immediately before GP applied psychiatric label.",
-      "relatedFindings": ["F040", "F048"],
+      "relatedFindings": [
+        "F040",
+        "F048"
+      ],
       "critical": true
     },
     {
@@ -442,7 +595,13 @@
       "summary": "Dr Karunaratne explicitly stated: 'Rib and thoracic fractures have been confirmed' and 'medical explanations have been found for symptoms that he has been experiencing for a long time.'",
       "evidenceRefs": "CL019_2023-12-05_Neurology_Karunaratne_VINDICATION.pdf",
       "legalSignificance": "VINDICATION - Independent NHS specialist confirming organic pathology. Undermines entire somatoform/psychosomatic framing.",
-      "relatedFindings": ["F030", "F031", "F040", "F041", "F337"],
+      "relatedFindings": [
+        "F030",
+        "F031",
+        "F040",
+        "F041",
+        "F337"
+      ],
       "critical": true
     },
     {
@@ -457,7 +616,13 @@
       "summary": "Dr Bhaskar stated neurologists 'reviewed' patient with no back pain concerns. PROVEN FALSE - Kalladka's letter (2 days prior) was a TELEPHONE HEADACHE CLINIC that explicitly stated patient 'awaits pain clinic review.'",
       "evidenceRefs": "CL007_Pain-Medicine_Bhaskar; Dr_Kalladka_Headache_Clinic_13Oct2021",
       "legalSignificance": "PROVEN MISREPRESENTATION - Bhaskar cited headache clinic letter as evidence about back pain to BLOCK the very review Kalladka anticipated. 10 weeks before seizure.",
-      "relatedFindings": ["F043", "F091", "F131", "F133", "F344"],
+      "relatedFindings": [
+        "F043",
+        "F091",
+        "F131",
+        "F133",
+        "F344"
+      ],
       "critical": true
     },
     {
@@ -472,7 +637,11 @@
       "summary": "50+ iMessage entries documenting pre-seizure family concerns, Clive Polles's direct involvement in clinical decisions, and contemporaneous awareness of psychiatric dismissal.",
       "evidenceRefs": "04_AI_FINDINGS/iMessage_Evidence/2026-01-13_Clive_Polles_Messages.md",
       "legalSignificance": "TIER 3 CORROBORATION - Establishes pre-seizure pattern of concern, documents practice manager making clinical decisions beyond authority.",
-      "relatedFindings": ["F023", "F040", "F042"],
+      "relatedFindings": [
+        "F023",
+        "F040",
+        "F042"
+      ],
       "critical": true
     },
     {
@@ -488,7 +657,13 @@
       "evidenceRefs": "CL066_2022-01-13_UCLH_Neurology_Kanona.pdf",
       "legalSignificance": "PATTERN EVIDENCE - FND label propagating through records without diagnostic assessment at this time.",
       "contextNote": "FND tremor was subsequently assessed by Dr Coebergh/Dr Charlesworth (methodology disputed). The PRIMARY BREACH focus is SOMATOFORM PAIN DISORDER applied without psychiatric assessment (F040/F041).",
-      "relatedFindings": ["F040", "F041", "F181", "F182", "F323"],
+      "relatedFindings": [
+        "F040",
+        "F041",
+        "F181",
+        "F182",
+        "F323"
+      ],
       "critical": false
     },
     {
@@ -503,7 +678,10 @@
       "summary": "Cardiologist explicitly states: 'You were previously labelled as POTS, but the test did not show this.' POTS was applied as a LABEL without confirmatory testing.",
       "evidenceRefs": "CL074_2022-08-10_UCLH_Cardiology_Singhal.pdf",
       "legalSignificance": "PIVOTAL - Demonstrates pattern of diagnostic labels applied without proper testing, later refuted when investigations actually performed.",
-      "relatedFindings": ["F316", "F323"],
+      "relatedFindings": [
+        "F316",
+        "F323"
+      ],
       "critical": true
     },
     {
@@ -519,12 +697,18 @@
       "evidenceRefs": "CL075_2022-08-29_CW_Neurology_Simeoni.pdf",
       "legalSignificance": "TEMPORAL EVIDENCE - Documents point-in-time status. The breach is NOT 'FND applied without assessment' (tremor was subsequently assessed). The PRIMARY BREACH IS Somatoform Pain Disorder applied without psychiatric assessment (F040/F041).",
       "contextNote": "IMPORTANT CONTEXT (18 Jan 2026): This statement was accurate at that time. Subsequently, patient WAS assessed for FND TREMOR ONLY by Dr Coebergh and Dr Charlesworth. Essential tremor had been diagnosed for years under Professor Paccini. The FND tremor assessment is LIMITED TO TREMOR - it does NOT constitute assessment for Somatoform Pain Disorder (F45.4), which was applied WITHOUT any psychiatric assessment on 05/01/2023 (see F040/F041).",
-      "relatedFindings": ["F181", "F182", "F316", "F040", "F041"],
+      "relatedFindings": [
+        "F181",
+        "F182",
+        "F316",
+        "F040",
+        "F041"
+      ],
       "critical": false
     },
     {
       "id": "F324",
-      "title": "Pregabalin Cessation → Seizure Causation Documented",
+      "title": "Pregabalin Cessation \u2192 Seizure Causation Documented",
       "date": "2022-08-29",
       "dateFound": "2026-01-14",
       "source": "CL075 - C&W Neurology",
@@ -534,7 +718,12 @@
       "summary": "Dr Simeoni documented: 'When had a seizure pregabalin had been stopped abruptly.' Direct documentation of causal link.",
       "evidenceRefs": "CL075_2022-08-29_CW_Neurology_Simeoni.pdf",
       "legalSignificance": "DIRECT CAUSATION EVIDENCE - Specialist documents seizure occurred when pregabalin was abruptly stopped. Critical for clinical negligence claim.",
-      "relatedFindings": ["F042", "F197", "F348", "F354"],
+      "relatedFindings": [
+        "F042",
+        "F197",
+        "F348",
+        "F354"
+      ],
       "critical": true
     },
     {
@@ -549,7 +738,9 @@
       "summary": "Dr Simeoni documented: 'with 10 mg the tremor solves 90%.' Baclofen (GABAergic muscle relaxant) achieved 90% resolution.",
       "evidenceRefs": "CL075_2022-08-29_CW_Neurology_Simeoni.pdf",
       "legalSignificance": "CHALLENGES FUNCTIONAL TREMOR LABEL - Functional tremor would NOT respond to baclofen. 90% resolution indicates ORGANIC tremor component.",
-      "relatedFindings": ["F196"],
+      "relatedFindings": [
+        "F196"
+      ],
       "critical": true
     },
     {
@@ -564,7 +755,12 @@
       "summary": "Pain Clinic explicitly documented: 'abruptly stopping oxycontin is unsafe as the patient is at risk of seizures and is at high risk of Withdrawal.'",
       "evidenceRefs": "CL106_2023-11-23_CW_Pain.pdf",
       "legalSignificance": "DOCUMENTED SAFETY BREACH - In patient with known epilepsy, GP took action Pain Clinic explicitly warned was unsafe.",
-      "relatedFindings": ["F196", "F200", "F204", "F042"],
+      "relatedFindings": [
+        "F196",
+        "F200",
+        "F204",
+        "F042"
+      ],
       "critical": true
     },
     {
@@ -579,7 +775,13 @@
       "summary": "Dr Karunaratne: 'Today was the first time he sounded somewhat positive in a very long time. This is largely due to the fact that medical explanations have been found for symptoms that he has been experiencing for a long time.'",
       "evidenceRefs": "CL019_2023-12-05_Neurology_Karunaratne_VINDICATION.pdf",
       "legalSignificance": "CORE VINDICATION STATEMENT - Direct specialist confirmation that symptoms attributed to FND/functional causes were actually organic pathology.",
-      "relatedFindings": ["F319", "F323", "F349", "F350", "F128"],
+      "relatedFindings": [
+        "F319",
+        "F323",
+        "F349",
+        "F350",
+        "F128"
+      ],
       "critical": true
     },
     {
@@ -594,7 +796,12 @@
       "summary": "Dr Bhaskar rejected pain referral stating: 'if a patient is feeling vulnerable to the point of self-harm, I think it is not advisable to review this patient in the Pain clinic.' 10 weeks before seizure.",
       "evidenceRefs": "CL007_2021-10-14_Pain-Medicine_Bhaskar_CRITICAL.pdf",
       "legalSignificance": "INVERTED CLINICAL REASONING - Mother's legitimate concern (informed by brother's death) was weaponised to DENY rather than enhance care.",
-      "relatedFindings": ["F043", "F132", "F133", "F010"],
+      "relatedFindings": [
+        "F043",
+        "F132",
+        "F133",
+        "F010"
+      ],
       "critical": true
     },
     {
@@ -609,7 +816,11 @@
       "summary": "Mr Hassany: 'the MRI scan findings does not explain his severe back pain... no surgical target.' Patient discharged because LUMBAR MRI was normal. THORACIC spine (fracture location) was not imaged until 8 months later.",
       "evidenceRefs": "CL009_2022-02-08_Neurospine_Hassany_CRITICAL.pdf",
       "legalSignificance": "CRITICAL DIAGNOSTIC FAILURE - Patient suffered additional months of undiagnosed fractures due to imaging wrong spinal region.",
-      "relatedFindings": ["F346", "F350", "F041"],
+      "relatedFindings": [
+        "F346",
+        "F350",
+        "F041"
+      ],
       "critical": true
     },
     {
@@ -624,7 +835,12 @@
       "summary": "Dr Karunaratne formally diagnosed: 'Epilepsy with generalised seizures.' Not functional/dissociative seizures.",
       "evidenceRefs": "CL032_2024-12-10_Neurology_Karunaratne_CRITICAL.pdf",
       "legalSignificance": "VALIDATES CAUSATION - The December 2021 seizure was epileptic, not dissociative. Causally linked to abrupt pregabalin cessation.",
-      "relatedFindings": ["F324", "F348", "F353", "F042"],
+      "relatedFindings": [
+        "F324",
+        "F348",
+        "F353",
+        "F042"
+      ],
       "critical": true
     },
     {
@@ -639,7 +855,11 @@
       "summary": "Vascular surgeon Mr Aaron Goh's formal diagnosis list includes: Epilepsy (NOT NEAD/FND), T5-T8 fractured vertebrae and ribs (confirmed), EDS/Hypermobility, Tremor of UNKNOWN AETIOLOGY (NOT labelled functional).",
       "evidenceRefs": "CL117_2024-07-03_RFL_Vascular_Goh.pdf",
       "legalSignificance": "CRITICAL VINDICATION - Independent specialist (non-neurology) lists epilepsy and fractures as confirmed organic conditions. Tremor NOT attributed to FND - listed as 'unknown aetiology'.",
-      "relatedFindings": ["F350", "F354", "F357"],
+      "relatedFindings": [
+        "F350",
+        "F354",
+        "F357"
+      ],
       "critical": true
     },
     {
@@ -654,7 +874,12 @@
       "summary": "MRA imaging confirms 'compression of the subclavian vein on the left as well as a focal stenosis of the left subclavian artery' in the subclavicular space.",
       "evidenceRefs": "CL117_2024-07-03_RFL_Vascular_Goh.pdf",
       "legalSignificance": "CRITICAL VINDICATION - Objective imaging evidence of TOS. Establishes 6+ years of documented vascular pathology (2019-2024-2025). Cannot be dismissed as functional/non-organic.",
-      "relatedFindings": ["F032", "F033", "F036", "F356"],
+      "relatedFindings": [
+        "F032",
+        "F033",
+        "F036",
+        "F356"
+      ],
       "critical": true
     },
     {
@@ -669,7 +894,10 @@
       "summary": "Vascular surgeon documents extreme symptom severity: patient 'would rather his arm be amputated due to the discomfort'.",
       "evidenceRefs": "CL117_2024-07-03_RFL_Vascular_Goh.pdf",
       "legalSignificance": "CRITICAL QUANTUM - Specialist-recorded statement establishes extreme suffering. Critical evidence for general damages assessment.",
-      "relatedFindings": ["F356", "F357"],
+      "relatedFindings": [
+        "F356",
+        "F357"
+      ],
       "critical": true
     },
     {
@@ -684,7 +912,10 @@
       "summary": "Care transfer required specifically to consolidate fragmented records: 'His care has been transferred from UCLH to the Royal Free in a bid to amalgamate his notes'.",
       "evidenceRefs": "CL117_2024-07-03_RFL_Vascular_Goh.pdf",
       "legalSignificance": "Supports care coordination failure argument. NHS system required inter-hospital transfer to manage record fragmentation caused by care pathway failures.",
-      "relatedFindings": ["F356", "F357"],
+      "relatedFindings": [
+        "F356",
+        "F357"
+      ],
       "critical": false
     },
     {
@@ -699,7 +930,168 @@
       "summary": "GPs restricted Oramorph to 20ml/day (15-day supply) despite Pain Clinic authorization for 30ml/day (10-day supply). Created calculated gap where patient ran out on Day 10, allowing false 'addiction' labelling.",
       "evidenceRefs": "GP_Records_2023.md; GP_Records_2025.md",
       "legalSignificance": "DEVASTATING - Proves 'addiction' narrative based on falsified dosage parameters. Destroys 'Contributory Negligence' defence.",
-      "relatedFindings": ["F-GEM-007", "F-GEM-008", "F044", "F116"],
+      "relatedFindings": [
+        "F-GEM-007",
+        "F-GEM-008",
+        "F044",
+        "F116"
+      ],
+      "critical": true
+    },
+    {
+      "id": "F365",
+      "title": "Dr Bhaskar Rejected Patient Without Contact",
+      "date": "2021-10-14",
+      "dateFound": "2026-01-21",
+      "source": "CL007 - Bhaskar Pain Clinic Letter",
+      "category": "BREACH",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "CLOSED",
+      "summary": "Pain Clinic Consultant Dr Arun Bhaskar rejected patient from secondary care services based solely on GP referral notes - WITHOUT ever examining, speaking to, or contacting the patient. Decision made ~10 weeks before the 23 Dec 2021 seizure.",
+      "evidenceRefs": "CL007_2021-10-14_Pain-Medicine_Bhaskar_CRITICAL.pdf",
+      "legalSignificance": "BREACH - SPECIALIST: Consultant made consequential care decision without any patient contact. No reasonable specialist would reject chronic pain patient without clinical assessment.",
+      "relatedFindings": [
+        "F366",
+        "F367",
+        "F368",
+        "F372"
+      ],
+      "critical": true
+    },
+    {
+      "id": "F366",
+      "title": "Dr Bhaskar Relied on Wrong Spinal Area",
+      "date": "2021-10-14",
+      "dateFound": "2026-01-21",
+      "source": "CL007 - Bhaskar Pain Clinic Letter",
+      "category": "BREACH",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "CLOSED",
+      "summary": "Bhaskar's rejection references 'MRI scans were essentially normal' for 'sciatica.' Patient's actual pain was THORACIC (upper/mid back), not lumbar. The 'normal' MRI was of the WRONG spinal region.",
+      "evidenceRefs": "CL007 - Bhaskar letter: 'MRI scan does not show any cause... for his sciatica'",
+      "legalSignificance": "BREACH - DIAGNOSTIC: Consultant based rejection on imaging of wrong anatomical region.",
+      "relatedFindings": [
+        "F365",
+        "F367",
+        "F368"
+      ],
+      "critical": true
+    },
+    {
+      "id": "F367",
+      "title": "Bhaskar Did NOT Recommend Pregabalin Withdrawal",
+      "date": "2021-10-14",
+      "dateFound": "2026-01-21",
+      "source": "CL007 - Bhaskar Pain Clinic Letter",
+      "category": "VINDICATION",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "CLOSED",
+      "summary": "Bhaskar's letter states patient 'is currently on maximum dose of Pregabalin' and only recommends ADDING buprenorphine. NO recommendation to reduce or stop pregabalin. Yet Williams stopped 600mg days later.",
+      "evidenceRefs": "CL007 - Bhaskar letter: 'currently on maximum dose of Pregabalin'",
+      "legalSignificance": "CRITICAL EVIDENCE: Proves Williams' pregabalin cessation was NOT based on specialist advice.",
+      "relatedFindings": [
+        "F365",
+        "F368",
+        "F369"
+      ],
+      "critical": true
+    },
+    {
+      "id": "F368",
+      "title": "Williams' 7-Point Documentation Failure",
+      "date": "2021-10-18",
+      "dateFound": "2026-01-21",
+      "source": "GP Entry 288; Gemini Verification",
+      "category": "BREACH",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "CLOSED",
+      "summary": "Williams' ENTIRE entry for stopping 600mg controlled substance: 'Pain clinic rejected referral. Advised to refer to psychiatrist.' Seven failures: NO patient consultation, NO clinical reasoning, NO taper plan, misrepresented psychiatric recommendation.",
+      "evidenceRefs": "GP Entry 288 (18 Oct 2021); CL007 Bhaskar letter comparison",
+      "legalSignificance": "BREACH CONFIRMED BY GEMINI: GMC requires documentation of reasoning, consent, taper plan. Williams documented NONE.",
+      "relatedFindings": [
+        "F367",
+        "F369",
+        "F370",
+        "F372"
+      ],
+      "critical": true
+    },
+    {
+      "id": "F369",
+      "title": "Williams Ignored Pharmacist Taper Warning",
+      "date": "2021-10-18",
+      "dateFound": "2026-01-21",
+      "source": "GP Entries 269, 288; Gemini Verification",
+      "category": "BREACH",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "CLOSED",
+      "summary": "08 Oct: Pharmacist McKenzie warned 'unwise to suddenly stop', recommended 300mg taper. 18 Oct: Williams formally stopped 600mg - NO taper, ignored McKenzie's advice from 10 days prior.",
+      "evidenceRefs": "Entry 269 (McKenzie warning); Entry 288 (no taper)",
+      "legalSignificance": "BREACH: When pharmacist documented unsafe withdrawal, Williams had duty to issue taper prescription.",
+      "relatedFindings": [
+        "F367",
+        "F368",
+        "F370",
+        "F371"
+      ],
+      "critical": true
+    },
+    {
+      "id": "F370",
+      "title": "Idowu Entry Corroborates Patient Objection",
+      "date": "2021-10-20",
+      "dateFound": "2026-01-21",
+      "source": "GP Entry 291; Gemini Verification",
+      "category": "WITNESS",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "CLOSED",
+      "summary": "Entry 291: 'Advised to stop taking pregabalin by GW and would like to continue.' Third-party GP documentation proving Williams made decision without consultation and patient objected.",
+      "evidenceRefs": "GP Entry 291 (20 Oct 2021)",
+      "legalSignificance": "CORROBORATING EVIDENCE: Independent GP documentation supports F368, F369.",
+      "relatedFindings": [
+        "F368",
+        "F369"
+      ],
+      "critical": false
+    },
+    {
+      "id": "F371",
+      "title": "Clive Polles Patch Refusal ~4 Days Pre-Seizure",
+      "date": "2021-12-19",
+      "dateFound": "2026-01-21",
+      "source": "Patient testimony; GP Records Dec 2021",
+      "category": "CAUSATION",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Practice Manager Clive Polles refused to authorize replacement buprenorphine patch after water damage. ~4 DAYS before the 23 Dec 2021 seizure. Non-clinical staff making medication decision.",
+      "evidenceRefs": "Patient testimony; F072 (original finding)",
+      "legalSignificance": "DIRECT CAUSATION: Non-clinical staff refusing medication 4 days before seizure.",
+      "relatedFindings": [
+        "F072",
+        "F050",
+        "F367",
+        "F369"
+      ],
+      "critical": true
+    },
+    {
+      "id": "F372",
+      "title": "Bhaskar Fabricated 'Neurologist Clearance'",
+      "date": "2021-10-14",
+      "dateFound": "2026-01-21",
+      "source": "CL007 - Bhaskar Letter; Gemini Verification",
+      "category": "FABRICATION",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "CLOSED",
+      "summary": "Bhaskar states: 'neurologists recently reviewed him and there has not been any concerns raised regarding his back pain.' FABRICATED: Only neurologist was Dr Kalladka (Headache Clinic) who treated MIGRAINE only.",
+      "evidenceRefs": "CL007 Bhaskar letter p.1; Patient testimony re: Dr Kalladka",
+      "legalSignificance": "FABRICATION BY SPECIALIST: Invented fictitious clearance to justify rejection.",
+      "relatedFindings": [
+        "F365",
+        "F366",
+        "F367",
+        "F368"
+      ],
       "critical": true
     }
   ],
