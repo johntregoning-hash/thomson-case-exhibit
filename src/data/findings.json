@@ -1,7 +1,7 @@
 {
   "metadata": {
     "lastUpdated": "2026-01-21",
-    "totalFindings": 63,
+    "totalFindings": 64,
     "highestFindingId": "F372",
     "categories": [
       "DISCREPANCY",
@@ -392,14 +392,14 @@
     {
       "id": "F038",
       "title": "Psychiatric Assessment Clearance",
-      "date": "2023",
+      "date": "2013-2015",
       "dateFound": "2026-01-07",
       "source": "ChatGPT Analysis",
       "category": "VINDICATION",
       "evidenceStatus": "VERIFIED",
       "workflowStatus": "OPEN",
-      "summary": "Psychiatric assessment by Dr Gupta found NO: PTSD, depression, psychosis, personality disorder, OR somatisation disorder. Presentation consistent with inadequately treated physical illness.",
-      "evidenceRefs": "Dr Gupta psychiatric assessment",
+      "summary": "Psychiatric assessments by Dr Gupta (Psychiatrist, NOT the GP) across 2013-2015 found NO: PTSD, depression, psychosis, personality disorder, OR somatisation disorder. Presentation consistent with inadequately treated physical illness. See CL038, CL041, CL043.",
+      "evidenceRefs": "CL038_2013-05-03_Psychiatry_Gupta.doc; CL041_2014-08-22_Psychiatry_Gupta.doc; CL043_2015-05-19_Psychiatry_Gupta.doc",
       "legalSignificance": "VINDICATION - Formal psychiatric clearance undermines somatoform labelling.",
       "relatedFindings": [
         "F030",
@@ -1316,6 +1316,29 @@
       "critical": false,
       "tier": 5,
       "verificationMethod": "Gemini analysis 21 Jan 2026"
+    },
+    {
+      "id": "F002a",
+      "title": "MH1 Referral REJECTED by SPA and PCMHS",
+      "date": "2020-09-30",
+      "dateFound": "2026-01-21",
+      "source": "GP Records Entries 2020-210, 2020-212",
+      "category": "VINDICATION",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Dr Gupta's 28 Sep 2020 MH1 referral with somatisation framing was REJECTED within 2 days. SPA (Single Point of Access) rejected it as 'not suitable for secondary MH'. PCMHS (Primary Care Mental Health Services) also rejected it. Mental health services determined patient did NOT meet criteria for psychiatric intervention - directly contradicting GP's somatisation narrative. Despite this specialist rejection, GP practice applied somatoform diagnosis anyway in Jan 2023 (F040).",
+      "evidenceRefs": "GP Entry 2020-210: SPA rejection; GP Entry 2020-212: PCMHS rejection; MH1 referral form 28 Sep 2020 (F002)",
+      "legalSignificance": "CRITICAL VINDICATION - Mental health services evaluated Dr Gupta's somatisation framing and REJECTED it. Patient was 'not suitable' for secondary mental health. Practice then ignored this specialist rejection and applied psychiatric diagnosis 2+ years later WITHOUT any assessment. Proves: (1) somatisation framing rejected at first contact, (2) practice acted against specialist guidance, (3) Jan 2023 somatoform diagnosis had no clinical basis.",
+      "relatedFindings": [
+        "F002",
+        "F040",
+        "F045",
+        "F038",
+        "F362"
+      ],
+      "critical": true,
+      "tier": 2,
+      "breachIndicator": "YES - Practice applied psychiatric diagnosis (F040) after it had been explicitly rejected by mental health services"
     }
   ],
   "categoryCounts": {
