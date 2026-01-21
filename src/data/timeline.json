@@ -39,13 +39,6 @@
           "tier": 2
         },
         {
-          "date": "Pre-2020",
-          "event": "DEXA Scan",
-          "finding": "T/Z scores -2.3 to -2.6 (osteopenic range) - bone fragility documented",
-          "source": "Radiology records",
-          "tier": 1
-        },
-        {
           "date": "13 Jun 2019",
           "event": "Duplex Ultrasound (TOS Protocol)",
           "finding": "COMPLETE FLOW CESSATION in distal subclavian during Adson's/EAST manoeuvres. 'Positive result.'",
@@ -144,7 +137,7 @@
           "clinician": "Dr Gupta",
           "content": "'on same path as his brother who committed suicide after chronic pain'",
           "status": "CONTRADICTED",
-          "findingRef": "F002"
+          "findingRef": "F045"
         },
         {
           "date": "Sep 2021",
@@ -174,7 +167,9 @@
         "F369",
         "F370",
         "F371",
-        "F372"
+        "F372",
+        "F045",
+        "F026"
       ],
       "keyMessage": "Independent MSK physio documented GP dismissal BEFORE the December 2021 seizure. Pregabalin abruptly reduced contrary to BNF guidance, increasing seizure risk."
     },
@@ -480,6 +475,14 @@
       "description": "Further imaging continues to confirm objective vascular and structural pathology, establishing 6-year timeline of documented disease.",
       "truthSpine": [
         {
+          "date": "09 Jun 2025",
+          "event": "Doppler Upper Limbs (Royal Free)",
+          "finding": "Bilateral subclavian veins 'compressed with no flow' at 90\u00b0 abduction. Both artery and vein occluded in Surrender position.",
+          "source": "US Doppler Report",
+          "findingRef": "F036",
+          "tier": 1
+        },
+        {
           "date": "10 Jan 2024",
           "event": "MR Thoracic Inlet/Outlet (UCLH)",
           "finding": "Dynamic compression of left subclavian artery + vein with arms abducted; focal stenosis",
@@ -496,11 +499,10 @@
           "tier": 1
         },
         {
-          "date": "09 Jun 2025",
-          "event": "Doppler Upper Limbs (Royal Free)",
-          "finding": "Bilateral subclavian veins 'compressed with no flow' at 90\u00b0 abduction. Both artery and vein occluded in Surrender position.",
-          "source": "US Doppler Report",
-          "findingRef": "F036",
+          "date": "Oct 2025",
+          "event": "DEXA Scan",
+          "finding": "T/Z scores -2.3 to -2.6 (osteopenic range) - bone fragility documented",
+          "source": "Radiology records",
           "tier": 1
         }
       ],

@@ -1,7 +1,7 @@
 {
   "metadata": {
     "lastUpdated": "2026-01-21",
-    "totalFindings": 53,
+    "totalFindings": 55,
     "highestFindingId": "F372",
     "categories": [
       "DISCREPANCY",
@@ -49,7 +49,9 @@
     "F365",
     "F368",
     "F371",
-    "F372"
+    "F372",
+    "F026",
+    "F045"
   ],
   "findings": [
     {
@@ -185,6 +187,28 @@
         "F046"
       ],
       "critical": true
+    },
+    {
+      "id": "F026",
+      "title": "Jason Parry UCLH Documents Paraspinal Spasm & Back Pain",
+      "date": "2021-07-22",
+      "dateFound": "2026-01-21",
+      "source": "CL-UCLH - Jason Parry Hypermobility Service letter",
+      "category": "VINDICATION",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "UCLH Hypermobility Service letter from Jason Parry documents objective physical findings: paraspinal muscle spasm and patient 'struggling to sleep as a result of back pain'. This Tier 2 specialist evidence directly contradicts subsequent GP narrative of somatisation. Written 5 MONTHS BEFORE the December 2021 seizure.",
+      "evidenceRefs": "Jason Parry letter dated 22 Jul 2021; UCLH Hypermobility Service",
+      "legalSignificance": "Tier 2 specialist evidence of PHYSICAL pathology predating seizure. Contradicts GP somatisation narrative (F002). Demonstrates objective back pain documented by specialist while GPs were framing as psychological.",
+      "relatedFindings": [
+        "F002",
+        "F022",
+        "F001",
+        "F043"
+      ],
+      "critical": true,
+      "tier": 2,
+      "verificationMethod": "Gemini cross-verification 21 Jan 2026"
     },
     {
       "id": "F023",
@@ -479,6 +503,35 @@
         "F117"
       ],
       "critical": true
+    },
+    {
+      "id": "F045",
+      "title": "Dr Gupta 'Same Path as Brother' GP Entry",
+      "date": "2020-10-23",
+      "dateFound": "2026-01-21",
+      "source": "GP Record Entry - Dr Gupta consultation",
+      "category": "DISCREPANCY",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "GP Dr Gupta documented in patient record: 'on same path as his brother who committed suicide after chronic pain'. This entry, 25 days after MH1 somatisation referral, documents GP's fixed psychiatric bias. The entry itself is evidence of the GP's mindset and framing, regardless of whether the content is medically accurate.",
+      "evidenceRefs": "GP Record 23 Oct 2020 entry; MH1 Referral 28 Sep 2020 (F002)",
+      "legalSignificance": "Establishes documented GP bias linking patient's chronic pain to brother's suicide. ChatGPT breach assessment: BREACH - fails Bolitho logical analysis. GP entry is primary source evidence of author's state of mind, not a claim requiring external verification.",
+      "relatedFindings": [
+        "F002",
+        "F022",
+        "F026",
+        "F001"
+      ],
+      "critical": true,
+      "tier": 5,
+      "verificationMethod": "ChatGPT breach assessment + Gemini verification 21 Jan 2026",
+      "breachAssessment": {
+        "assessed": true,
+        "assessedBy": "ChatGPT",
+        "assessedDate": "2026-01-21",
+        "conclusion": "BREACH",
+        "reasoning": "Fails Bolitho logical analysis - psychiatric framing without formal assessment, using family suicide history to dismiss chronic pain without clinical evidence"
+      }
     },
     {
       "id": "F050",
