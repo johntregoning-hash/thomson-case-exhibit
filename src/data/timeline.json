@@ -1,16 +1,28 @@
 {
   "metadata": {
-    "lastUpdated": "2026-01-18",
+    "lastUpdated": "2026-01-21",
     "totalPhases": 8,
     "diagnosticDelay": "10 months",
     "indexEvent": "23 December 2021",
     "vindicationDate": "September 2025"
   },
   "colourCoding": {
-    "VERIFIED": { "emoji": "🟢", "meaning": "GP entry confirmed by independent evidence" },
-    "UNVERIFIED": { "emoji": "🟡", "meaning": "No independent corroboration available" },
-    "CONTRADICTED": { "emoji": "🔴", "meaning": "GP entry conflicts with independent evidence" },
-    "FABRICATED": { "emoji": "⚫", "meaning": "Entry impossible given known facts" }
+    "VERIFIED": {
+      "emoji": "\ud83d\udfe2",
+      "meaning": "GP entry confirmed by independent evidence"
+    },
+    "UNVERIFIED": {
+      "emoji": "\ud83d\udfe1",
+      "meaning": "No independent corroboration available"
+    },
+    "CONTRADICTED": {
+      "emoji": "\ud83d\udd34",
+      "meaning": "GP entry conflicts with independent evidence"
+    },
+    "FABRICATED": {
+      "emoji": "\u26ab",
+      "meaning": "Entry impossible given known facts"
+    }
   },
   "phases": [
     {
@@ -20,14 +32,6 @@
       "description": "Objective medical history documenting EDS, TOS-positive Doppler, and chronic pain predating the care failures.",
       "truthSpine": [
         {
-          "date": "13 Jun 2019",
-          "event": "Duplex Ultrasound (TOS Protocol)",
-          "finding": "COMPLETE FLOW CESSATION in distal subclavian during Adson's/EAST manoeuvres. 'Positive result.'",
-          "source": "Royal Free Doppler",
-          "findingRef": "F032",
-          "tier": 1
-        },
-        {
           "date": "Pre-2020",
           "event": "Ehlers-Danlos Syndrome diagnosed",
           "finding": "Chronic pain documented across multiple specialist letters",
@@ -35,15 +39,18 @@
           "tier": 2
         },
         {
-          "date": "Pre-2020",
-          "event": "DEXA Scan",
-          "finding": "T/Z scores -2.3 to -2.6 (osteopenic range) - bone fragility documented",
-          "source": "Radiology records",
+          "date": "13 Jun 2019",
+          "event": "Duplex Ultrasound (TOS Protocol)",
+          "finding": "COMPLETE FLOW CESSATION in distal subclavian during Adson's/EAST manoeuvres. 'Positive result.'",
+          "source": "Royal Free Doppler",
+          "findingRef": "F032",
           "tier": 1
         }
       ],
       "gpEntries": [],
-      "criticalFindings": ["F032"],
+      "criticalFindings": [
+        "F032"
+      ],
       "keyMessage": "2019 duplex ultrasound objectively demonstrated vascular TOS. Any subsequent GP entries treating TOS as 'speculative' or 'functional' are contradicted by this high-tier evidence."
     },
     {
@@ -53,12 +60,36 @@
       "description": "The pattern of dismissing physical symptoms as psychological begins, despite objective evidence of pathology.",
       "truthSpine": [
         {
+          "date": "22 Jul 2021",
+          "event": "UCLH Hypermobility Service",
+          "finding": "Jason Parry documented paraspinal muscle spasm, 'struggling to sleep as a result of back pain'",
+          "source": "Jason Parry letter",
+          "findingRef": "F026",
+          "tier": 2
+        },
+        {
           "date": "04 Aug 2021",
           "event": "MSK Physiotherapy Notes",
           "finding": "'issues with GP, as they did not believe his pain and accused him for attention seeking'",
           "source": "MSK Physio records",
           "findingRef": "F022",
           "tier": 3
+        },
+        {
+          "date": "08 Oct 2021",
+          "event": "Pharmacist McKenzie Warning",
+          "finding": "Patient self-stopped 600mg pregabalin. Pharmacist documented 'unwise to suddenly stop', advised TAPER to 300mg.",
+          "source": "GP Entry 269",
+          "findingRef": "F369",
+          "tier": 5
+        },
+        {
+          "date": "14 Oct 2021",
+          "event": "Dr Bhaskar Pain Clinic Rejection",
+          "finding": "Rejected WITHOUT examination. Based on WRONG spinal area. FABRICATED 'neurologist clearance' that never occurred.",
+          "source": "CL007 - Bhaskar Letter",
+          "findingRef": "F365",
+          "tier": 4
         },
         {
           "date": "18 Oct 2021",
@@ -69,12 +100,28 @@
           "tier": 2
         },
         {
-          "date": "22 Jul 2021",
-          "event": "UCLH Hypermobility Service",
-          "finding": "Jason Parry documented paraspinal muscle spasm, 'struggling to sleep as a result of back pain'",
-          "source": "Jason Parry letter",
-          "findingRef": "F026",
-          "tier": 2
+          "date": "18 Oct 2021",
+          "event": "Dr Williams Stops 600mg Pregabalin",
+          "finding": "7-point documentation failure. NO patient consultation, NO taper, ignored pharmacist warning from 10 days prior.",
+          "source": "GP Entry 288",
+          "findingRef": "F368",
+          "tier": 5
+        },
+        {
+          "date": "20 Oct 2021",
+          "event": "Patient Complains to Dr Idowu",
+          "finding": "'Advised to stop pregabalin by GW and would like to continue.' Third-party corroboration.",
+          "source": "GP Entry 291",
+          "findingRef": "F370",
+          "tier": 5
+        },
+        {
+          "date": "~19 Dec 2021",
+          "event": "Clive Polles Refuses Patch",
+          "finding": "Practice Manager refused buprenorphine patch replacement. ~4 DAYS before seizure.",
+          "source": "Patient testimony",
+          "findingRef": "F371",
+          "tier": 6
         }
       ],
       "gpEntries": [
@@ -90,7 +137,7 @@
           "clinician": "Dr Gupta",
           "content": "'on same path as his brother who committed suicide after chronic pain'",
           "status": "CONTRADICTED",
-          "findingRef": "F002"
+          "findingRef": "F045"
         },
         {
           "date": "Sep 2021",
@@ -102,12 +149,29 @@
         {
           "date": "Oct 2021",
           "clinician": "Unknown",
-          "content": "Pregabalin reduced 600mg → 100mg (83% reduction)",
+          "content": "Pregabalin reduced 600mg \u2192 100mg (83% reduction)",
           "status": "VERIFIED",
           "findingRef": "F042"
         }
       ],
-      "criticalFindings": ["F001", "F002", "F022", "F042", "F043"],
+      "criticalFindings": [
+        "F001",
+        "F002",
+        "F022",
+        "F042",
+        "F043",
+        "F365",
+        "F366",
+        "F367",
+        "F368",
+        "F369",
+        "F370",
+        "F371",
+        "F372",
+        "F045",
+        "F026",
+        "F002a"
+      ],
       "keyMessage": "Independent MSK physio documented GP dismissal BEFORE the December 2021 seizure. Pregabalin abruptly reduced contrary to BNF guidance, increasing seizure risk."
     },
     {
@@ -117,19 +181,19 @@
       "description": "First tonic-clonic seizure causing T5-T8 vertebral fractures. A&E and GP dismissed as 'soft tissue injury' without spinal imaging.",
       "truthSpine": [
         {
-          "date": "23 Dec 2021 22:39",
-          "event": "999 Call",
-          "finding": "Tonic-clonic seizure witnessed by family. 5-minute ambulance response (Category 1/2 life-threatening).",
-          "source": "Ambulance ePCR F250",
-          "findingRef": "F023",
-          "tier": 1
-        },
-        {
           "date": "23 Dec 2021",
           "event": "Ambulance Assessment",
           "finding": "HR 133bpm (tachycardia), Entonox for back pain, 'extremely combative and confused', 'held to ground by father'",
           "source": "Ambulance ePCR F250",
           "findingRef": "F023a",
+          "tier": 1
+        },
+        {
+          "date": "23 Dec 2021 22:39",
+          "event": "999 Call",
+          "finding": "Tonic-clonic seizure witnessed by family. 5-minute ambulance response (Category 1/2 life-threatening).",
+          "source": "Ambulance ePCR F250",
+          "findingRef": "F023",
           "tier": 1
         },
         {
@@ -162,7 +226,11 @@
           "findingRef": "F-GEM-011"
         }
       ],
-      "criticalFindings": ["F023", "F023a", "F047"],
+      "criticalFindings": [
+        "F023",
+        "F023a",
+        "F047"
+      ],
       "keyMessage": "Ambulance documented life-threatening triaging (5-min response), severe back pain requiring Entonox, combative post-ictal state. These objective markers were subsequently ignored.",
       "breaches": [
         "No thoracic spine imaging despite NICE NG59 red flags",
@@ -203,19 +271,23 @@
       ],
       "gpEntries": [
         {
-          "date": "Jan-Nov 2022",
-          "clinician": "Multiple",
-          "content": "Pain medication adjustments only - no thoracic imaging ordered",
-          "status": "CONTRADICTED"
-        },
-        {
           "date": "Throughout",
           "clinician": "Multiple",
           "content": "Psychiatric referral suggested while objective spinal pathology present",
           "status": "CONTRADICTED"
+        },
+        {
+          "date": "Jan-Nov 2022",
+          "clinician": "Multiple",
+          "content": "Pain medication adjustments only - no thoracic imaging ordered",
+          "status": "CONTRADICTED"
         }
       ],
-      "criticalFindings": ["F041", "F347", "F048"],
+      "criticalFindings": [
+        "F041",
+        "F347",
+        "F048"
+      ],
       "keyMessage": "10-MONTH DIAGNOSTIC DELAY. Patient complained of exact thoracic pain location where fractures later confirmed. Neurospine discharged patient after imaging WRONG spinal region (lumbar not thoracic).",
       "diagnosticDelay": {
         "start": "23 December 2021",
@@ -262,7 +334,10 @@
           "status": "CONTRADICTED"
         }
       ],
-      "criticalFindings": ["F040", "F127"],
+      "criticalFindings": [
+        "F040",
+        "F127"
+      ],
       "keyMessage": "Psychiatric diagnosis applied (1) without psychiatric assessment, (2) without patient knowledge, (3) AFTER MRI proved T5-T8 fractures. Used wrong ICD-10 code (E278 vs F45.4).",
       "breaches": [
         "Telephone call, not psychiatric assessment",
@@ -311,7 +386,14 @@
           "critical": true
         }
       ],
-      "criticalFindings": ["F044", "F045", "F104", "F115", "F116", "F117"],
+      "criticalFindings": [
+        "F044",
+        "F045",
+        "F104",
+        "F115",
+        "F116",
+        "F117"
+      ],
       "keyMessage": "'Addiction' label applied without toxicology testing. Tachycardia (pulse 100) attributed to stimulants when 2-year documented cardiac history showed it was baseline. Brother's death weaponised to dismiss symptoms.",
       "breaches": [
         "Addiction diagnosis without formal assessment or toxicology",
@@ -376,7 +458,15 @@
           "critical": true
         }
       ],
-      "criticalFindings": ["F030", "F031", "F128", "F323", "F337", "F354", "F356"],
+      "criticalFindings": [
+        "F030",
+        "F031",
+        "F128",
+        "F323",
+        "F337",
+        "F354",
+        "F356"
+      ],
       "keyMessage": "Internal NHS vindication from subsequent GP. Multiple independent specialists confirmed organic pathology and rejected psychiatric framing."
     },
     {
@@ -385,6 +475,14 @@
       "period": "2024-2025",
       "description": "Further imaging continues to confirm objective vascular and structural pathology, establishing 6-year timeline of documented disease.",
       "truthSpine": [
+        {
+          "date": "09 Jun 2025",
+          "event": "Doppler Upper Limbs (Royal Free)",
+          "finding": "Bilateral subclavian veins 'compressed with no flow' at 90\u00b0 abduction. Both artery and vein occluded in Surrender position.",
+          "source": "US Doppler Report",
+          "findingRef": "F036",
+          "tier": 1
+        },
         {
           "date": "10 Jan 2024",
           "event": "MR Thoracic Inlet/Outlet (UCLH)",
@@ -402,33 +500,57 @@
           "tier": 1
         },
         {
-          "date": "09 Jun 2025",
-          "event": "Doppler Upper Limbs (Royal Free)",
-          "finding": "Bilateral subclavian veins 'compressed with no flow' at 90° abduction. Both artery and vein occluded in Surrender position.",
-          "source": "US Doppler Report",
-          "findingRef": "F036",
+          "date": "Oct 2025",
+          "event": "DEXA Scan",
+          "finding": "T/Z scores -2.3 to -2.6 (osteopenic range) - bone fragility documented",
+          "source": "Radiology records",
           "tier": 1
         }
       ],
       "gpEntries": [],
-      "criticalFindings": ["F033", "F036", "F037"],
-      "keyMessage": "SIX-YEAR TIMELINE of documented vascular TOS: 2019 Duplex → 2024 MR → 2025 Doppler. All positive. Rebuts any 'functional/non-organic' narrative.",
+      "criticalFindings": [
+        "F033",
+        "F036",
+        "F037"
+      ],
+      "keyMessage": "SIX-YEAR TIMELINE of documented vascular TOS: 2019 Duplex \u2192 2024 MR \u2192 2025 Doppler. All positive. Rebuts any 'functional/non-organic' narrative.",
       "tosTimeline": {
         "start": "June 2019",
         "end": "June 2025",
         "span": "6 years",
         "studies": [
-          { "date": "Jun 2019", "type": "Duplex Ultrasound", "result": "Complete flow cessation - POSITIVE" },
-          { "date": "Jan 2024", "type": "Dynamic MR", "result": "Compression with arms abducted - POSITIVE" },
-          { "date": "Jul 2024", "type": "MRA (Vascular)", "result": "Subclavian compression + stenosis - POSITIVE" },
-          { "date": "Jun 2025", "type": "Doppler", "result": "Bilateral occlusion at 90° - POSITIVE" }
+          {
+            "date": "Jun 2019",
+            "type": "Duplex Ultrasound",
+            "result": "Complete flow cessation - POSITIVE"
+          },
+          {
+            "date": "Jan 2024",
+            "type": "Dynamic MR",
+            "result": "Compression with arms abducted - POSITIVE"
+          },
+          {
+            "date": "Jul 2024",
+            "type": "MRA (Vascular)",
+            "result": "Subclavian compression + stenosis - POSITIVE"
+          },
+          {
+            "date": "Jun 2025",
+            "type": "Doppler",
+            "result": "Bilateral occlusion at 90\u00b0 - POSITIVE"
+          }
         ]
       },
       "vascularVindication": {
         "date": "03 July 2024",
         "clinician": "Mr Aaron Goh",
         "organisation": "Royal Free Hospital - Vascular Surgery",
-        "findingRefs": ["F356", "F357", "F358", "F359"],
+        "findingRefs": [
+          "F356",
+          "F357",
+          "F358",
+          "F359"
+        ],
         "keyFindings": [
           "Formal diagnoses: Epilepsy, T5-T8 fractures, EDS (all ORGANIC)",
           "Tremor listed as 'unknown aetiology' - NOT labelled functional",
@@ -441,20 +563,93 @@
     }
   ],
   "causationChain": {
-    "title": "Sleep Deprivation → Seizure → Fracture Chain",
+    "title": "Sleep Deprivation \u2192 Seizure \u2192 Fracture Chain",
     "findingRef": "F050",
     "steps": [
-      { "date": "October 2020", "event": "Back pain documented" },
-      { "date": "October 2021", "event": "Pregabalin reduced contrary to BNF (F042)", "breach": true },
-      { "date": "Late 2021", "event": "Inadequate pain control → sleep deprivation" },
-      { "date": "23 December 2021", "event": "First tonic-clonic seizure (INDEX EVENT)", "critical": true },
-      { "date": "23 December 2021", "event": "T5-T8 vertebral fractures sustained", "critical": true },
-      { "date": "23-24 December 2021", "event": "A&E + GP dismiss as 'soft tissue' (F047)", "breach": true },
-      { "date": "January - October 2022", "event": "10-month diagnostic delay (F041)", "breach": true },
-      { "date": "16 October 2022", "event": "MRI finally confirms fractures" },
-      { "date": "05 January 2023", "event": "Somatoform diagnosis applied AFTER fractures proven (F040)", "breach": true },
-      { "date": "2023-2025", "event": "Contaminated referrals → deprioritised care" },
-      { "date": "September 2025", "event": "Dr Gorrie removes inappropriate diagnosis (VINDICATION)", "vindication": true }
+      {
+        "date": "October 2020",
+        "event": "Back pain documented"
+      },
+      {
+        "date": "October 2021",
+        "event": "Pregabalin reduced contrary to BNF (F042)",
+        "breach": true
+      },
+      {
+        "date": "Late 2021",
+        "event": "Inadequate pain control \u2192 sleep deprivation"
+      },
+      {
+        "date": "~05 Oct 2021",
+        "event": "Patient self-stops 600mg pregabalin due to side effects"
+      },
+      {
+        "date": "08 Oct 2021",
+        "event": "Pharmacist McKenzie warns, recommends 300mg taper (F369)",
+        "breach": true
+      },
+      {
+        "date": "14 Oct 2021",
+        "event": "Bhaskar rejects WITHOUT examination (F365)",
+        "breach": true
+      },
+      {
+        "date": "14 Oct 2021",
+        "event": "Bhaskar FABRICATES 'neurologist clearance' (F372)",
+        "breach": true
+      },
+      {
+        "date": "18 Oct 2021",
+        "event": "Williams stops 600mg - 7-point failure (F368)",
+        "breach": true
+      },
+      {
+        "date": "20 Oct 2021",
+        "event": "Patient complains to Idowu (F370)"
+      },
+      {
+        "date": "~19 Dec 2021",
+        "event": "Clive refuses buprenorphine patch (F371)",
+        "breach": true
+      },
+      {
+        "date": "23 December 2021",
+        "event": "First tonic-clonic seizure (INDEX EVENT)",
+        "critical": true
+      },
+      {
+        "date": "23 December 2021",
+        "event": "T5-T8 vertebral fractures sustained",
+        "critical": true
+      },
+      {
+        "date": "23-24 December 2021",
+        "event": "A&E + GP dismiss as 'soft tissue' (F047)",
+        "breach": true
+      },
+      {
+        "date": "January - October 2022",
+        "event": "10-month diagnostic delay (F041)",
+        "breach": true
+      },
+      {
+        "date": "16 October 2022",
+        "event": "MRI finally confirms fractures"
+      },
+      {
+        "date": "05 January 2023",
+        "event": "Somatoform diagnosis applied AFTER fractures proven (F040)",
+        "breach": true
+      },
+      {
+        "date": "2023-2025",
+        "event": "Contaminated referrals \u2192 deprioritised care"
+      },
+      {
+        "date": "September 2025",
+        "event": "Dr Gorrie removes inappropriate diagnosis (VINDICATION)",
+        "vindication": true
+      }
     ],
     "butForTest": "But for the failures to treat pain adequately (leading to sleep deprivation) and image the spine (leading to delayed diagnosis), the patient would not have suffered the seizure, sustained the fractures, gone 10 months with untreated spinal fractures, or had psychiatric label contaminate his care for 2.5 years."
   },
@@ -469,14 +664,68 @@
     "timeRemaining": "~2.5 years"
   },
   "breachRegister": [
-    { "id": "B001", "date": "23-24 Dec 2021", "clinician": "Charing Cross A&E", "nature": "Failed to image thoracic spine despite red flags", "status": "VERIFIED" },
-    { "id": "B002", "date": "24 Dec 2021", "clinician": "Dr Khemani", "nature": "Failed to order spinal imaging post-seizure", "status": "VERIFIED" },
-    { "id": "B003", "date": "Jan-Oct 2022", "clinician": "Multiple GPs", "nature": "10-month diagnostic delay for T5-T8 fractures", "status": "VERIFIED" },
-    { "id": "B004", "date": "Oct 2021", "clinician": "Unknown GP", "nature": "Pregabalin reduction contrary to BNF", "status": "VERIFIED" },
-    { "id": "B005", "date": "05 Jan 2023", "clinician": "Dr Bulale", "nature": "Somatoform diagnosis without assessment", "status": "VERIFIED" },
-    { "id": "B006", "date": "02 Aug 2023", "clinician": "Dr Morgan", "nature": "Addiction allegation without testing", "status": "VERIFIED" },
-    { "id": "B007", "date": "18 Aug 2023", "clinician": "Dr Drewry", "nature": "Defamatory entry re brother's death", "status": "VERIFIED" },
-    { "id": "B008", "date": "Dec 2021", "clinician": "Clive Polles", "nature": "Non-clinical staff refusing medication", "status": "VERIFIED" },
-    { "id": "B009", "date": "Various", "clinician": "Multiple", "nature": "Lamotrigine removed without taper", "status": "VERIFIED" }
+    {
+      "id": "B001",
+      "date": "23-24 Dec 2021",
+      "clinician": "Charing Cross A&E",
+      "nature": "Failed to image thoracic spine despite red flags",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "B002",
+      "date": "24 Dec 2021",
+      "clinician": "Dr Khemani",
+      "nature": "Failed to order spinal imaging post-seizure",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "B003",
+      "date": "Jan-Oct 2022",
+      "clinician": "Multiple GPs",
+      "nature": "10-month diagnostic delay for T5-T8 fractures",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "B004",
+      "date": "Oct 2021",
+      "clinician": "Unknown GP",
+      "nature": "Pregabalin reduction contrary to BNF",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "B005",
+      "date": "05 Jan 2023",
+      "clinician": "Dr Bulale",
+      "nature": "Somatoform diagnosis without assessment",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "B006",
+      "date": "02 Aug 2023",
+      "clinician": "Dr Morgan",
+      "nature": "Addiction allegation without testing",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "B007",
+      "date": "18 Aug 2023",
+      "clinician": "Dr Drewry",
+      "nature": "Defamatory entry re brother's death",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "B008",
+      "date": "Dec 2021",
+      "clinician": "Clive Polles",
+      "nature": "Non-clinical staff refusing medication",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "B009",
+      "date": "Various",
+      "clinician": "Multiple",
+      "nature": "Lamotrigine removed without taper",
+      "status": "VERIFIED"
+    }
   ]
 }
