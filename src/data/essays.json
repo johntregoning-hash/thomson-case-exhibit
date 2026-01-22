@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "lastUpdated": "2026-01-19",
-    "totalEssays": 6,
+    "lastUpdated": "2026-01-21",
+    "totalEssays": 9,
     "description": "Foundational essays documenting the core arguments, evidence chains, and legal analysis for Thomson v NHS Providers"
   },
   "essays": [
@@ -130,6 +130,66 @@
         "MRA confirms compression and focal stenosis",
         "Specialist documents extreme suffering - patient prefers amputation",
         "6+ years of documented pathology without definitive intervention"
+      ],
+      "critical": true
+    },
+    {
+      "id": "dorian-weaponization",
+      "title": "The Weaponization of Grief",
+      "subtitle": "How Dorian Thomson's Suicide Was Used to Dismiss His Brother's Physical Symptoms",
+      "filename": "DORIAN_THOMSON_CONTEXT_DOCUMENT.md",
+      "date": "2026-01-21",
+      "version": "1.0",
+      "category": "PROCEDURAL",
+      "status": "CURRENT",
+      "keyFindings": ["F002", "F040", "F043", "F045", "F091", "F112"],
+      "summary": "Documents the systematic pattern where John Thomson's older brother's suicide was invoked to frame physical symptoms as psychological, despite objective pathology confirmed on imaging.",
+      "keyArguments": [
+        "Brother's suicide in 2011 referenced repeatedly in medical notes",
+        "Used to justify psychiatric framing of physical symptoms",
+        "Pattern continued even after MRI confirmed vertebral fractures",
+        "Pain Clinic referral rejected using family suicide concerns as pretext",
+        "Grief weaponized as diagnostic shortcut"
+      ],
+      "critical": true
+    },
+    {
+      "id": "polles-chronology",
+      "title": "Practice Manager Conduct: Complete Chronology",
+      "subtitle": "Documented Timeline of Non-Clinical Interference in Clinical Care",
+      "filename": "Clive_Polles_Conduct_Chronology.md",
+      "date": "2026-01-21",
+      "version": "1.0",
+      "category": "PROCEDURAL",
+      "status": "CURRENT",
+      "keyFindings": ["F136", "F021", "F040", "F042"],
+      "summary": "Comprehensive chronological documentation of practice manager Clive Polles' involvement in clinical decisions, supported by contemporaneous iMessage evidence.",
+      "keyArguments": [
+        "Direct text messages to patient family about medications",
+        "Clinical decisions made without clinical qualifications",
+        "Medication refused 4 days before index seizure",
+        "Current GP references 'sketchy stuff' blocking merger",
+        "Pattern of 'off the books' communications"
+      ],
+      "critical": true
+    },
+    {
+      "id": "pain-vindication",
+      "title": "Pain Reporting and Vindication",
+      "subtitle": "How Documented Pain Was Systematically Dismissed Until Imaging Proved the Cause",
+      "filename": "2026-01-16_EXPANDED_Pain_Evidence_With_Vindication.md",
+      "date": "2026-01-21",
+      "version": "1.0",
+      "category": "VINDICATION",
+      "status": "CURRENT",
+      "keyFindings": ["F030", "F031", "F040", "F041", "F347", "F354", "F356"],
+      "summary": "Detailed analysis of the pattern where John Thomson's pain reporting was dismissed as psychological or exaggerated, until independent specialists and imaging vindicated every complaint.",
+      "keyArguments": [
+        "Pain consistently documented but attributed to 'somatoform' causes",
+        "GP claimed 'imaging normal' but wrong area was scanned",
+        "Patient explicitly requested scan - GP declined",
+        "Pain Clinic explicitly refuted somatoform characterisation",
+        "Independent specialists vindicated all physical complaints"
       ],
       "critical": true
     }

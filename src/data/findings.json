@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "lastUpdated": "2026-01-21",
-    "totalFindings": 64,
+    "lastUpdated": "2026-01-22",
+    "totalFindings": 121,
     "highestFindingId": "F372",
     "categories": [
       "DISCREPANCY",
@@ -101,6 +101,29 @@
       "critical": true
     },
     {
+      "id": "F002a",
+      "title": "MH1 Referral REJECTED by SPA and PCMHS",
+      "date": "2020-09-30",
+      "dateFound": "2026-01-21",
+      "source": "GP Records Entries 2020-210, 2020-212",
+      "category": "VINDICATION",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Dr Gupta's 28 Sep 2020 MH1 referral with somatisation framing was REJECTED within 2 days. SPA (Single Point of Access) rejected it as 'not suitable for secondary MH'. PCMHS (Primary Care Mental Health Services) also rejected it. Mental health services determined patient did NOT meet criteria for psychiatric intervention - directly contradicting GP's somatisation narrative. Despite this specialist rejection, GP practice applied somatoform diagnosis anyway in Jan 2023 (F040).",
+      "evidenceRefs": "GP Entry 2020-210: SPA rejection; GP Entry 2020-212: PCMHS rejection; MH1 referral form 28 Sep 2020 (F002)",
+      "legalSignificance": "CRITICAL VINDICATION - Mental health services evaluated Dr Gupta's somatisation framing and REJECTED it. Patient was 'not suitable' for secondary mental health. Practice then ignored this specialist rejection and applied psychiatric diagnosis 2+ years later WITHOUT any assessment. Proves: (1) somatisation framing rejected at first contact, (2) practice acted against specialist guidance, (3) Jan 2023 somatoform diagnosis had no clinical basis.",
+      "relatedFindings": [
+        "F002",
+        "F040",
+        "F045",
+        "F038",
+        "F362"
+      ],
+      "critical": true,
+      "tier": 2,
+      "breachIndicator": "YES - Practice applied psychiatric diagnosis (F040) after it had been explicitly rejected by mental health services"
+    },
+    {
       "id": "F003",
       "title": "Neurology Letter Seizure History Divergence",
       "date": "2022-03-22",
@@ -196,28 +219,6 @@
       "critical": true
     },
     {
-      "id": "F026",
-      "title": "Jason Parry UCLH Documents Paraspinal Spasm & Back Pain",
-      "date": "2021-07-22",
-      "dateFound": "2026-01-21",
-      "source": "CL-UCLH - Jason Parry Hypermobility Service letter",
-      "category": "VINDICATION",
-      "evidenceStatus": "VERIFIED",
-      "workflowStatus": "OPEN",
-      "summary": "UCLH Hypermobility Service letter from Jason Parry documents objective physical findings: paraspinal muscle spasm and patient 'struggling to sleep as a result of back pain'. This Tier 2 specialist evidence directly contradicts subsequent GP narrative of somatisation. Written 5 MONTHS BEFORE the December 2021 seizure.",
-      "evidenceRefs": "Jason Parry letter dated 22 Jul 2021; UCLH Hypermobility Service",
-      "legalSignificance": "Tier 2 specialist evidence of PHYSICAL pathology predating seizure. Contradicts GP somatisation narrative (F002). Demonstrates objective back pain documented by specialist while GPs were framing as psychological.",
-      "relatedFindings": [
-        "F002",
-        "F022",
-        "F001",
-        "F043"
-      ],
-      "critical": true,
-      "tier": 2,
-      "verificationMethod": "Gemini cross-verification 21 Jan 2026"
-    },
-    {
       "id": "F023",
       "title": "Ambulance ePCR Corroborates 23 Dec 2021 Seizure",
       "date": "2021-12-23",
@@ -246,7 +247,7 @@
       "category": "WITNESS",
       "evidenceStatus": "VERIFIED",
       "workflowStatus": "OPEN",
-      "summary": "London Ambulance Service reached scene in 5 minutes (Call 22:39 \u2192 On Scene 22:44). This indicates Category 1 (Life Threatening) or High Category 2 (Emergency) triaging.",
+      "summary": "London Ambulance Service reached scene in 5 minutes (Call 22:39 → On Scene 22:44). This indicates Category 1 (Life Threatening) or High Category 2 (Emergency) triaging.",
       "evidenceRefs": "Ambulance Notes ePCR F250.pdf",
       "legalSignificance": "Objective third-party evidence that the index event was triaged as life-threatening/emergency. Contradicts GP characterisation as 'soft tissue injury'.",
       "relatedFindings": [
@@ -256,6 +257,67 @@
         "F050"
       ],
       "critical": false
+    },
+    {
+      "id": "F024",
+      "title": "Second Seizure - Epilepsy Formally Diagnosed",
+      "date": "2022-02",
+      "dateFound": "2026-01-21",
+      "source": "ED records - second seizure attendance",
+      "category": "BREACH",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Second tonic-clonic seizure in February 2022 led to formal epilepsy diagnosis. ED records document right rib fracture 'aggravated further'. This second seizure occurred BEFORE fractures were diagnosed, demonstrating ongoing neurological harm from first seizure that went uninvestigated.",
+      "evidenceRefs": "ED records Feb 2022; Neurology follow-up letters",
+      "legalSignificance": "Demonstrates continuation of harm during diagnostic delay. Patient suffered second seizure and rib fracture progression while GP practice failed to investigate thoracic spine from first seizure.",
+      "relatedFindings": [
+        "F023",
+        "F047",
+        "F048"
+      ],
+      "critical": true,
+      "tier": 2
+    },
+    {
+      "id": "F025",
+      "title": "Patient eConsult States First Seizure 23 Dec 2021 (Oct 2023)",
+      "dateFound": "06 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "PATCHS submission (17 Oct 2023) explicitly states first tonic-clonic was 23 Dec 2021.",
+      "evidenceRefs": "GP Record 3.docx: PATCHS entry 17 Oct 2023 14:37",
+      "legalSignificance": "Seizure date is documented in GP-held submissions, not retrospective reconstruction.",
+      "relatedFindings": [
+        "F023",
+        "F034",
+        "F050"
+      ],
+      "category": "WITNESS",
+      "date": "06 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F026",
+      "title": "Jason Parry UCLH Documents Paraspinal Spasm & Back Pain",
+      "date": "2021-07-22",
+      "dateFound": "2026-01-21",
+      "source": "CL-UCLH - Jason Parry Hypermobility Service letter",
+      "category": "VINDICATION",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "UCLH Hypermobility Service letter from Jason Parry documents objective physical findings: paraspinal muscle spasm and patient 'struggling to sleep as a result of back pain'. This Tier 2 specialist evidence directly contradicts subsequent GP narrative of somatisation. Written 5 MONTHS BEFORE the December 2021 seizure.",
+      "evidenceRefs": "Jason Parry letter dated 22 Jul 2021; UCLH Hypermobility Service",
+      "legalSignificance": "Tier 2 specialist evidence of PHYSICAL pathology predating seizure. Contradicts GP somatisation narrative (F002). Demonstrates objective back pain documented by specialist while GPs were framing as psychological.",
+      "relatedFindings": [
+        "F002",
+        "F022",
+        "F001",
+        "F043"
+      ],
+      "critical": true,
+      "tier": 2,
+      "verificationMethod": "Gemini cross-verification 21 Jan 2026"
     },
     {
       "id": "F027",
@@ -322,7 +384,7 @@
       "category": "VINDICATION",
       "evidenceStatus": "VERIFIED",
       "workflowStatus": "OPEN",
-      "summary": "Bilateral upper-limb arterial duplex study recorded complete cessation of flow within the distal subclavian artery during Adson's and EAST manoeuvres bilaterally. Conclusion: 'Marked haemodynamic changes\u2026 a positive result.'",
+      "summary": "Bilateral upper-limb arterial duplex study recorded complete cessation of flow within the distal subclavian artery during Adson's and EAST manoeuvres bilaterally. Conclusion: 'Marked haemodynamic changes… a positive result.'",
       "evidenceRefs": "Royal Free Doppler 13/06/2019",
       "legalSignificance": "HIGH-TIER OBJECTIVE EVIDENCE - Vascular compression existed years before later disputes. Undermines 'no objective evidence / purely functional' framing.",
       "relatedFindings": [
@@ -352,6 +414,26 @@
       "critical": true
     },
     {
+      "id": "F034",
+      "title": "Dr Gorrie Recognises 2021 Seizure/Fractures (Oct 2023)",
+      "dateFound": "06 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Dr Gorrie (17 Oct 2023) recorded seizure history linked to MRI findings of T5-T8 'degeneration/old fractures'. First GP to properly recognise injury pattern - what previous GPs dismissed for ~2 years.",
+      "evidenceRefs": "GP Record 17 Oct 2023 (Dr Gorrie)",
+      "legalSignificance": "VINDICATION - Demonstrates reasonable GP care would have identified issues earlier.",
+      "relatedFindings": [
+        "F030",
+        "F041",
+        "F050",
+        "F025"
+      ],
+      "category": "VINDICATION",
+      "date": "06 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
       "id": "F036",
       "title": "US Doppler June 2025 Shows Dynamic Bilateral Subclavian Occlusion",
       "date": "2025-06-09",
@@ -360,7 +442,7 @@
       "category": "VINDICATION",
       "evidenceStatus": "VERIFIED",
       "workflowStatus": "OPEN",
-      "summary": "Royal Free ultrasound Doppler documents dynamic vascular compression. Both arms at 90\u00b0 abduction: subclavian veins 'compressed with no flow'. Right arm in Surrender position: both artery and vein 'compressed with no flow detected'.",
+      "summary": "Royal Free ultrasound Doppler documents dynamic vascular compression. Both arms at 90° abduction: subclavian veins 'compressed with no flow'. Right arm in Surrender position: both artery and vein 'compressed with no flow detected'.",
       "evidenceRefs": "US Doppler 09/06/2025 - Royal Free",
       "legalSignificance": "HIGH-TIER OBJECTIVE EVIDENCE - Dynamic vascular TOS demonstrated. Establishes SIX-YEAR timeline of documented vascular pathology.",
       "relatedFindings": [
@@ -541,15 +623,133 @@
       }
     },
     {
+      "id": "F046",
+      "title": "Dr Mehta Letter Documents GP Lamotrigine Titration Failure (May 2023)",
+      "dateFound": "06 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Neurology letter (Dr Mehta, 19 May 2023) records patient's difficulties with GP following lamotrigine up-titration plan.",
+      "evidenceRefs": "Dr Mehta letter 19/05/2023",
+      "legalSignificance": "Independent specialist documenting GP non-compliance with specialist advice.",
+      "relatedFindings": [
+        "F042",
+        "F050",
+        "F102"
+      ],
+      "category": "BREACH",
+      "date": "06 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F047",
+      "title": "A&E Discharged Fractures as 'Soft Tissue Injury'",
+      "date": "2021-12-24",
+      "dateFound": "2026-01-21",
+      "source": "ED Depart Summary - CXH",
+      "category": "BREACH",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "24 Dec 2021 A&E attendance following first seizure: CT Head performed (NAD), but NO thoracic spine imaging despite severe back pain. Patient discharged with 'soft tissue injury' diagnosis. T5-T8 vertebral fractures confirmed 10 months later in same location.",
+      "evidenceRefs": "CXH ED Depart Summary 24 Dec 2021; MRI 16 Oct 2022 (F048)",
+      "legalSignificance": "NICE NG59 mandates spinal imaging with seizure + back pain red flags. Failure to image resulted in 10-month diagnostic delay. 'Soft tissue' diagnosis FABRICATED - no imaging to support this assessment.",
+      "relatedFindings": [
+        "F023",
+        "F048",
+        "F-GEM-011"
+      ],
+      "critical": true,
+      "tier": 2
+    },
+    {
+      "id": "F048",
+      "title": "T5-T8 Vertebral Fractures Confirmed on MRI",
+      "date": "2022-10-16",
+      "dateFound": "2026-01-21",
+      "source": "MRI Report - Dr A. Kenji Yamamoto, UCLH",
+      "category": "VINDICATION",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "UCLH MRI 16 October 2022 confirms T5-T8 VERTEBRAL FRACTURES. Report documents: 'Development of mild depression... superior endplate of T5 to T8.' This Tier 1 imaging evidence VINDICATES patient's 10-month complaints of thoracic pain and CONTRADICTS all GP/A&E 'soft tissue' diagnoses.",
+      "evidenceRefs": "MRI Report Dr A. Kenji Yamamoto 16/10/2022",
+      "legalSignificance": "TIER 1 EVIDENCE. Definitive proof of organic spinal pathology. Location (T5-T8) exactly matches patient's documented pain complaints from Dec 2021. Irrefutable basis for Lane A (fracture delay) causation.",
+      "relatedFindings": [
+        "F047",
+        "F023",
+        "F024"
+      ],
+      "critical": true,
+      "tier": 1
+    },
+    {
+      "id": "F049",
+      "title": "ENT Letter June 2016: Pseudomonas Ear Infection, Ofloxacin Drops",
+      "dateFound": "07 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "ENT clinic letter (07/06/2016) documents left otitis externa with pseudomonas, intermittent morphine requirement for ear pain, Ofloxacin drops. GP appropriately suspected mastoiditis.",
+      "evidenceRefs": "ENT letter 07/06/2016; Dr Sophie J Le Gros for Mr Hesham Saleh",
+      "legalSignificance": "Establishes ear pathology and quinolone use predating SCDS by years.",
+      "relatedFindings": [
+        "F049a",
+        "F049b",
+        "F061",
+        "F118"
+      ],
+      "category": "MEDICATION",
+      "date": "07 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F049a",
+      "title": "ED September 2016: Acute Mastoiditis Diagnosed",
+      "dateFound": "07 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Imperial ED (13/09/2016) explicitly records acute mastoiditis with ear discharge. IV Paracetamol, co-amoxiclav, naproxen.",
+      "evidenceRefs": "Imperial ED letter 13/09/2016",
+      "legalSignificance": "VERIFIED MASTOIDITIS - Serious ear pathology requiring IV treatment. Predates SCDS by years.",
+      "relatedFindings": [
+        "F049",
+        "F049b",
+        "F061",
+        "F118"
+      ],
+      "category": "MEDICATION",
+      "date": "07 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F049b",
+      "title": "Recurrent Ear Infections 2016-2017: Severity Pattern",
+      "dateFound": "07 Jan 2026",
+      "evidenceStatus": "SUPPORTED",
+      "workflowStatus": "OPEN",
+      "summary": "Multiple attendances June 2016 - November 2017: recurrent otitis externa, 10/10 pain, 80% hearing reduction, dizziness, opioid analgesia required. Multiple topical agents and systemic antibiotics. Possible ofloxacin hypersensitivity.",
+      "evidenceRefs": "Adastra discharge reports; ENT letters; ED letters",
+      "legalSignificance": "Pattern of severe, recurrent ear disease over 18+ months - PREDATING SCDS.",
+      "relatedFindings": [
+        "F049",
+        "F049a",
+        "F118"
+      ],
+      "category": "MEDICATION",
+      "date": "07 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
       "id": "F050",
-      "title": "Sleep Deprivation \u2192 Seizure \u2192 Fracture Chain",
+      "title": "Sleep Deprivation → Seizure → Fracture Chain",
       "date": "2020-10 to 2021-12",
       "dateFound": "Pre-existing",
       "source": "Clinical timeline analysis",
       "category": "CAUSATION",
       "evidenceStatus": "VERIFIED",
       "workflowStatus": "OPEN",
-      "summary": "Causation chain: Undertreated back pain \u2192 Inability to lie flat \u2192 14+ months sleep deprivation \u2192 Lowered seizure threshold \u2192 Tonic-clonic seizure 23 Dec 2021 \u2192 T5-T8 vertebral fractures.",
+      "summary": "Causation chain: Undertreated back pain → Inability to lie flat → 14+ months sleep deprivation → Lowered seizure threshold → Tonic-clonic seizure 23 Dec 2021 → T5-T8 vertebral fractures.",
       "evidenceRefs": "GP records Oct 2020 onwards; Ambulance ePCR; MRI 16/10/2022; Jason Parry letter 22/07/2021",
       "legalSignificance": "Establishes but-for causation: but for failure to treat pain adequately, patient would not have experienced seizure-inducing sleep deprivation.",
       "relatedFindings": [
@@ -559,6 +759,393 @@
         "F126"
       ],
       "critical": true
+    },
+    {
+      "id": "F061",
+      "title": "Post-SCDS Surgery Complications (Feb 2023)",
+      "dateFound": "06 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "C&W ED (06/02/2023) documents significant ear discharge/bleeding ~4 weeks after SCDS surgery at UCLH. Likely tympanic membrane perforation. Note: 'no notes available to access.'",
+      "evidenceRefs": "Post Skull Surgery Ear Discharge Summary 07Feb2023.pdf",
+      "legalSignificance": "Supports postoperative complication burden and inter-trust communication failures.",
+      "relatedFindings": [
+        "F046",
+        "F118"
+      ],
+      "category": "QUANTUM",
+      "date": "06 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F070",
+      "title": "Unusual Hours Record Access",
+      "dateFound": "Pre-existing",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Screenshots appear to show GP record access at unusual hours (weekends, bank holidays, late night) without apparent clinical justification. Pattern correlates with disputed entries.",
+      "evidenceRefs": "Screenshots (to be preserved); full audit log (via SAR)",
+      "legalSignificance": "If confirmed, may support UK GDPR breaches and/or Computer Misuse Act concerns.",
+      "relatedFindings": [
+        "F021",
+        "F073"
+      ],
+      "category": "PROCEDURAL",
+      "date": "Pre-existing",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F071",
+      "title": "Clive Polles Mobile Phone Calls",
+      "dateFound": "Pre-existing",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Practice Manager Clive Polles made \"off the books\" calls from personal mobile to patient's mother making claims about medication quantities. Claims are disprovable - father collected every prescription.",
+      "evidenceRefs": "Patient testimony; family prescription collection records",
+      "legalSignificance": "(1) Non-clinical staff making clinical representations; (2) Personal phone = no audit trail; (3) Claims were false.",
+      "relatedFindings": [
+        "F021",
+        "F070",
+        "F072"
+      ],
+      "category": "PROCEDURAL",
+      "date": "Pre-existing",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F072",
+      "title": "Polles Refuses Replacement Patch (December 2021)",
+      "dateFound": "Pre-existing",
+      "date": "~19 Dec 2021",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Practice Manager Clive Polles refused to authorise replacement buprenorphine patch (water-damaged) without clinical authority - ~4 days before December 2021 seizure. Combined with pregabalin complete withdrawal 10 weeks prior (F369), this left patient without ANY pain management immediately before seizure.",
+      "evidenceRefs": "Patient testimony; GP records Dec 2021",
+      "legalSignificance": "DIRECT CAUSATION CONTRIBUTOR - Non-clinical staff making medication decisions that contributed to pain escalation, sleep deprivation, and subsequent seizure. Combined with F369 (pregabalin withdrawal) in causation chain.",
+      "relatedFindings": [
+        "F050",
+        "F071",
+        "F367",
+        "F369",
+        "F371"
+      ],
+      "category": "PROCEDURAL",
+      "source": "FINDINGS_REGISTRY",
+      "critical": true
+    },
+    {
+      "id": "F073",
+      "title": "Early Hours Template Edits (17 Nov 2020)",
+      "dateFound": "December 2025",
+      "evidenceStatus": "SUPPORTED",
+      "workflowStatus": "OPEN",
+      "summary": "\"Addiction\" narrative neutralised by: (1) No toxicology testing; (2) Father collected every prescription; (3) Medications prescribed by Pain Clinic for documented conditions.",
+      "evidenceRefs": "GP records; family testimony",
+      "legalSignificance": "Defence against anticipated credibility attacks.",
+      "relatedFindings": [
+        "F044",
+        "F115",
+        "F116"
+      ],
+      "category": "PROCEDURAL",
+      "date": "December 2025",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F080",
+      "title": "Date of Knowledge Analysis",
+      "date": "2025-08",
+      "dateFound": "Pre-existing",
+      "source": "Legal Analysis",
+      "category": "STRATEGIC",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Date of knowledge under s.14 Limitation Act 1980 is August 2025 - when patient discovered Somatoform diagnosis on record. s.32(1)(b) deliberate concealment also available. Limitation extends to approximately August 2028.",
+      "evidenceRefs": "Thomson_Legal_Framework_Reference.docx; Limitation Act 1980",
+      "legalSignificance": "Case is NOT time-barred.",
+      "relatedFindings": [],
+      "critical": true
+    },
+    {
+      "id": "F081",
+      "title": "Case Viability Assessment",
+      "date": "2025-12",
+      "dateFound": "December 2025",
+      "source": "Strategic Analysis",
+      "category": "STRATEGIC",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Viability 55-75% with focused pleading. Two-lane strategy: Lane A (fracture delay) primary; Lane B (somatoform contamination) supporting.",
+      "evidenceRefs": "Strategic analysis",
+      "legalSignificance": "Establishes case viability and recommended approach.",
+      "relatedFindings": ["F040", "F041"],
+      "critical": true
+    },
+    {
+      "id": "F082",
+      "title": "Credibility Attack Defence",
+      "date": "2025-12",
+      "dateFound": "December 2025",
+      "source": "Strategic Analysis",
+      "category": "STRATEGIC",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "\"Addiction\" narrative neutralised by: (1) No toxicology testing; (2) Father collected every prescription; (3) Medications prescribed by Pain Clinic for documented conditions.",
+      "evidenceRefs": "GP records; family testimony",
+      "legalSignificance": "Defence against anticipated credibility attacks.",
+      "relatedFindings": ["F044", "F115", "F116"],
+      "critical": true
+    },
+    {
+      "id": "F091",
+      "title": "Pain Pathway Gatekeeping via Unassessed Suicide Risk",
+      "dateFound": "07 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "staff": "Dr Arun Bhaskar",
+      "summary": "Pain clinic denied secondary care using theoretical suicide risk while acknowledging NO risk assessment existed. Patient never seen before rejection. Physio note 25/10/2021 confirms patient denied suicide.",
+      "evidenceRefs": "Dr Bhaskar letter 14/10/2021; MSK Physio 25/10/2021",
+      "legalSignificance": "BREACH - Procedural unfairness; care denied without clinical assessment.",
+      "relatedFindings": [
+        "F043"
+      ],
+      "category": "BREACH",
+      "date": "07 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F100",
+      "title": "Modic Type 1 Changes Omitted from Pain Clinic Letter (2025)",
+      "dateFound": "07 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "MRI Lumbar (April 2025) revealed \"Modic Type 1 endplate change\" (active inflammation at S1). OMITTED from Pain Clinic referral letter.",
+      "evidenceRefs": "MRI Report April 2025; GP Record 25 Apr 2025",
+      "legalSignificance": "SELECTIVE REPORTING - Objective inflammation evidence filtered out, likely influenced by somatoform contamination.",
+      "relatedFindings": [
+        "F040",
+        "F041"
+      ],
+      "category": "BREACH",
+      "date": "07 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F101",
+      "title": "Dr Drewry Oxycontin Cessation + False \"Lying\" Accusation (Oct 2023)",
+      "dateFound": "07 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "staff": "Dr Richard Drewry",
+      "summary": "Oxycontin ceased without taper; instructed patient to buy OTC Co-codamol. When patient followed instruction, GP later accused patient of \"lying.\" Pharmacy records confirmed instruction was given.",
+      "evidenceRefs": "GP Record Oct 2023; Pharmacy correspondence",
+      "legalSignificance": "BAD FAITH - GP issued dangerous instruction then blamed patient. Pharmacy records disprove accusation.",
+      "relatedFindings": [
+        "F045"
+      ],
+      "category": "BREACH",
+      "date": "07 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F102",
+      "title": "Dr Arunachalam Lamotrigine Competence Failure (Sep 2022)",
+      "dateFound": "07 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "staff": "Dr Arunachalam",
+      "summary": "Anti-epileptic Lamotrigine \"deducted\" from record. Dr Arunachalam refused reinstatement (28/09/2022) - \"could not see why it was started\" despite documented tonic-clonic seizure history and \"Generalised Convulsive Epilepsy\" on active problem list.",
+      "evidenceRefs": "GP Record 28/09/2022; GP Record 13/10/2022 (Dr Bulale restoration)",
+      "legalSignificance": "INCOMPETENCE - GP failed to link seizure diagnosis with standard AED medication.",
+      "relatedFindings": [
+        "F046"
+      ],
+      "category": "BREACH",
+      "date": "07 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F103",
+      "title": "Dental Referral Age Discrimination (May 2024)",
+      "dateFound": "07 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "NHS dental referrals for severe malocclusion repeatedly rejected without notification. Rejections \"because patient is over 25.\"",
+      "evidenceRefs": "Expanded Medical Timeline May 2024",
+      "legalSignificance": "ADMINISTRATIVE NEGLIGENCE - Arbitrary age limits for functional deformity. Consider Equality Act complaint.",
+      "category": "BREACH",
+      "date": "07 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "relatedFindings": [],
+      "critical": false
+    },
+    {
+      "id": "F104",
+      "title": "Dr Morgan Ignores 2-Year Cardiac Documentation",
+      "date": "2023-08-02",
+      "dateFound": "2026-01-21",
+      "source": "GP Record - Dr Morgan consultation",
+      "category": "DISCREPANCY",
+      "evidenceStatus": "CONTRADICTED",
+      "workflowStatus": "OPEN",
+      "summary": "Dr Morgan documented 'Pulse 100 - I'm not sure about this' regarding patient's denial of stimulant use. This IGNORES 2 years of documented cardiac investigation including 2021 Holter monitor showing mean HR 99bpm as established baseline sinus tachycardia. GP used tachycardia to support false 'addiction' narrative.",
+      "evidenceRefs": "GP Record 02/08/2023; Holter Monitor Aug 2021 (F117)",
+      "legalSignificance": "GP entry CONTRADICTED by Tier 1 Holter evidence. Demonstrates Morgan either failed to review cardiac history or deliberately ignored it to construct addiction narrative. Either constitutes breach.",
+      "relatedFindings": [
+        "F117",
+        "F044",
+        "F045"
+      ],
+      "critical": true,
+      "tier": 5
+    },
+    {
+      "id": "F112",
+      "title": "Suicidal Ideation Denial Documentation",
+      "dateFound": "08 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Patient explicitly documented denying suicidal ideation on multiple occasions. Contradicts \"on the same path\" narrative used to dismiss symptoms.",
+      "evidenceRefs": "GP consultation records (specific dates cross-referenced)",
+      "legalSignificance": "CREDIBILITY - Undermines defence argument that presentation was psychiatric.",
+      "relatedFindings": [
+        "F045",
+        "F043",
+        "F091"
+      ],
+      "category": "CAUSATION",
+      "date": "08 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F113",
+      "title": "2019 Royal Free Doppler: Vascular Investigation Pre-Dating Seizure",
+      "dateFound": "08 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "staff": "Miss Meryl Davis (Vascular Surgeon), Lily Bishop (Reporting)",
+      "summary": "US Doppler Upper Limb Arterial 13/06/2019 - vascular investigation was underway BEFORE December 2021 seizure. Establishes continuity of vascular concerns.",
+      "evidenceRefs": "LILY_BISHOP_BLOOD_US_Doppler_Thoracic_Outlet_FLOW_SCAN_2019_Royal_Free.pdf",
+      "legalSignificance": "TIMELINE - Vascular symptoms under specialist investigation years before GP dismissal. Six-year documented pathology timeline.",
+      "relatedFindings": [
+        "F032",
+        "F036"
+      ],
+      "category": "QUANTUM",
+      "date": "08 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F114",
+      "title": "Sleep Deprivation Causation Chain: Detailed Mechanism",
+      "dateFound": "08 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Detailed but-for chain: (1) Thoracic pain Oct 2020 → (2) Inability to lie flat → (3) 14+ months chronic sleep deprivation → (4) Medical literature: sleep deprivation lowers seizure threshold → (5) First tonic-clonic 23/12/2021 → (6) T5-T8 fractures.",
+      "evidenceRefs": "GP records Oct 2020+; Patient testimony; Epilepsy specialist notes; MRI 16/10/2022; Ambulance ePCR F250; Jason Parry letter 22/07/2021",
+      "legalSignificance": "CAUSATION - Central to but-for argument. Expands F050 with mechanism.",
+      "relatedFindings": [
+        "F050",
+        "F041",
+        "F042"
+      ],
+      "category": "CAUSATION",
+      "date": "08 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F115",
+      "title": "Addiction Diagnosis Without Toxicology Testing",
+      "date": "2023-08",
+      "dateFound": "2026-01-21",
+      "source": "GP Records - Morgan/Drewry entries Aug 2023",
+      "category": "BREACH",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "'Addiction' label applied by Dr Morgan and reinforced by practice without any toxicology testing or formal substance misuse assessment. No urine drug screen, no blood test, no referral to addiction services. Diagnosis entirely based on GP subjective impression and family history bias.",
+      "evidenceRefs": "GP Records Aug 2023; Absence of toxicology in all records",
+      "legalSignificance": "Breach of NICE CG115 (Drug Misuse Assessment) which requires objective assessment before diagnosis. Defamatory entry made without clinical evidence. Pattern consistent with psychiatric contamination from 2020.",
+      "relatedFindings": [
+        "F044",
+        "F104",
+        "F002",
+        "F045"
+      ],
+      "critical": true,
+      "tier": 5
+    },
+    {
+      "id": "F116",
+      "title": "Brother's Suicide Weaponised to Dismiss Pain - Continuation",
+      "date": "2023-08-18",
+      "dateFound": "2026-01-21",
+      "source": "GP Record - Dr Drewry entry",
+      "category": "DISCREPANCY",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Dr Drewry documented: 'doing same behaviour as brother trying to get pain medication and he committed suicide'. This mirrors Dr Gupta's 2020 entry (F045) and demonstrates 3-year continuation of psychiatric contamination pattern. Family tragedy weaponised to dismiss legitimate pain complaints.",
+      "evidenceRefs": "GP Record 18/08/2023 Dr Drewry; Dr Gupta entry 23/10/2020 (F045)",
+      "legalSignificance": "Proves psychiatric framing was not isolated incident but systemic practice pattern spanning 2020-2023. Same defamatory narrative passed between clinicians. Pattern evidence for breach across multiple GPs.",
+      "relatedFindings": [
+        "F045",
+        "F002",
+        "F044",
+        "F115"
+      ],
+      "critical": true,
+      "tier": 5
+    },
+    {
+      "id": "F117",
+      "title": "Holter Monitor Documents Baseline Tachycardia Pre-Morgan",
+      "date": "2021-08-04",
+      "dateFound": "2026-01-21",
+      "source": "Holter Monitor Report - UCLH",
+      "category": "VINDICATION",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "UCLH Holter Monitor 04 August 2021 documented mean HR 99bpm with sinus tachycardia. This OBJECTIVE Tier 1 evidence establishes patient's elevated heart rate as baseline condition - 2 YEARS BEFORE Dr Morgan used tachycardia to accuse patient of stimulant abuse.",
+      "evidenceRefs": "Holter Monitor Report 04/08/2021 UCLH",
+      "legalSignificance": "TIER 1 EVIDENCE. Directly CONTRADICTS Dr Morgan's 2023 implication that elevated pulse indicated stimulant use. Morgan either failed to review documented cardiac history or deliberately ignored it. Vindicates patient completely.",
+      "relatedFindings": [
+        "F104",
+        "F044",
+        "F115"
+      ],
+      "critical": true,
+      "tier": 1
+    },
+    {
+      "id": "F118",
+      "title": "Mastoiditis History 2016: Baseline ENT Vulnerability",
+      "dateFound": "08 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "staff": "Dr Amit Gupta",
+      "summary": "Severe mastoiditis September 2016. MED3 certificate issued (13-27 September 2016). Treatment: Co-amoxiclav, Co-codamol, Naproxen. GP noted: \"these issues are chronic... tinnitus and blocked sensation in middle left ear.\"",
+      "evidenceRefs": "GP Record 13/09/2016; GP Record 03/02/2016 (ear swab)",
+      "legalSignificance": "BASELINE - Documented serious ENT pathology (not health anxiety); chronic middle-ear disease predating SCDS.",
+      "relatedFindings": [
+        "F049",
+        "F049a",
+        "F049b",
+        "F061"
+      ],
+      "category": "NEUROLOGICAL",
+      "date": "08 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
     },
     {
       "id": "F119",
@@ -580,6 +1167,130 @@
         "F123",
         "F125"
       ],
+      "critical": true
+    },
+    {
+      "id": "F119A",
+      "title": "SECOND Burn Injury (September 2024)",
+      "dateFound": "08 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "staff": "Dr Alexander Gorrie",
+      "summary": "SECOND hot water bottle burn September 2024 despite previous injury, again without awareness. \"once again had no comprehension it was evidently too hot.\" Dr Gorrie documented \"erythema ab igne\" but STILL no neurological referral.",
+      "evidenceRefs": "GP record 18-20/09/2024; Patient photographs",
+      "legalSignificance": "PATTERN - Two documented burn injuries from inability to feel heat. SAFETY RISK never investigated.",
+      "relatedFindings": [
+        "F119",
+        "F125"
+      ],
+      "category": "NEUROLOGICAL",
+      "date": "08 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F120",
+      "title": "Urinary Retention Episode (July 2021)",
+      "dateFound": "08 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "staff": "Dr Khemani (GP); A&E",
+      "summary": "A&E June-July 2021 for urinary retention + back pain. MRI lumbosacral performed. Post-void residual 230ml. Patient \"unaware when he need to go to open bowels or bladder.\" 10-day retention.",
+      "evidenceRefs": "GP record 16/07/2021; A&E records; MRI Lumbosacral July 2021",
+      "legalSignificance": "BASELINE - July 2021 MRI was appropriate. BUT subsequent worsening (burns, ED, bladder) should have triggered RE-INVESTIGATION - never happened.",
+      "relatedFindings": [
+        "F119",
+        "F121",
+        "F122",
+        "F125",
+        "F026"
+      ],
+      "category": "NEUROLOGICAL",
+      "date": "08 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F121",
+      "title": "Post-Micturition Dribble (Onset May 2022)",
+      "dateFound": "08 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "staff": "Mr David Hrouda (Urology); Prof Marcus Drake (Neurological Urology)",
+      "summary": "Post-micturition dribble developed following vertebral fractures. Patient linked onset to spinal injury. Under specialist urology - Prof Drake attributed to EDS-related bladder dysfunction. Treatment: Tamsulosin 400mcg.",
+      "evidenceRefs": "GP records 2022-2024; Urology letters 17/09/2022, 11/10/2022",
+      "legalSignificance": "VINDICATION - Symptoms verified by specialist urology. Temporal link to vertebral fractures documented but not investigated.",
+      "relatedFindings": [
+        "F120",
+        "F122",
+        "F125"
+      ],
+      "category": "NEUROLOGICAL",
+      "date": "08 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F122",
+      "title": "Erectile Dysfunction and Low Testosterone (Onset 2022)",
+      "dateFound": "08 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "staff": "Dr Monica Singh (GP); Rheumatology; Urology",
+      "summary": "20+ months ED with no morning erections, zero libido, massive fatigue. Testosterone 4.0 nmol/L (severely low - normal 8-30). Concurrent testicular pain, right testicle smaller. Treatment: Tadalafil 5mg.",
+      "evidenceRefs": "GP record 12/12/2023; Rheumatology letter; Urology records",
+      "legalSignificance": "CAUSATION - ED + bladder + sensory loss = sacral nerve root pattern. Should have triggered comprehensive neurological workup.",
+      "relatedFindings": [
+        "F119",
+        "F120",
+        "F121",
+        "F123",
+        "F125"
+      ],
+      "category": "NEUROLOGICAL",
+      "date": "08 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F123",
+      "title": "Perianal/Buttock Symptoms Documented",
+      "dateFound": "08 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "GP eConsult (14/06/2024) documents \"Location of ailment: Buttocks and anus\" with 38-month symptom duration (since ~April 2021). Constellation should trigger clinical concern.",
+      "evidenceRefs": "GP record 14/06/2024",
+      "legalSignificance": "DOCUMENTATION - Sacral-distribution symptoms. Combined with F119-F122 = complete cauda equina constellation.",
+      "relatedFindings": [
+        "F119",
+        "F120",
+        "F121",
+        "F122",
+        "F125"
+      ],
+      "category": "NEUROLOGICAL",
+      "date": "08 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F124",
+      "title": "Spinal Specialist Discharge Despite Unexplained Symptoms (February 2022)",
+      "dateFound": "08 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "staff": "Mr Hamid Hassany (Spine Consultant Neurosurgeon, Imperial)",
+      "summary": "Spine specialist (08/02/2022) acknowledged MRI findings \"does not explain his severe back pain\" but discharged to GP for \"conservative management\" because \"no surgical target.\" Stated \"no spinal bowel or bladder dysfunction\" - BUT this was BEFORE erectile dysfunction, worsening bladder, and burns.",
+      "keyQuote": "\"MRI scan findings does not explain his severe back pain\"",
+      "evidenceRefs": "Clinic Letter 08/02/2022",
+      "legalSignificance": "CRITICAL - Specialist acknowledged unexplained symptoms but discharged. Subsequent evolution should have triggered re-referral but blocked by somatoform label.",
+      "relatedFindings": [
+        "F119-F123",
+        "F125"
+      ],
+      "category": "NEUROLOGICAL",
+      "date": "08 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
       "critical": true
     },
     {
@@ -665,6 +1376,70 @@
       "critical": true
     },
     {
+      "id": "F129",
+      "title": "Karunaratne Documents Explicit Suicidal Ideation Denial (Oct 2022)",
+      "dateFound": "09 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "keyQuote": "\"When asked frankly, he denied any suicidal ideation or thoughts of self harm.\"",
+      "summary": "Consultant neurologist documented patient explicitly denied suicidal ideation. Contradicts Pain Clinic's use of \"suicide risk\" to deny care (F043, F091).",
+      "evidenceRefs": "CL015_2022-10-21_Neurology_Karunaratne.pdf",
+      "legalSignificance": "CREDIBILITY - Independent specialist documenting patient NOT suicidal. Contradicts weaponisation of brother's death.",
+      "relatedFindings": [
+        "F043",
+        "F091",
+        "F112",
+        "F045"
+      ],
+      "category": "VINDICATION",
+      "date": "09 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F130",
+      "title": "Karunaratne Formally Diagnoses Epilepsy (Dec 2024)",
+      "dateFound": "09 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Formal epilepsy diagnosis from treating specialist, NOT NEAD (Non-Epileptic Attack Disorder). Lamotrigine 75mg twice daily.",
+      "evidenceRefs": "CL032_2024-12-10_Neurology_Karunaratne_CRITICAL.pdf",
+      "legalSignificance": "VINDICATION - Final diagnosis is epilepsy, not functional/dissociative disorder. Patient required anti-epileptic medication which GPs obstructed (F102).",
+      "relatedFindings": [
+        "F046",
+        "F102",
+        "F354"
+      ],
+      "category": "VINDICATION",
+      "date": "09 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": true
+    },
+    {
+      "id": "F131",
+      "title": "Telephone vs Physical Examination Dichotomy Pattern",
+      "dateFound": "09 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "SYSTEMATIC: Those who physically examined found pathology; those who assessed remotely dismissed/fabricated. Physical: Bhamm, Parry, Karunaratne found pathology. Remote: Bhaskar, Bulale, Morgan dismissed.",
+      "evidenceRefs": "CL007; GP Records; MSK Physio; Karunaratne letters",
+      "legalSignificance": "DEVASTATING - No responsible body would support psychiatric diagnoses without physical examination.",
+      "relatedFindings": [
+        "F022",
+        "F026",
+        "F040",
+        "F043",
+        "F044",
+        "F091",
+        "F126-F130",
+        "F132"
+      ],
+      "category": "BREACH",
+      "date": "09 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
       "id": "F132",
       "title": "Bhaskar Misrepresented Neurology Review to Deny Pain Care",
       "date": "2021-10-14",
@@ -684,6 +1459,58 @@
         "F344"
       ],
       "critical": true
+    },
+    {
+      "id": "F133",
+      "title": "Bhaskar Applied FND Label Based on A&E Mischaracterisation",
+      "dateFound": "09 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "CL007 addendum characterised July 2021 A&E as \"exacerbation of functional neurological disorder.\" But A&E actually documented URINARY RETENTION (230ml post-void residual) - neurological red flags, not functional.",
+      "evidenceRefs": "CL007 addendum; F120 (July 2021 retention)",
+      "legalSignificance": "DIAGNOSTIC OVERSHADOWING - Used \"functional\" framing to dismiss objective findings.",
+      "relatedFindings": [
+        "F120",
+        "F125",
+        "F132"
+      ],
+      "category": "BREACH",
+      "date": "09 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F134",
+      "title": "Bhaskar Claim Limitation Analysis - ACTIONABLE",
+      "dateFound": "09 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Bhaskar claim (October 2021) remains actionable. Date of knowledge: August 2025 (discovery of somatoform) or January 2026 (forensic comparison proving misrepresentation). Both within limitation.",
+      "relatedFindings": [
+        "F132",
+        "F043",
+        "F091"
+      ],
+      "category": "BREACH",
+      "date": "09 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F135",
+      "title": "SCDS Post-Surgical Imaging Shows Potential Residual Dehiscence (Oct 2023)",
+      "dateFound": "09 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "staff": "Dr Timothy Beale, Consultant Radiologist, UCLH",
+      "summary": "Post-SCDS imaging (8 months post-op) shows: (1) 2 focal areas of potential residual dehiscence; (2) Only 0.3mm bone coverage of sigmoid sinus; (3) Bone cement encasing stapes. Radiologist: \"Please could we discuss.\"",
+      "keyQuote": "\"There are 2 focal areas where there may be a residual dehiscence\"",
+      "evidenceRefs": "CBCT Temporal Bones Lt - UCLH - 04/10/2023",
+      "category": "QUANTUM",
+      "date": "09 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "relatedFindings": [],
+      "critical": false
     },
     {
       "id": "F136",
@@ -727,6 +1554,25 @@
       "critical": false
     },
     {
+      "id": "F318",
+      "title": "Unable to Work as Illustrator (Economic Impact)",
+      "dateFound": "15 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "keyQuote": "\"it is so severe that he feels that **he would rather his arm be amputated** due to the discomfort\"",
+      "summary": "Vascular surgeon documents patient statement that TOS pain/discomfort so severe he would prefer amputation.",
+      "evidenceRefs": "CL117_2024-07-03_RFL_Vascular_Goh.pdf",
+      "legalSignificance": "Establishes loss of earnings/earning capacity. Key for quantum calculation.",
+      "workflowStatus": "OPEN",
+      "relatedFindings": [
+        "F060",
+        "F318"
+      ],
+      "category": "QUANTUM",
+      "date": "15 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": true
+    },
+    {
       "id": "F319",
       "title": "POTS Diagnosis Explicitly Refuted by Cardiologist",
       "date": "2022-08-10",
@@ -743,6 +1589,21 @@
         "F323"
       ],
       "critical": true
+    },
+    {
+      "id": "F320",
+      "title": "Autonomic Dysfunction Confirmed (Aug 2022)",
+      "dateFound": "14 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "summary": "\"an autonomic dysfunction with an anxiety exacerbation\" - confirms objective autonomic pathophysiology.",
+      "evidenceRefs": "CL074_2022-08-10_UCLH_Cardiology_Singhal.pdf",
+      "legalSignificance": "Objective pathology confirmed - not purely psychological.",
+      "category": "VINDICATION",
+      "date": "14 Jan 2026",
+      "workflowStatus": "OPEN",
+      "source": "FINDINGS_REGISTRY",
+      "relatedFindings": [],
+      "critical": false
     },
     {
       "id": "F323",
@@ -768,7 +1629,7 @@
     },
     {
       "id": "F324",
-      "title": "Pregabalin Cessation \u2192 Seizure Causation Documented",
+      "title": "Pregabalin Cessation → Seizure Causation Documented",
       "date": "2022-08-29",
       "dateFound": "2026-01-14",
       "source": "CL075 - C&W Neurology",
@@ -865,6 +1726,58 @@
       "critical": true
     },
     {
+      "id": "F345",
+      "title": "Secondary Care Deemed Inappropriate (Oct 2021)",
+      "dateFound": "14 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "staff": "Dr Bhaskar",
+      "keyQuote": "\"I do not think this patient would benefit from a referral to secondary care services\"",
+      "summary": "Specialist pain care denied. Patient relegated to community management. Subsequently required multiple secondary/tertiary interventions.",
+      "evidenceRefs": "CL007_2021-10-14",
+      "relatedFindings": [
+        "F344"
+      ],
+      "category": "BREACH",
+      "date": "14 Jan 2026",
+      "workflowStatus": "OPEN",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F346",
+      "title": "A&E Attributed to FND Without Assessment (Jul 2021)",
+      "dateFound": "14 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "summary": "A&E attendance (July 2021) attributed to \"exacerbation of his functional neurological disorder\" but thoracic fractures later confirmed. Wrong area imaged.",
+      "evidenceRefs": "CL007_2021-10-14 (documenting July 2021)",
+      "relatedFindings": [
+        "F347"
+      ],
+      "category": "BREACH",
+      "date": "14 Jan 2026",
+      "workflowStatus": "OPEN",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F346",
+      "title": "A&E Attributed to FND Without Assessment (Jul 2021)",
+      "dateFound": "14 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "keyQuote": "\"He was discharged home with advice that this episode was most likely to be an exacerbation of his functional neurological disorder\"",
+      "summary": "A&E attendance attributed to FND exacerbation, but thoracic fractures later confirmed on MRI (Oct 2022). Wrong area imaged.",
+      "evidenceRefs": "CL007_2021-10-14 (documenting July 2021)",
+      "legalSignificance": "Genuine spinal symptoms dismissed as functional. Wrong area imaged contributed to 15-month delay.",
+      "relatedFindings": [
+        "F347"
+      ],
+      "category": "FND/SOMATOFORM",
+      "date": "14 Jan 2026",
+      "workflowStatus": "OPEN",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
       "id": "F347",
       "title": "Neurospine Discharge - Wrong Area Imaged",
       "date": "2022-02-08",
@@ -882,6 +1795,95 @@
         "F041"
       ],
       "critical": true
+    },
+    {
+      "id": "F348",
+      "title": "First Seizure Date Documented (Feb 2022)",
+      "dateFound": "14 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "keyQuote": "\"one episode of tonic-clonic seizure on 23rd December 2021\"",
+      "summary": "Documents first seizure date as 23 December 2021, establishing timeline for pregabalin cessation → seizure causation.",
+      "evidenceRefs": "CL009_2022-02-08",
+      "legalSignificance": "Confirms seizure timeline. Pregabalin stopped December 2021, seizure occurred 23/24 December 2021.",
+      "relatedFindings": [
+        "F324",
+        "F197"
+      ],
+      "category": "CAUSATION",
+      "date": "14 Jan 2026",
+      "workflowStatus": "OPEN",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F350",
+      "title": "Rib and Thoracic Fractures Confirmed (Dec 2023)",
+      "dateFound": "14 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "keyQuote": "\"Rib and thoracic fractures have been confirmed on a MRI scan.\"",
+      "summary": "Specialist confirmation of structural pathology explaining years of dismissed back pain.",
+      "evidenceRefs": "CL019_2023-12-05",
+      "legalSignificance": "24-month delay from symptom onset (Oct 2020) to diagnosis (Oct 2022).",
+      "relatedFindings": [
+        "F347"
+      ],
+      "category": "VINDICATION",
+      "date": "14 Jan 2026",
+      "workflowStatus": "OPEN",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F351",
+      "title": "SCDS Surgery 99% Successful (Dec 2023)",
+      "dateFound": "14 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "keyQuote": "\"Following surgery at the Eastman dental unit, the eye symptoms are 99% better\"",
+      "summary": "SCDS surgery achieved 99% symptom resolution.",
+      "evidenceRefs": "CL019_2023-12-05",
+      "legalSignificance": "Structural pathology requiring surgery - not psychological. Success proves organic cause.",
+      "category": "VINDICATION",
+      "date": "14 Jan 2026",
+      "workflowStatus": "OPEN",
+      "source": "FINDINGS_REGISTRY",
+      "relatedFindings": [],
+      "critical": false
+    },
+    {
+      "id": "F352",
+      "title": "TOS Botox Treatment Planned (Dec 2023)",
+      "dateFound": "14 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "keyQuote": "\"Botox intervention is planned for the thoracic outlet syndrome.\"",
+      "summary": "TOS (positive test 2019) now being treated.",
+      "evidenceRefs": "CL019_2023-12-05",
+      "legalSignificance": "Years of delay from positive test (2019) to treatment (2023).",
+      "relatedFindings": [
+        "F186"
+      ],
+      "category": "VINDICATION",
+      "date": "14 Jan 2026",
+      "workflowStatus": "OPEN",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F353",
+      "title": "Epilepsy Stable on Lamotrigine (Dec 2024)",
+      "dateFound": "14 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "keyQuote": "\"I am cautiously optimistic that the epilepsy is now under control as he is now on a therapeutic dose of lamotrigine.\"",
+      "summary": "Epilepsy controlled with appropriate anti-seizure medication.",
+      "evidenceRefs": "CL032_2024-12-10",
+      "legalSignificance": "Confirms epilepsy is real (not dissociative) and treatable.",
+      "relatedFindings": [
+        "F354"
+      ],
+      "category": "VINDICATION",
+      "date": "14 Jan 2026",
+      "workflowStatus": "OPEN",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
     },
     {
       "id": "F354",
@@ -902,6 +1904,22 @@
         "F042"
       ],
       "critical": true
+    },
+    {
+      "id": "F355",
+      "title": "\"Dissecting Events of the Past\" (Dec 2024)",
+      "dateFound": "14 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "keyQuote": "\"We spent an hour in clinic today discussing various medical issues and dissecting events of the past.\"",
+      "summary": "Suggests ongoing review and acknowledgment of past medical history issues.",
+      "evidenceRefs": "CL032_2024-12-10",
+      "legalSignificance": "Dr Karunaratne reviewing what went wrong. Potential supportive witness.",
+      "category": "VINDICATION",
+      "date": "14 Jan 2026",
+      "workflowStatus": "OPEN",
+      "source": "FINDINGS_REGISTRY",
+      "relatedFindings": [],
+      "critical": false
     },
     {
       "id": "F356",
@@ -979,23 +1997,25 @@
       "critical": false
     },
     {
-      "id": "F-GEM-006",
-      "title": "The 'Mathematical Entrapment' (Oramorph)",
-      "date": "2023",
-      "dateFound": "2026-01-08",
-      "source": "Gemini Forensic Audit",
-      "category": "MEDICATION",
+      "id": "F364",
+      "title": "Psychological Attribution Carousel: Sequential Dismissals While Ignoring Physio Evidence",
+      "dateFound": "20 Jan 2026",
+      "source": "GP Records 2016-2023; MSK Physio assessment Aug 2021; Patient testimony",
       "evidenceStatus": "VERIFIED",
       "workflowStatus": "OPEN",
-      "summary": "GPs restricted Oramorph to 20ml/day (15-day supply) despite Pain Clinic authorization for 30ml/day (10-day supply). Created calculated gap where patient ran out on Day 10, allowing false 'addiction' labelling.",
-      "evidenceRefs": "GP_Records_2023.md; GP_Records_2025.md",
-      "legalSignificance": "DEVASTATING - Proves 'addiction' narrative based on falsified dosage parameters. Destroys 'Contributory Negligence' defence.",
+      "summary": "GP practice cycled through psychological attributions over multiple years while ignoring physio evidence: (1) Depression framing Dec 2016; (2) Somatisation/brother imitation Sep 2020; (3) Attention-seeking accusation documented Aug 2021; (4) MH referral REJECTED Sep 2020; (5) Somatoform applied anyway Jan 2023. Meanwhile, MSK Physio (Aug 2021 - F022) and Jason Parry (F026) VALIDATED patient's presentation through actual physical examination.",
+      "evidenceRefs": "MH1 Referral 28 Sep 2020; GP Entry 01 Dec 2016; MSK Physio Entry 05 Aug 2021; Entries 2020-204/210/212; Entry 2023-005",
+      "legalSignificance": "DEVASTATING BREACH INDICATOR - Practice cycled through psychiatric labels as substitute for organic investigation. When psychiatric referral was attempted, it was REJECTED. Practice then applied diagnosis WITHOUT specialist input 2+ years later.",
       "relatedFindings": [
-        "F-GEM-007",
-        "F-GEM-008",
-        "F044",
-        "F116"
+        "F002",
+        "F022",
+        "F026",
+        "F040",
+        "F362",
+        "F363"
       ],
+      "category": "BREACH",
+      "date": "20 Jan 2026",
       "critical": true
     },
     {
@@ -1155,146 +2175,63 @@
       "critical": true
     },
     {
-      "id": "F024",
-      "title": "Second Seizure - Epilepsy Formally Diagnosed",
-      "date": "2022-02",
-      "dateFound": "2026-01-21",
-      "source": "ED records - second seizure attendance",
-      "category": "BREACH",
+      "id": "F-GEM-006",
+      "title": "The 'Mathematical Entrapment' (Oramorph)",
+      "date": "2023",
+      "dateFound": "2026-01-08",
+      "source": "Gemini Forensic Audit",
+      "category": "MEDICATION",
       "evidenceStatus": "VERIFIED",
       "workflowStatus": "OPEN",
-      "summary": "Second tonic-clonic seizure in February 2022 led to formal epilepsy diagnosis. ED records document right rib fracture 'aggravated further'. This second seizure occurred BEFORE fractures were diagnosed, demonstrating ongoing neurological harm from first seizure that went uninvestigated.",
-      "evidenceRefs": "ED records Feb 2022; Neurology follow-up letters",
-      "legalSignificance": "Demonstrates continuation of harm during diagnostic delay. Patient suffered second seizure and rib fracture progression while GP practice failed to investigate thoracic spine from first seizure.",
+      "summary": "GPs restricted Oramorph to 20ml/day (15-day supply) despite Pain Clinic authorization for 30ml/day (10-day supply). Created calculated gap where patient ran out on Day 10, allowing false 'addiction' labelling.",
+      "evidenceRefs": "GP_Records_2023.md; GP_Records_2025.md",
+      "legalSignificance": "DEVASTATING - Proves 'addiction' narrative based on falsified dosage parameters. Destroys 'Contributory Negligence' defence.",
       "relatedFindings": [
-        "F023",
-        "F047",
-        "F048"
-      ],
-      "critical": true,
-      "tier": 2
-    },
-    {
-      "id": "F047",
-      "title": "A&E Discharged Fractures as 'Soft Tissue Injury'",
-      "date": "2021-12-24",
-      "dateFound": "2026-01-21",
-      "source": "ED Depart Summary - CXH",
-      "category": "BREACH",
-      "evidenceStatus": "VERIFIED",
-      "workflowStatus": "OPEN",
-      "summary": "24 Dec 2021 A&E attendance following first seizure: CT Head performed (NAD), but NO thoracic spine imaging despite severe back pain. Patient discharged with 'soft tissue injury' diagnosis. T5-T8 vertebral fractures confirmed 10 months later in same location.",
-      "evidenceRefs": "CXH ED Depart Summary 24 Dec 2021; MRI 16 Oct 2022 (F048)",
-      "legalSignificance": "NICE NG59 mandates spinal imaging with seizure + back pain red flags. Failure to image resulted in 10-month diagnostic delay. 'Soft tissue' diagnosis FABRICATED - no imaging to support this assessment.",
-      "relatedFindings": [
-        "F023",
-        "F048",
-        "F-GEM-011"
-      ],
-      "critical": true,
-      "tier": 2
-    },
-    {
-      "id": "F048",
-      "title": "T5-T8 Vertebral Fractures Confirmed on MRI",
-      "date": "2022-10-16",
-      "dateFound": "2026-01-21",
-      "source": "MRI Report - Dr A. Kenji Yamamoto, UCLH",
-      "category": "VINDICATION",
-      "evidenceStatus": "VERIFIED",
-      "workflowStatus": "OPEN",
-      "summary": "UCLH MRI 16 October 2022 confirms T5-T8 VERTEBRAL FRACTURES. Report documents: 'Development of mild depression... superior endplate of T5 to T8.' This Tier 1 imaging evidence VINDICATES patient's 10-month complaints of thoracic pain and CONTRADICTS all GP/A&E 'soft tissue' diagnoses.",
-      "evidenceRefs": "MRI Report Dr A. Kenji Yamamoto 16/10/2022",
-      "legalSignificance": "TIER 1 EVIDENCE. Definitive proof of organic spinal pathology. Location (T5-T8) exactly matches patient's documented pain complaints from Dec 2021. Irrefutable basis for Lane A (fracture delay) causation.",
-      "relatedFindings": [
-        "F047",
-        "F023",
-        "F024"
-      ],
-      "critical": true,
-      "tier": 1
-    },
-    {
-      "id": "F104",
-      "title": "Dr Morgan Ignores 2-Year Cardiac Documentation",
-      "date": "2023-08-02",
-      "dateFound": "2026-01-21",
-      "source": "GP Record - Dr Morgan consultation",
-      "category": "DISCREPANCY",
-      "evidenceStatus": "CONTRADICTED",
-      "workflowStatus": "OPEN",
-      "summary": "Dr Morgan documented 'Pulse 100 - I'm not sure about this' regarding patient's denial of stimulant use. This IGNORES 2 years of documented cardiac investigation including 2021 Holter monitor showing mean HR 99bpm as established baseline sinus tachycardia. GP used tachycardia to support false 'addiction' narrative.",
-      "evidenceRefs": "GP Record 02/08/2023; Holter Monitor Aug 2021 (F117)",
-      "legalSignificance": "GP entry CONTRADICTED by Tier 1 Holter evidence. Demonstrates Morgan either failed to review cardiac history or deliberately ignored it to construct addiction narrative. Either constitutes breach.",
-      "relatedFindings": [
-        "F117",
+        "F-GEM-007",
+        "F-GEM-008",
         "F044",
-        "F045"
+        "F116"
       ],
-      "critical": true,
-      "tier": 5
+      "critical": true
     },
     {
-      "id": "F115",
-      "title": "Addiction Diagnosis Without Toxicology Testing",
-      "date": "2023-08",
-      "dateFound": "2026-01-21",
-      "source": "GP Records - Morgan/Drewry entries Aug 2023",
-      "category": "BREACH",
+      "id": "F-GEM-007",
+      "title": "Dr Bulale's SMS Admission",
+      "dateFound": "08 Jan 2026",
       "evidenceStatus": "VERIFIED",
       "workflowStatus": "OPEN",
-      "summary": "'Addiction' label applied by Dr Morgan and reinforced by practice without any toxicology testing or formal substance misuse assessment. No urine drug screen, no blood test, no referral to addiction services. Diagnosis entirely based on GP subjective impression and family history bias.",
-      "evidenceRefs": "GP Records Aug 2023; Absence of toxicology in all records",
-      "legalSignificance": "Breach of NICE CG115 (Drug Misuse Assessment) which requires objective assessment before diagnosis. Defamatory entry made without clinical evidence. Pattern consistent with psychiatric contamination from 2020.",
+      "staff": "Dr Bulale Ali",
+      "summary": "Dr Bulale SMS (16/03/2023) explicitly enforcing \"15-day\" calculation (\"max daily dose of 20mls... should last you 15 days\"), documenting refusal to adhere to specialist's 60mg/day instruction.",
+      "evidenceRefs": "GP_Records_2023.md (Entry 104)",
+      "legalSignificance": "BREACH - Direct evidence of GP overruling Specialist's pain management plan without clinical justification.",
       "relatedFindings": [
-        "F044",
-        "F104",
-        "F002",
-        "F045"
+        "F-GEM-006",
+        "F-GEM-008"
       ],
-      "critical": true,
-      "tier": 5
+      "category": "MEDICATION",
+      "date": "08 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
     },
     {
-      "id": "F116",
-      "title": "Brother's Suicide Weaponised to Dismiss Pain - Continuation",
-      "date": "2023-08-18",
-      "dateFound": "2026-01-21",
-      "source": "GP Record - Dr Drewry entry",
-      "category": "DISCREPANCY",
+      "id": "F-GEM-008",
+      "title": "Dr Drewry's Negligent Refusal",
+      "dateFound": "08 Jan 2026",
       "evidenceStatus": "VERIFIED",
       "workflowStatus": "OPEN",
-      "summary": "Dr Drewry documented: 'doing same behaviour as brother trying to get pain medication and he committed suicide'. This mirrors Dr Gupta's 2020 entry (F045) and demonstrates 3-year continuation of psychiatric contamination pattern. Family tragedy weaponised to dismiss legitimate pain complaints.",
-      "evidenceRefs": "GP Record 18/08/2023 Dr Drewry; Dr Gupta entry 23/10/2020 (F045)",
-      "legalSignificance": "Proves psychiatric framing was not isolated incident but systemic practice pattern spanning 2020-2023. Same defamatory narrative passed between clinicians. Pattern evidence for breach across multiple GPs.",
+      "staff": "Dr Richard Drewry",
+      "summary": "Dr Drewry refused prescription Day 7 (02/08/2024, weekend cover), citing \"15-day\" rule, despite current GP (Gorrie) and Pain Team having established 10-day clinical need.",
+      "evidenceRefs": "GP_Records_2024.md (Entry 178/179)",
+      "legalSignificance": "BAD FAITH - \"Addiction\" bias persisted and used to deny care even after clinical record corrected.",
       "relatedFindings": [
-        "F045",
-        "F002",
-        "F044",
-        "F115"
+        "F-GEM-006",
+        "F-GEM-007",
+        "F101"
       ],
-      "critical": true,
-      "tier": 5
-    },
-    {
-      "id": "F117",
-      "title": "Holter Monitor Documents Baseline Tachycardia Pre-Morgan",
-      "date": "2021-08-04",
-      "dateFound": "2026-01-21",
-      "source": "Holter Monitor Report - UCLH",
-      "category": "VINDICATION",
-      "evidenceStatus": "VERIFIED",
-      "workflowStatus": "OPEN",
-      "summary": "UCLH Holter Monitor 04 August 2021 documented mean HR 99bpm with sinus tachycardia. This OBJECTIVE Tier 1 evidence establishes patient's elevated heart rate as baseline condition - 2 YEARS BEFORE Dr Morgan used tachycardia to accuse patient of stimulant abuse.",
-      "evidenceRefs": "Holter Monitor Report 04/08/2021 UCLH",
-      "legalSignificance": "TIER 1 EVIDENCE. Directly CONTRADICTS Dr Morgan's 2023 implication that elevated pulse indicated stimulant use. Morgan either failed to review documented cardiac history or deliberately ignored it. Vindicates patient completely.",
-      "relatedFindings": [
-        "F104",
-        "F044",
-        "F115"
-      ],
-      "critical": true,
-      "tier": 1
+      "category": "MEDICATION",
+      "date": "08 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
     },
     {
       "id": "F-GEM-011",
@@ -1318,27 +2255,150 @@
       "verificationMethod": "Gemini analysis 21 Jan 2026"
     },
     {
-      "id": "F002a",
-      "title": "MH1 Referral REJECTED by SPA and PCMHS",
-      "date": "2020-09-30",
-      "dateFound": "2026-01-21",
-      "source": "GP Records Entries 2020-210, 2020-212",
-      "category": "VINDICATION",
+      "id": "F-GEM-012",
+      "title": "Failure to Investigate Cauda Equina Red Flags (Dec 2023)",
+      "dateFound": "09 Jan 2026",
       "evidenceStatus": "VERIFIED",
       "workflowStatus": "OPEN",
-      "summary": "Dr Gupta's 28 Sep 2020 MH1 referral with somatisation framing was REJECTED within 2 days. SPA (Single Point of Access) rejected it as 'not suitable for secondary MH'. PCMHS (Primary Care Mental Health Services) also rejected it. Mental health services determined patient did NOT meet criteria for psychiatric intervention - directly contradicting GP's somatisation narrative. Despite this specialist rejection, GP practice applied somatoform diagnosis anyway in Jan 2023 (F040).",
-      "evidenceRefs": "GP Entry 2020-210: SPA rejection; GP Entry 2020-212: PCMHS rejection; MH1 referral form 28 Sep 2020 (F002)",
-      "legalSignificance": "CRITICAL VINDICATION - Mental health services evaluated Dr Gupta's somatisation framing and REJECTED it. Patient was 'not suitable' for secondary mental health. Practice then ignored this specialist rejection and applied psychiatric diagnosis 2+ years later WITHOUT any assessment. Proves: (1) somatisation framing rejected at first contact, (2) practice acted against specialist guidance, (3) Jan 2023 somatoform diagnosis had no clinical basis.",
+      "staff": "Dr Richard Drewry",
+      "summary": "Patient presented with third-degree burn from thermal anaesthesia AND documented saddle symptoms. Dr Drewry failed to investigate cauda equina red flags despite explicit patient request.",
+      "evidenceRefs": "GP_Records_2023.md Entry 346-347",
+      "legalSignificance": "BREACH - Failure to investigate cauda equina constellation.",
       "relatedFindings": [
-        "F002",
-        "F040",
-        "F045",
-        "F038",
-        "F362"
+        "F119",
+        "F125"
       ],
-      "critical": true,
-      "tier": 2,
-      "breachIndicator": "YES - Practice applied psychiatric diagnosis (F040) after it had been explicitly rejected by mental health services"
+      "category": "MEDICATION",
+      "date": "09 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F-GEM-017",
+      "title": "Post-Surgical \"Verbal Warning\" Cruelty (Feb 2023)",
+      "dateFound": "09 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Patient received \"verbal warning\" for seeking pain relief 3 DAYS after major skull surgery (SCDS repair).",
+      "evidenceRefs": "GP_Records_2023.md Entry 73",
+      "legalSignificance": "BAD FAITH - Warning during legitimate post-surgical pain management.",
+      "relatedFindings": [
+        "F061",
+        "F-GEM-029"
+      ],
+      "category": "MEDICATION",
+      "date": "09 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F-GEM-018",
+      "title": "The \"Somatoform\" Trigger Event (Jan 2023)",
+      "dateFound": "09 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "staff": "Dr Bulale Ali",
+      "summary": "Somatoform (E278) applied during telephone medication negotiation - NOT psychiatric assessment. Applied AFTER MRI proved T5-T8 fractures.",
+      "evidenceRefs": "GP_Records_2023.md Entry 11 (05 Jan 2023)",
+      "legalSignificance": "BREACH - Confirms F040 with specific trigger context.",
+      "relatedFindings": [
+        "F040"
+      ],
+      "category": "MEDICATION",
+      "date": "09 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F-GEM-021",
+      "title": "The \"Invisible\" Fractures (Dec 2022)",
+      "dateFound": "09 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "staff": "Dr Bulale Ali",
+      "summary": "Dr Ali documented lumbar findings from MRI but OMITTED T5-T8 fractures from same scan. Selective reporting hid injury causing symptoms.",
+      "evidenceRefs": "GP Records Dec 2022 vs MRI Report 16/10/2022",
+      "legalSignificance": "SELECTIVE REPORTING - Critical finding omitted from GP documentation.",
+      "relatedFindings": [
+        "F048",
+        "F041"
+      ],
+      "category": "MEDICATION",
+      "date": "09 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": true
+    },
+    {
+      "id": "F-GEM-023",
+      "title": "The Mirtazapine \"Refusal\" Fabrication (Nov 2022)",
+      "dateFound": "09 Jan 2026",
+      "evidenceStatus": "CONTRADICTED",
+      "workflowStatus": "OPEN",
+      "summary": "GP claimed patient \"refused\" Mirtazapine. Pharmacy records prove patient collected and took medication.",
+      "evidenceRefs": "GP Records Nov 2022; Pharmacy dispensing records",
+      "legalSignificance": "FABRICATION - False documentation contradicted by pharmacy records.",
+      "category": "MEDICATION",
+      "date": "09 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "relatedFindings": [],
+      "critical": false
+    },
+    {
+      "id": "F-GEM-024",
+      "title": "The \"Oct 2021\" Historical Distortion (Jul 2022)",
+      "dateFound": "09 Jan 2026",
+      "evidenceStatus": "CONTRADICTED",
+      "workflowStatus": "OPEN",
+      "summary": "GP recorded seizure date as \"Oct 2021\" instead of correct 23 Dec 2021. Injury documented as \"chest pain\" rather than back pain/fractures.",
+      "evidenceRefs": "GP Records Jul 2022 vs Ambulance ePCR F250",
+      "legalSignificance": "FALSIFICATION - Incorrect date and injury characterisation.",
+      "relatedFindings": [
+        "F003",
+        "F023"
+      ],
+      "category": "MEDICATION",
+      "date": "09 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F-GEM-025",
+      "title": "The \"No Insomnia\" Fabrication (Nov 2022)",
+      "dateFound": "09 Jan 2026",
+      "evidenceStatus": "CONTRADICTED",
+      "workflowStatus": "OPEN",
+      "staff": "Dr Bulale Ali",
+      "summary": "Dr Ali documented patient \"had no insomnia\" - directly contradicted by Jason Parry letter (22/07/2021): \"struggling to sleep as a result of the back pain.\"",
+      "evidenceRefs": "GP_Records_2022.md Entry 329; Jason Parry letter 22/07/2021",
+      "legalSignificance": "FABRICATION - Undermines causation chain (sleep deprivation → seizure).",
+      "relatedFindings": [
+        "F026",
+        "F050",
+        "F114"
+      ],
+      "category": "MEDICATION",
+      "date": "09 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F-GEM-038",
+      "title": "Finding F-GEM-038",
+      "dateFound": "09 Jan 2026",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "staff": "Dr Glennis Williams",
+      "summary": "(038) Pregabalin 600mg abruptly stopped violating BNF taper. (039) Token 100mg issued, then NO NHS supply for 4 months. Patient forced to obtain private prescription day of seizure (24/12/2021).",
+      "evidenceRefs": "Medication Log; GP_Records_2021.md Entry 341",
+      "legalSignificance": "CAUSATION - 4-month void contributed to seizure risk. Critical for F050 chain.",
+      "relatedFindings": [
+        "F042",
+        "F050"
+      ],
+      "category": "MEDICATION",
+      "date": "09 Jan 2026",
+      "source": "FINDINGS_REGISTRY",
+      "critical": true
     }
   ],
   "categoryCounts": {
