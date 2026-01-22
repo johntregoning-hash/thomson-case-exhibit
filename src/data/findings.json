@@ -1,8 +1,8 @@
 {
   "metadata": {
     "lastUpdated": "2026-01-22",
-    "totalFindings": 121,
-    "highestFindingId": "F372",
+    "totalFindings": 127,
+    "highestFindingId": "F378",
     "categories": [
       "DISCREPANCY",
       "FABRICATION",
@@ -882,7 +882,10 @@
       "summary": "Viability 55-75% with focused pleading. Two-lane strategy: Lane A (fracture delay) primary; Lane B (somatoform contamination) supporting.",
       "evidenceRefs": "Strategic analysis",
       "legalSignificance": "Establishes case viability and recommended approach.",
-      "relatedFindings": ["F040", "F041"],
+      "relatedFindings": [
+        "F040",
+        "F041"
+      ],
       "critical": true
     },
     {
@@ -897,7 +900,11 @@
       "summary": "\"Addiction\" narrative neutralised by: (1) No toxicology testing; (2) Father collected every prescription; (3) Medications prescribed by Pain Clinic for documented conditions.",
       "evidenceRefs": "GP records; family testimony",
       "legalSignificance": "Defence against anticipated credibility attacks.",
-      "relatedFindings": ["F044", "F115", "F116"],
+      "relatedFindings": [
+        "F044",
+        "F115",
+        "F116"
+      ],
       "critical": true
     },
     {
@@ -2172,6 +2179,138 @@
         "F367",
         "F368"
       ],
+      "critical": true
+    },
+    {
+      "id": "F373",
+      "title": "Protracted Treatment-Resistant Ear Infections (Feb 2016 - Jan 2017)",
+      "dateFound": "22 Jan 2026",
+      "date": "Feb 2016 - Jan 2017",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Approximately 12 months continuous/recurring ear infections requiring 9+ medications, 2 A&E presentations, 2 mastoiditis diagnoses, multiple ENT referrals, microsuction. Infections isolated Candida species AND Pseudomonas aeruginosa - polymicrobial refractory disease.",
+      "evidenceRefs": "GP_Records_2016.md Entries 12-14, 46, 54, 93; CL050; ED records 13/09/2016",
+      "legalSignificance": "Documents genuine, severe, protracted ear pathology. Contradicts any suggestion ear/hearing complaints were psychosomatic. Establishes chronic ENT vulnerability that later manifested as SCDS.",
+      "relatedFindings": [
+        "F049",
+        "F049a",
+        "F049b",
+        "F118",
+        "F377",
+        "F374",
+        "F376"
+      ],
+      "category": "QUANTUM",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F374",
+      "title": "Multiple Mastoiditis Diagnoses Requiring A&E/IV Treatment (2016)",
+      "dateFound": "22 Jan 2026",
+      "date": "06-07 June 2016; 13-14 September 2016",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Two separate mastoiditis episodes in 2016: (1) 07/06/2016: \"crying from the pain\", mastoid redness/swelling, sent to A&E for ?IV therapy. Fit note issued. (2) 13/09/2016: Imperial ED diagnosed acute mastoiditis, ear discharge, Paracetamol 1g IV, co-amoxiclav, naproxen, steroid drops. Second fit note 13/09-27/09/2016.",
+      "evidenceRefs": "GP_Records_2016.md Entries 54, 93; Imperial ED letter 13/09/2016; MED3 statements",
+      "legalSignificance": "IV treatment required demonstrates severity. Two MED3 fit notes for mastoiditis. Establishes baseline ENT vulnerability. Severity documented by independent providers.",
+      "relatedFindings": [
+        "F049a",
+        "F373",
+        "F376",
+        "F118"
+      ],
+      "category": "QUANTUM",
+      "source": "FINDINGS_REGISTRY",
+      "critical": true
+    },
+    {
+      "id": "F375",
+      "title": "C5-C6 Disc Protrusion on MRI: Baseline Cervical Spine (28 Nov 2016)",
+      "dateFound": "22 Jan 2026",
+      "date": "28 Nov 2016",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "MRI Cervical Spine (28/11/2016) for \"connective tissue disorder, chronic neck pain.\" Findings: \"At C5-C6 there is a central posterior disk protrusion. Not causing significant canal or exit foraminal compromise.\" Normal alignment, preserved vertebral body height/signal, normal cord signal.",
+      "evidenceRefs": "GP_Records_2016.md (28 Nov 2016 MRI report)",
+      "legalSignificance": "CRITICAL BASELINE for comparison with subsequent imaging. Documents objective cervical pathology contemporaneous with neck symptoms following ear infections. Supports cervical radiculopathy diagnosis (F364).",
+      "relatedFindings": [
+        "F377",
+        "F048",
+        "F117"
+      ],
+      "category": "QUANTUM",
+      "source": "FINDINGS_REGISTRY",
+      "critical": true
+    },
+    {
+      "id": "F376",
+      "title": "Candida + Pseudomonas: Multi-Organism Refractory Ear Disease (2016)",
+      "dateFound": "22 Jan 2026",
+      "date": "Feb-Aug 2016",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Ear swab cultures confirmed two distinct pathogens: (1) Candida species isolated 03/02/2016 and 23/08/2016. (2) Pseudomonas aeruginosa documented in ENT letter 07/06/2016 (CL050). Polymicrobial pattern explains treatment resistance. Pseudomonas otitis externa is notoriously difficult - required quinolone drops (Ofloxacin).",
+      "evidenceRefs": "GP_Records_2016.md Entries 13, 81; CL050_2016-06-07_Imperial-ENT_Saleh_Otitis-Externa.pdf",
+      "legalSignificance": "Laboratory-confirmed organisms document genuine pathology. Explains treatment difficulty - polymicrobial infections with Pseudomonas are clinically challenging. Contradicts any narrative that complaints were exaggerated.",
+      "relatedFindings": [
+        "F049",
+        "F373",
+        "F374",
+        "F061"
+      ],
+      "category": "QUANTUM",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F377",
+      "title": "Torticollis/Cervical Radiculopathy Following Ear Infections (Nov 2016)",
+      "dateFound": "22 Jan 2026",
+      "date": "07 Nov 2016",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "MSK Physio Simon Jenner documented 07/11/2016: \"Ongoing pain in neck and L arm following ear infection. Worse when looking up.\" Diagnosed cervical radiculopathy with decreased cervical flexion/extension, glove-like sensory loss in L forearm, weaker grip. John's 2024 eConsult confirms: \"followed episode of torticolis from ear infections/mastoiditis.\" Establishes documented causal link between 2016 ear infections and cervical spine sequelae.",
+      "evidenceRefs": "GP_Records_2016.md Entry ~105 (07 Nov 2016 MSK); GP_Records_2024_Structured.md Entry 2024-019 (10 Jan 2024 eConsult)",
+      "legalSignificance": "Independent MSK clinician documented causal link at the time. Supports pattern of genuine physical pathology causing ongoing symptoms.",
+      "relatedFindings": [
+        "F049",
+        "F049a",
+        "F049b",
+        "F118",
+        "F373",
+        "F375"
+      ],
+      "category": "CAUSATION",
+      "source": "FINDINGS_REGISTRY",
+      "critical": false
+    },
+    {
+      "id": "F378",
+      "title": "SCDS Symptoms Dismissed as Psychiatric Despite 2016 ENT History",
+      "dateFound": "22 Jan 2026",
+      "date": "2016 → 2021 → 2023 (longitudinal pattern)",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "PATTERN FINDING: Patient's ear/hearing symptoms were dismissed as psychiatric despite: (1) 2016-2017: Laboratory-confirmed polymicrobial ear infections (Candida + Pseudomonas), 2 mastoiditis episodes requiring IV treatment, 12+ months continuous ear disease; (2) May 2021: ENT team identified SCDS - \"a hole in his skull\" - the ORGANIC cause of autophony (hearing internal sounds including eye movements, heartbeat); (3) Despite SCDS diagnosis, Dr Bulale referred to NHNN FND service May 2021 - attempting psychiatric label; (4) Feb 2023: SCDS surgery performed, vindicating symptoms as structural. The \"hearing eyeballs move\" phenomenon is AUTOPHONY - a documented symptom of Superior Canal Dehiscence Syndrome, not psychiatric illness.",
+      "evidenceRefs": "F364-F368 (2016 ear infections); F143 (SCDS identified); F181 (FND referral despite SCDS); F061, F135 (SCDS surgery and post-op); F317 (third window symptoms)",
+      "legalSignificance": "DEVASTATING PATTERN: GP practice repeatedly dismissed genuine ENT pathology as psychiatric. Pattern spans 7 years (2016-2023). Each stage vindicated: ear infections → lab-confirmed organisms; SCDS → surgery required; autophony → resolved with structural surgery. Demonstrates systematic diagnostic overshadowing driven by psychiatric labelling rather than clinical investigation.",
+      "relatedFindings": [
+        "F373",
+        "F374",
+        "F375",
+        "F376",
+        "F377",
+        "F143",
+        "F181",
+        "F061",
+        "F135",
+        "F317",
+        "F040",
+        "F041"
+      ],
+      "category": "VINDICATION",
+      "source": "FINDINGS_REGISTRY",
       "critical": true
     },
     {
