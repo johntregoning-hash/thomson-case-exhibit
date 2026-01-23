@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "lastUpdated": "2026-01-21",
-    "totalFindings": 141,
-    "highestFindingId": "F372",
+    "lastUpdated": "2026-01-23",
+    "totalFindings": 152,
+    "highestFindingId": "F382",
     "categories": [
       "DISCREPANCY",
       "FABRICATION",
@@ -22,7 +22,7 @@
     "correctionNote": "21 Jan 2026 - Major backfill from repository consolidation. 77 findings added. FND/Somatoform distinction clarified: FND Tremor WAS assessed (methodology disputed); Somatoform Pain Disorder NEVER assessed - this is the PRIMARY BREACH."
   },
   "priorityFindings": [
-    "F319", "F323", "F324", "F325", "F334", "F337", "F344", "F347", "F354", "F356", "F357", "F358", "F364", "F365", "F368", "F369", "F371", "F372"
+    "F319", "F323", "F324", "F325", "F334", "F337", "F344", "F347", "F354", "F356", "F357", "F358", "F363", "F364", "F365", "F368", "F369", "F371", "F372", "F378", "F379", "F380", "F381", "F382"
   ],
   "findings": [
     {
@@ -1855,14 +1855,165 @@
       "relatedFindings": ["F042", "F050"],
       "critical": true
     }
+    ,
+    {
+      "id": "F363",
+      "title": "Consultation Type Pattern: Remote Dismissal vs Face-to-Face Validation",
+      "date": "2020-2023",
+      "dateFound": "2026-01-20",
+      "source": "GP Records 2020-2023 forensic analysis",
+      "category": "BREACH",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "ZERO physical face-to-face GP examinations across 2020-2023. GP practice conducted 83 telephone consultations with NO physical examinations. The single 'Face To Face' marker in 2021 was VIDEO CONSULTATION, NOT physical exam. Somatoform diagnosis (Entry 2023-005) applied during telephone encounter. Independent clinicians who physically examined patient (Sumeer Bhamm, Jason Parry, A&E) consistently found credible presentation.",
+      "evidenceRefs": "GP_Records_2020-2023: 83 telephone, 0 physical F2F; Entry 2023-005: Telephone encounter + somatoform; F022, F026",
+      "legalSignificance": "DEVASTATING BREACH - Psychiatric diagnosis applied via telephone 81 days after MRI confirmed fractures. Zero physical examinations ever conducted by GP practice.",
+      "relatedFindings": ["F022", "F026", "F027", "F040", "F044", "F364"],
+      "critical": true
+    },
+    {
+      "id": "F373",
+      "title": "Protracted Treatment-Resistant Ear Infections Feb 2016 - Jan 2017",
+      "date": "2016-02 to 2017-01",
+      "dateFound": "2026-01-22",
+      "source": "GP Records 2016-2017 structured analysis",
+      "category": "CAUSATION",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "12-month treatment-resistant ear infection requiring 9+ different medications including multiple antibiotics. Polymicrobial infection documented. This predates SCDS diagnosis by 5 years - provides context for inner ear pathology timeline.",
+      "evidenceRefs": "GP Records 2016 Entries; GP Records 2017 Entries",
+      "legalSignificance": "Establishes baseline inner ear pathology predating SCDS diagnosis. Treatment resistance suggests underlying structural cause.",
+      "relatedFindings": ["F374", "F377", "F378"],
+      "critical": false
+    },
+    {
+      "id": "F374",
+      "title": "Multiple Mastoiditis Diagnoses Requiring A&E/IV Treatment",
+      "date": "2016-2017",
+      "dateFound": "2026-01-22",
+      "source": "GP Records 2016-2017",
+      "category": "CAUSATION",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "2 episodes of mastoiditis requiring A&E attendance and IV antibiotic treatment. Fit notes issued. Severity of ear infections underscores organic ear pathology predating SCDS.",
+      "evidenceRefs": "GP Records 2016-2017; A&E records",
+      "legalSignificance": "Corroborates F373 - organic ear disease requiring hospital-level intervention. Not functional.",
+      "relatedFindings": ["F373", "F377", "F378"],
+      "critical": false
+    },
+    {
+      "id": "F376",
+      "title": "C5-C6 Disc Protrusion on MRI 28 Nov 2016",
+      "date": "2016-11-28",
+      "dateFound": "2026-01-22",
+      "source": "MRI Report Nov 2016",
+      "category": "CAUSATION",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Baseline cervical spine imaging from 2016 shows C5-C6 disc protrusion. Provides longitudinal context for spinal pathology timeline.",
+      "evidenceRefs": "GP Records 2016; MRI Report 28 Nov 2016",
+      "legalSignificance": "Objective imaging evidence of spinal pathology predating fracture event by 5 years.",
+      "relatedFindings": ["F048", "F041"],
+      "critical": false
+    },
+    {
+      "id": "F377",
+      "title": "Candida + Pseudomonas Multi-Organism Refractory Ear Disease",
+      "date": "2016-2017",
+      "dateFound": "2026-01-22",
+      "source": "GP Records - Lab Results",
+      "category": "CAUSATION",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Laboratory-confirmed polymicrobial infection: Candida + Pseudomonas. This combination is associated with treatment resistance and structural ear disease. Objective lab evidence of organic pathology.",
+      "evidenceRefs": "GP Records 2016-2017 lab entries",
+      "legalSignificance": "Lab-confirmed organisms prove organic infection, not functional. Polymicrobial pattern suggests chronic structural abnormality.",
+      "relatedFindings": ["F373", "F374", "F378"],
+      "critical": false
+    },
+    {
+      "id": "F378",
+      "title": "SCDS Symptoms Dismissed as Psychiatric Despite 2016 ENT History",
+      "date": "2016 to 2023",
+      "dateFound": "2026-01-22",
+      "source": "GP Records; ENT records; Surgical records",
+      "category": "VINDICATION",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "PATTERN FINDING: Ear/hearing symptoms dismissed as psychiatric despite: (1) 2016-2017: Lab-confirmed polymicrobial ear infections, 2 mastoiditis episodes requiring IV treatment; (2) May 2021: ENT team identified SCDS - 'a hole in his skull'; (3) Despite SCDS diagnosis, Dr Bulale referred to NHNN FND service May 2021; (4) Feb 2023: SCDS surgery performed, vindicating symptoms as structural.",
+      "evidenceRefs": "F373-F377 (2016 infections); F143 (SCDS identified); F181 (FND referral); F061, F135 (SCDS surgery)",
+      "legalSignificance": "DEVASTATING PATTERN: GP practice repeatedly dismissed genuine ENT pathology as psychiatric. Pattern spans 7 years (2016-2023). Each stage vindicated by surgery/lab evidence.",
+      "relatedFindings": ["F373", "F374", "F377", "F143", "F181", "F040"],
+      "critical": true
+    },
+    {
+      "id": "F379",
+      "title": "Two Separate 2022 Referral Pathways: Thoracic Complaints Lost to Lumbar Review",
+      "date": "2022-01 to 2022-02",
+      "dateFound": "2026-01-23",
+      "source": "GP Entry 2022-029; CL009 Hassany letter",
+      "category": "BREACH",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "TWO SEPARATE REFERRAL PATHWAYS existed in early 2022: (1) Dr Khemani (21 Jan 2022) documented 'R sided rib pain since seizure... pain when lying on that side.' (2) Mr Hassany (8 Feb 2022) responded to SEPARATE referral, reviewing LUMBAR MRI. CRITICAL: The Hassany review examined the WRONG SPINAL LEVEL. Thoracic fracture complaints documented but investigation directed at wrong segment.",
+      "evidenceRefs": "GP Entry 2022-029; CL009_2022-02-08_Neurospine_Hassany_CRITICAL.pdf",
+      "legalSignificance": "BREACH - Patient reported thoracic/rib pain 4 weeks post-seizure. Surgical review examined lumbar spine - wrong level. T5-T8 fractures not diagnosed until Oct 2022 (10 months post-injury).",
+      "relatedFindings": ["F023", "F048", "F041", "F380", "F381"],
+      "critical": true
+    },
+    {
+      "id": "F380",
+      "title": "Neurosurgeon Confirms Vertebrae Healed; Recommends Orthopaedic Assessment",
+      "date": "2025-04-22",
+      "dateFound": "2026-01-23",
+      "source": "CL112 - Natalwala letter Apr 2025",
+      "category": "VINDICATION",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "Mr Ammar Natalwala (UCLH) confirmed: (1) T5-T8 fractures have healed; (2) On examination: 'pinpoint tenderness at the inferior end of the right scapula'; (3) Pain is 'focal'; (4) Recommended orthopaedic referral. 'Pinpoint tenderness' = highly localised, suggesting structural source (not psychiatric).",
+      "evidenceRefs": "CL112_2025-04-29_UCLH_SpinalNeurosurgery_Natalwala.pdf",
+      "legalSignificance": "CRITICAL VINDICATION: (1) Proves something OTHER than fractures causes ongoing symptoms since vertebrae healed; (2) Specialist found focal objective tenderness; (3) Explicit orthopaedic recommendation rebuts somatoform framing.",
+      "relatedFindings": ["F048", "F379", "F381", "F382"],
+      "critical": true
+    },
+    {
+      "id": "F381",
+      "title": "Undiagnosed Right Posterior Thoracic Injury: 4-Year Investigation Gap",
+      "date": "2021-12 to Present",
+      "dateFound": "2026-01-23",
+      "source": "Multiple GP entries; CL112 Natalwala",
+      "category": "BREACH",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "A SEPARATE INJURY from December 2021 seizure has NEVER been diagnosed or imaged. T5-T8 fractures healed (Apr 2025), but patient continues experiencing EXACT SAME symptoms documented 4 weeks post-injury: cannot lie on right side, cannot take deep breath, pain at right posterior thorax/inferior scapula. NO targeted imaging EVER performed.",
+      "evidenceRefs": "GP Entry 2022-029; GP Entry 2022-045; MSK Physio notes Nov 2022; CL112 (Natalwala Apr 2025)",
+      "legalSignificance": "CRITICAL BREACH - 4-year failure to investigate documented, consistent structural symptoms. Somatoform label blocked investigation of genuine structural injury.",
+      "relatedFindings": ["F379", "F380", "F023", "F040", "F041"],
+      "critical": true
+    },
+    {
+      "id": "F382",
+      "title": "Contemporaneous Documentation Proves Symptom Consistency",
+      "date": "2022-01 to 2026-01",
+      "dateFound": "2026-01-23",
+      "source": "GP Records 2022; CL112 Natalwala 2025",
+      "category": "VINDICATION",
+      "evidenceStatus": "VERIFIED",
+      "workflowStatus": "OPEN",
+      "summary": "SYMPTOM CONSISTENCY over 4 years directly contradicts somatoform framing. Current symptoms (cannot lie on right side, cannot take deep breath, positional pain) are IDENTICAL to those documented 4 weeks post-injury (Jan 2022). Somatoform typically shows fluctuating patterns. This presentation shows: fixed anatomical location, consistent aggravating/relieving factors, no symptom spread - consistent with mechanical/structural pathology.",
+      "evidenceRefs": "GP Entries 2022-029, 2022-045; CL112 Natalwala Apr 2025",
+      "legalSignificance": "VINDICATION - 4-year symptom consistency with fixed location and mechanical characteristics is inconsistent with somatoform disorder. Directly rebuts F040/F041 and supports patient's account.",
+      "relatedFindings": ["F040", "F041", "F380", "F381"],
+      "critical": true
+    }
   ],
   "categoryCounts": {
     "DISCREPANCY": 3,
     "FABRICATION": 3,
     "WITNESS": 17,
-    "VINDICATION": 29,
-    "BREACH": 34,
-    "CAUSATION": 9,
+    "VINDICATION": 33,
+    "BREACH": 38,
+    "CAUSATION": 14,
     "QUANTUM": 5,
     "PROCEDURAL": 5,
     "STRATEGIC": 4,
@@ -1871,7 +2022,7 @@
     "FND/SOMATOFORM": 3
   },
   "statusCounts": {
-    "VERIFIED": 130,
+    "VERIFIED": 141,
     "SUPPORTED": 3,
     "UNVERIFIED": 2,
     "CONTRADICTED": 6

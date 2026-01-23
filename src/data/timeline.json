@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "lastUpdated": "2026-01-21",
+    "lastUpdated": "2026-01-23",
     "totalPhases": 8,
     "diagnosticDelay": "10 months",
     "indexEvent": "23 December 2021",
@@ -286,9 +286,10 @@
       "criticalFindings": [
         "F041",
         "F347",
-        "F048"
+        "F048",
+        "F379"
       ],
-      "keyMessage": "10-MONTH DIAGNOSTIC DELAY. Patient complained of exact thoracic pain location where fractures later confirmed. Neurospine discharged patient after imaging WRONG spinal region (lumbar not thoracic).",
+      "keyMessage": "10-MONTH DIAGNOSTIC DELAY. Patient complained of exact thoracic pain location where fractures later confirmed. Neurospine discharged patient after imaging WRONG spinal region (lumbar not thoracic). TWO separate referral pathways existed: GP documented rib pain 4 weeks post-seizure (F379), but surgical review examined wrong spinal level.",
       "diagnosticDelay": {
         "start": "23 December 2021",
         "end": "16 October 2022",
@@ -336,9 +337,10 @@
       ],
       "criticalFindings": [
         "F040",
-        "F127"
+        "F127",
+        "F363"
       ],
-      "keyMessage": "Psychiatric diagnosis applied (1) without psychiatric assessment, (2) without patient knowledge, (3) AFTER MRI proved T5-T8 fractures. Used wrong ICD-10 code (E278 vs F45.4).",
+      "keyMessage": "Psychiatric diagnosis applied (1) without psychiatric assessment, (2) without patient knowledge, (3) AFTER MRI proved T5-T8 fractures. Used wrong ICD-10 code (E278 vs F45.4). ZERO physical GP examinations across 2020-2023 (F363).",
       "breaches": [
         "Telephone call, not psychiatric assessment",
         "Patient never informed",
@@ -505,15 +507,34 @@
           "finding": "T/Z scores -2.3 to -2.6 (osteopenic range) - bone fragility documented",
           "source": "Radiology records",
           "tier": 1
+        },
+        {
+          "date": "22 Apr 2025",
+          "event": "UCLH Spinal Neurosurgery (Natalwala)",
+          "finding": "T5-T8 fractures HEALED. On examination: 'pinpoint tenderness at the inferior end of the right scapula'. Recommended orthopaedic referral - 'pain is focal'.",
+          "source": "CL112",
+          "findingRef": "F380",
+          "tier": 2
+        },
+        {
+          "date": "Jan 2022 \u2192 Present",
+          "event": "4-Year Symptom Consistency",
+          "finding": "Current symptoms IDENTICAL to those documented 4 weeks post-injury: cannot lie on right side, cannot take deep breath, positional pain. Fixed location + consistent aggravators = MECHANICAL, not somatoform.",
+          "source": "GP Records 2022; CL112",
+          "findingRef": "F382",
+          "tier": 2
         }
       ],
       "gpEntries": [],
       "criticalFindings": [
         "F033",
         "F036",
-        "F037"
+        "F037",
+        "F380",
+        "F381",
+        "F382"
       ],
-      "keyMessage": "SIX-YEAR TIMELINE of documented vascular TOS: 2019 Duplex \u2192 2024 MR \u2192 2025 Doppler. All positive. Rebuts any 'functional/non-organic' narrative.",
+      "keyMessage": "SIX-YEAR TIMELINE of documented vascular TOS: 2019 Duplex \u2192 2024 MR \u2192 2025 Doppler. All positive. ORTHOPAEDIC UPDATE (Apr 2025): T5-T8 fractures HEALED but symptoms persist - neurosurgeon found 'pinpoint tenderness' and recommended orthopaedic assessment (F380). 4-year SYMPTOM CONSISTENCY rebuts somatoform (F382). UNDIAGNOSED: Right posterior thoracic injury never imaged (F381).",
       "tosTimeline": {
         "start": "June 2019",
         "end": "June 2025",
